@@ -5,7 +5,8 @@ import errorMiddleware from "./middlewares/error-middleware.js";
 import authorizationMiddleware from "./middlewares/authorization-middleware.js";
 import mongooseInstance from "./configurations/mongoose-instance.js";
 import RekamMedisModel from "./models/mongos/rekam-medis-model.js";
-import DailyRecordModel from "./models/mongos/daily-record-model.js";
+import SessionModel from "./models/mongos/session-model.js";
+import RekamMedisController from "./controllers/rekam-medis-controller.js";
 
 const APPLICATION_PORT = process.env.APPLICATION_PORT;
 const APPLICATION_HOST = process.env.APPLICATION_HOST;
@@ -25,27 +26,39 @@ app.use(errorMiddleware);
 app.listen(APPLICATION_PORT, APPLICATION_HOST, async () => {
     await mongooseInstance();
 
-    // const alergi = {
-    //     is_alergi : true
-    // }
+    // const session2 = new SessionModel({order: 1});
+    // const session3 = new SessionModel({order: 2});
     //
-    // const session = {
-    //     alergi : alergi
-    // }
+    // await session2.save();
+    // await session3.save();
     //
-    // const dailyRecord = new DailyRecordModel({
-    //     faskes_uuid : "wekrmeirkwelqwei2k310e23rk",
-    //     session : [session]
-    // })
     //
-    // await dailyRecord.save();
+    // const rekamMedis = new RekamMedisModel({
+    //     daily_records: [{
+    //         sessions: [session2._id, session3._id],
+    //     }],
+    //     faskes_uuid: "akdmadkmqdqplqp",
+    // });
     //
-    // const rekamMedisNew = new RekamMedisModel({});
-    // rekamMedisNew.daily_records.push(dailyRecord);
-    // await rekamMedisNew.save();
+    // await rekamMedis.save();
+    // let rekamMedis1 = await RekamMedisModel.findOne({ _id: "66c405403d0bd31989ff677b" });
+    // const order = rekamMedis1.daily_records[0].sessions.length + 1;
+    //
+    // const session1 = new SessionModel({order: order});
+    // await session1.save();
+    // rekamMedis1.daily_records[0].sessions.push(session1._id);
+    // await rekamMedis1.save();
 
-    const rekamMedis = await RekamMedisModel.find();
-    console.log(rekamMedis)
+
+    // const rekamMedis3 = await RekamMedisModel.findOne({ _id: "66c405403d0bd31989ff677b" }).populate({
+    //     path : "daily_records.sessions",
+    //     match : { order : 1}
+    // }).exec();
+    //
+    // console.log(rekamMedis3.daily_records[0]);
+
+
+
 
     console.log(`Server running on http://${APPLICATION_HOST}:${APPLICATION_PORT}`);
 });
