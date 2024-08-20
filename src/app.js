@@ -4,9 +4,6 @@ import routes from "./routes/routes.js";
 import errorMiddleware from "./middlewares/error-middleware.js";
 import authorizationMiddleware from "./middlewares/authorization-middleware.js";
 import mongooseInstance from "./configurations/mongoose-instance.js";
-import RekamMedisModel from "./models/mongos/rekam-medis-model.js";
-import SessionModel from "./models/mongos/session-model.js";
-import RekamMedisController from "./controllers/rekam-medis-controller.js";
 
 const APPLICATION_PORT = process.env.APPLICATION_PORT;
 const APPLICATION_HOST = process.env.APPLICATION_HOST;

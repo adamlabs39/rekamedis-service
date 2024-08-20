@@ -4,12 +4,11 @@ import SessionModel from "../models/mongos/session-model.js";
 
 export default class RekamMedisRepository {
     static async get(request) {
-        return await RekamMedisModel.findById(request.rekam_medis_id).populate(
+        return await RekamMedisModel.findById(request.rekam_medis_uuid).populate(
             {
                 path: "daily_records.sessions",
                 select: "order _id"
             }
-
         ).exec();
     }
 
@@ -48,5 +47,4 @@ export default class RekamMedisRepository {
                     .then(() => { throw err; });
             });
     }
-
 }

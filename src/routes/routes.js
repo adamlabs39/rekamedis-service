@@ -12,5 +12,6 @@ routes.get(`/${apiBase}/${apiVersion}/setting/health`, (req, res) => res.status(
 // REKAM MEDIS
 routes.get(`/${apiBase}/${apiVersion}/rekam-medis`, RekamMedisController.get);
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis`, RekamMedisController.createNew);
+routes.post(`/${apiBase}/${apiVersion}/rekam-medis/session`, RekamMedisController.createSession);
 
 export default routes;

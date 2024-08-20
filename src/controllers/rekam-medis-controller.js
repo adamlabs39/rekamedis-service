@@ -20,4 +20,13 @@ export default class RekamMedisController {
             nextFunction(error);
         }
     }
+
+    static async createSession(request, response, nextFunction) {
+        try {
+            const result = await RekamMedisService.addSession(request.body);
+            response.status(200).json(successResponse("data berhasil dibuat", result));
+        } catch (error) {
+            nextFunction(error);
+        }
+    }
 }

@@ -48,9 +48,21 @@ export default class RekamMedisService {
 
         return {
             dates: dates,
-            sessions: sessions,
+            sessions: [{_id : data._id, order : 1}],
             data: data,
             rekam_medis_uuid : rekamMedis._id
+        }
+    }
+
+    static async addSession(request) {
+        const validReq = ZodValidator.validate(RekamMedisValidation.ADDSESSION, request);
+        const rekamMedis = await SessionRepository.add(validReq.rekam_medis_uuid, validReq.date_order, validReq.sesi);
+
+        const sessions = rekamMedis.daily_records[validReq.date_order].sessions;
+        const data = await SessionRepository.getById(sessions[sessions.length - 1]);
+
+        return {
+            data: data,
         }
     }
 }
