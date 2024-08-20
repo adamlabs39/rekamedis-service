@@ -1,4 +1,6 @@
 import RekamMedisModel from "../models/mongos/rekam-medis-model.js";
+import mongoose from "mongoose";
+import SessionModel from "../models/mongos/session-model.js";
 
 export default class RekamMedisRepository {
     static async get(request) {
@@ -9,17 +11,42 @@ export default class RekamMedisRepository {
             }
 
         ).exec();
-        // data = await sessionModel.findById(rekamMedis.daily_records[date_order].sessions[session_order]._id).exec();
     }
+
 
     static async createNew(createRequest) {
-        const rekamMedis = new RekamMedisModel({
-            daily_records: [{
-                sessions: [],
-            }],
-            faskes_uuid: createRequest.faskes_uuid,
-        });
+        let session = null;
 
-        return await rekamMedis.save();
+        return mongoose.startSession()
+            .then(_session => {
+                session = _session;
+                session.startTransaction();
+
+                const newSession = new SessionModel({
+                    order: 1,
+                });
+
+                return newSession.save({ session });
+            })
+            .then(newSession => {
+                const rekamMedis = new RekamMedisModel({
+                    daily_records: [{sessions : [newSession._id]}],
+                    faskes_uuid: createRequest.faskes_uuid,
+                });
+
+                return rekamMedis.save({ session });
+            })
+            .then(rekamMedis => {
+                return session.commitTransaction().then(() => rekamMedis);
+            })
+            .then(rekamMedis => {
+                return session.endSession().then(() => rekamMedis);
+            })
+            .catch(err => {
+                return session.abortTransaction()
+                    .then(() => session.endSession())
+                    .then(() => { throw err; });
+            });
     }
+
 }

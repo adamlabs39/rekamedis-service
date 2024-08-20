@@ -32,4 +32,25 @@ export default class RekamMedisService {
             data: data,
         }
     }
+
+    static async createNew(request){
+        const rekamMedis = await RekamMedisRepository.createNew(request);
+
+        const dates = rekamMedis.daily_records.map((daily_record) => {
+            return {
+                date: daily_record.created_at,
+            };
+        });
+
+        const sessions = rekamMedis.daily_records[0].sessions;
+
+        const data = await SessionRepository.getById(sessions[0]._id);
+
+        return {
+            dates: dates,
+            sessions: sessions,
+            data: data,
+            rekam_medis_uuid : rekamMedis._id
+        }
+    }
 }

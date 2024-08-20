@@ -7,7 +7,7 @@ const DB_NAME = process.env.MONGO_DB_NAME || 'adameds';
 
 const mongooseInstance = async () => {
     try {
-        await mongoose.connect(`mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`);
+        await mongoose.connect(`mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}?replicaSet=rs0`);
         console.log("Connected to MongoDB");
     } catch (error) {
         console.error("Error connecting to MongoDB", error);

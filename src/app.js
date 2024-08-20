@@ -26,39 +26,5 @@ app.use(errorMiddleware);
 app.listen(APPLICATION_PORT, APPLICATION_HOST, async () => {
     await mongooseInstance();
 
-    // const session2 = new SessionModel({order: 1});
-    // const session3 = new SessionModel({order: 2});
-    //
-    // await session2.save();
-    // await session3.save();
-    //
-    //
-    // const rekamMedis = new RekamMedisModel({
-    //     daily_records: [{
-    //         sessions: [session2._id, session3._id],
-    //     }],
-    //     faskes_uuid: "akdmadkmqdqplqp",
-    // });
-    //
-    // await rekamMedis.save();
-    // let rekamMedis1 = await RekamMedisModel.findOne({ _id: "66c405403d0bd31989ff677b" });
-    // const order = rekamMedis1.daily_records[0].sessions.length + 1;
-    //
-    // const session1 = new SessionModel({order: order});
-    // await session1.save();
-    // rekamMedis1.daily_records[0].sessions.push(session1._id);
-    // await rekamMedis1.save();
-
-
-    // const rekamMedis3 = await RekamMedisModel.findOne({ _id: "66c405403d0bd31989ff677b" }).populate({
-    //     path : "daily_records.sessions",
-    //     match : { order : 1}
-    // }).exec();
-    //
-    // console.log(rekamMedis3.daily_records[0]);
-
-
-
-
     console.log(`Server running on http://${APPLICATION_HOST}:${APPLICATION_PORT}`);
 });
