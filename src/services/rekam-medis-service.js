@@ -73,4 +73,17 @@ export default class RekamMedisService {
             validReq.alasan
         )
     }
+
+    static async addRecord(request){
+        const validReq = ZodValidator.validate(RekamMedisValidation.ADDRECORD, request);
+        const rekamMedis = await RekamMedisRepository.addRecord(validReq.id);
+        const dailyRecords = rekamMedis.daily_records;
+
+        return {
+            data : {
+                _id : rekamMedis.daily_records[dailyRecords.length -1].sessions[0],
+                order : 1,
+            }
+        }
+    }
 }

@@ -1,6 +1,7 @@
 import RekamMedisModel from "../models/mongos/rekam-medis-model.js";
 import mongoose from "mongoose";
 import SessionModel from "../models/mongos/session-model.js";
+import {request} from "express";
 
 export default class RekamMedisRepository {
     static async get(request) {
@@ -49,5 +50,17 @@ export default class RekamMedisRepository {
             });
     }
 
-    static async
+    static async addRecord(id){
+        const session = new SessionModel({
+            order : 1
+        })
+
+        return await RekamMedisModel.findOneAndUpdate({_id : id}, {
+            $push :  {
+                "daily_records" : {
+                    sessions : [session._id]
+                }
+            }
+        }, {new: true}).exec();
+    }
 }

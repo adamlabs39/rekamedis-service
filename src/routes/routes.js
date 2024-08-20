@@ -14,5 +14,6 @@ routes.get(`/${apiBase}/${apiVersion}/rekam-medis`, RekamMedisController.get);
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis`, RekamMedisController.createNew);
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis/session`, RekamMedisController.createSession);
 routes.delete(`/${apiBase}/${apiVersion}/rekam-medis/session`, RekamMedisController.deleteSession);
+routes.post(`/${apiBase}/${apiVersion}/rekam-medis/record`, RekamMedisController.addRecord);
 
 export default routes;

@@ -15,4 +15,8 @@ export default class RekamMedisValidation {
         id: z.string().min(1, idRequired),
         alasan : z.string().min(1, alasanRequired)
     })
+
+    static ADDRECORD = z.object({
+        id: z.string().min(1, idRequired)
+    })
 }
