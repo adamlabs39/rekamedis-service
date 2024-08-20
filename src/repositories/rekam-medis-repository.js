@@ -7,7 +7,8 @@ export default class RekamMedisRepository {
         return await RekamMedisModel.findById(request.rekam_medis_uuid).populate(
             {
                 path: "daily_records.sessions",
-                select: "order _id"
+                select: "order _id deleted_at",
+                match: {deleted_at: null},
             }
         ).exec();
     }
@@ -47,4 +48,6 @@ export default class RekamMedisRepository {
                     .then(() => { throw err; });
             });
     }
+
+    static async
 }

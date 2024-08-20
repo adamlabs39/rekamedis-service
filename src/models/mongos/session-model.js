@@ -22,6 +22,9 @@ const sessionSchema = new Schema(
         order: {
             type: Number,
         },
+        deleted_at: {
+            type: Number,
+        },
         alergi: alergiSchema,
         anamnesis: anamnesisSchema,
         anemsis_igd: anamnesaIgdSchema,

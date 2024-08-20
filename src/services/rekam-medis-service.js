@@ -6,10 +6,7 @@ import RekamMedisValidation from "../validations/rekam-medis-validation.js";
 
 export default class RekamMedisService {
     static async get(request) {
-        ZodValidator.validate(RekamMedisValidation.GET,request);
-
-        const date_order = (request.date_order ?? 1) - 1;
-        const session_order = (request.session_order ?? 1) - 1;
+        ZodValidator.validate(RekamMedisValidation.GET, request);
 
         const rekamMedis = await RekamMedisRepository.get(request);
         if (rekamMedis == null) {
@@ -22,8 +19,10 @@ export default class RekamMedisService {
             };
         });
 
+        const date_order = (request.date_order ?? dates.length) - 1;
         const sessions = rekamMedis.daily_records[date_order].sessions;
 
+        const session_order = (request.session_order ?? sessions.length) - 1;
         const data = await SessionRepository.getById(sessions[session_order]._id);
 
         return {
@@ -33,7 +32,7 @@ export default class RekamMedisService {
         }
     }
 
-    static async createNew(request){
+    static async createNew(request) {
         const rekamMedis = await RekamMedisRepository.createNew(request);
 
         const dates = rekamMedis.daily_records.map((daily_record) => {
@@ -48,9 +47,9 @@ export default class RekamMedisService {
 
         return {
             dates: dates,
-            sessions: [{_id : data._id, order : 1}],
+            sessions: [{_id: data._id, order: 1}],
             data: data,
-            rekam_medis_uuid : rekamMedis._id
+            rekam_medis_uuid: rekamMedis._id
         }
     }
 
@@ -64,5 +63,13 @@ export default class RekamMedisService {
         return {
             data: data,
         }
+    }
+
+    static async deleteSession(request) {
+        const validReq = ZodValidator.validate(RekamMedisValidation.DELETESESSION, request);
+
+        return await SessionRepository.delete(
+            validReq.id,
+        )
     }
 }

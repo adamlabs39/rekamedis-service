@@ -1,5 +1,6 @@
 import SessionModel from "../models/mongos/session-model.js";
 import RekamMedisModel from "../models/mongos/rekam-medis-model.js";
+import {toEpochDate} from "../helpers/date-helper.js";
 
 export default class SessionRepository {
     static async getById(id) {
@@ -12,11 +13,16 @@ export default class SessionRepository {
         });
 
         await session.save();
-        let rekamMedis = await RekamMedisModel.findOneAndUpdate({ _id: rekamMedisId }, {
+        return await RekamMedisModel.findOneAndUpdate({_id: rekamMedisId}, {
             $push: {
-                [`daily_records.${dateOrder}.sessions`] : session._id
+                [`daily_records.${dateOrder}.sessions`]: session._id
             }
-        }, { new: true }).exec();
-        return rekamMedis;
+        }, {new: true}).exec();
+    }
+
+    static async delete(id) {
+        return await SessionModel.findOneAndUpdate({_id: id}, {
+            "deleted_at": toEpochDate(new Date())
+        }, {new: true}).exec();
     }
 }

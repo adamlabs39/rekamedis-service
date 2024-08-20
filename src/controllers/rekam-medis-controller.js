@@ -29,4 +29,13 @@ export default class RekamMedisController {
             nextFunction(error);
         }
     }
+
+    static async deleteSession(request, response, nextFunction) {
+        try {
+            const result = await RekamMedisService.deleteSession(request.body);
+            response.status(200).json(successResponse("data berhasil dihapus", result));
+        } catch (error) {
+            nextFunction(error);
+        }
+    }
 }

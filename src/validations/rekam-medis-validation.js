@@ -1,4 +1,4 @@
-import {rekamMedisUuidRequired} from "./message-validation-error.js";
+import {idRequired, rekamMedisUuidRequired} from "./message-validation-error.js";
 import { z } from "zod";
 export default class RekamMedisValidation {
     static GET = z.object({
@@ -9,5 +9,9 @@ export default class RekamMedisValidation {
         rekam_medis_uuid: z.string().min(1, rekamMedisUuidRequired),
         date_order: z.number().int(),
         sesi: z.number().int(),
+    })
+
+    static DELETESESSION = z.object({
+        id: z.string().min(1, idRequired),
     })
 }
