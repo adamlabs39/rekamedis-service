@@ -20,9 +20,10 @@ export default class SessionRepository {
         }, {new: true}).exec();
     }
 
-    static async delete(id) {
+    static async delete(id, alasan) {
         return await SessionModel.findOneAndUpdate({_id: id}, {
-            "deleted_at": toEpochDate(new Date())
+            "deleted_at": toEpochDate(new Date(),),
+            "alasan": alasan
         }, {new: true}).exec();
     }
 }

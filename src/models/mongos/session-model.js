@@ -1,4 +1,4 @@
-import mongoose, {model, Schema} from "mongoose";
+import mongoose, {Schema} from "mongoose";
 import alergiSchema from "./schemas/alergi-schema.js";
 import anamnesisSchema from "./schemas/anamnesis-schema.js";
 import anamnesaIgdSchema from "./schemas/anamnesa-igd-schema.js";
@@ -24,6 +24,9 @@ const sessionSchema = new Schema(
         },
         deleted_at: {
             type: Number,
+        },
+        alasan: {
+            type: String
         },
         alergi: alergiSchema,
         anamnesis: anamnesisSchema,

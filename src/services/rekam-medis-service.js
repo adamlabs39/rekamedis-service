@@ -70,6 +70,7 @@ export default class RekamMedisService {
 
         return await SessionRepository.delete(
             validReq.id,
+            validReq.alasan
         )
     }
 }
