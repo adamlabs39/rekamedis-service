@@ -21,24 +21,6 @@ export default class RekamMedisController {
         }
     }
 
-    static async createSession(request, response, nextFunction) {
-        try {
-            const result = await RekamMedisService.addSession(request.body);
-            response.status(200).json(successResponse("data berhasil dibuat", result));
-        } catch (error) {
-            nextFunction(error);
-        }
-    }
-
-    static async deleteSession(request, response, nextFunction) {
-        try {
-            const result = await RekamMedisService.deleteSession(request.body);
-            response.status(200).json(successResponse("data berhasil dihapus", result));
-        } catch (error) {
-            nextFunction(error);
-        }
-    }
-
     static async addRecord(request, response, nextFunction){
         try {
             const result = await RekamMedisService.addRecord(request.body);

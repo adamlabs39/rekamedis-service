@@ -53,27 +53,6 @@ export default class RekamMedisService {
         }
     }
 
-    static async addSession(request) {
-        const validReq = ZodValidator.validate(RekamMedisValidation.ADDSESSION, request);
-        const rekamMedis = await SessionRepository.add(validReq.rekam_medis_uuid, validReq.date_order, validReq.sesi);
-
-        const sessions = rekamMedis.daily_records[validReq.date_order].sessions;
-        const data = await SessionRepository.getById(sessions[sessions.length - 1]);
-
-        return {
-            data: data,
-        }
-    }
-
-    static async deleteSession(request) {
-        const validReq = ZodValidator.validate(RekamMedisValidation.DELETESESSION, request);
-
-        return await SessionRepository.delete(
-            validReq.id,
-            validReq.alasan
-        )
-    }
-
     static async addRecord(request){
         const validReq = ZodValidator.validate(RekamMedisValidation.ADDRECORD, request);
         const rekamMedis = await RekamMedisRepository.addRecord(validReq.id);
