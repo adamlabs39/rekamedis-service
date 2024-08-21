@@ -1,4 +1,10 @@
-import {alasanRequired, idRequired, rekamMedisUuidRequired} from "./message-validation-error.js";
+import {
+    alasanRequired,
+    idRequired,
+    keyRequired,
+    rekamMedisUuidRequired,
+    sessionIdRequired
+} from "./message-validation-error.js";
 import { z } from "zod";
 export default class RekamMedisValidation {
     static GET = z.object({
@@ -18,5 +24,10 @@ export default class RekamMedisValidation {
 
     static ADDRECORD = z.object({
         id: z.string().min(1, idRequired)
+    })
+
+    static INSERTASSESSMENT = z.object({
+        session_id : z.string().min(1, sessionIdRequired),
+        key : z.string().min(1, keyRequired)
     })
 }

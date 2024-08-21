@@ -1,6 +1,7 @@
 import express from "express";
 import RekamMedisController from "../controllers/rekam-medis-controller.js";
 import SessionController from "../controllers/session-controller.js";
+import AssessmentController from "../controllers/assessment-controller.js";
 
 const apiBase = process.env.API_BASE || "api";
 const apiVersion = process.env.API_VERSION || "v1";
@@ -18,5 +19,8 @@ routes.post(`/${apiBase}/${apiVersion}/rekam-medis/record`, RekamMedisController
 // SESSION
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis/session`, SessionController.create);
 routes.delete(`/${apiBase}/${apiVersion}/rekam-medis/session`, SessionController.delete);
+
+// ASSESSMENT
+routes.post(`/${apiBase}/${apiVersion}/rekam-medis/assessment`, AssessmentController.insert);
 
 export default routes;
