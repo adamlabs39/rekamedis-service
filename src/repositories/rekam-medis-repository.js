@@ -53,7 +53,9 @@ export default class RekamMedisRepository {
     static async addRecord(id){
         const session = new SessionModel({
             order : 1
-        })
+        });
+
+        await session.save();
 
         return await RekamMedisModel.findOneAndUpdate({_id : id}, {
             $push :  {

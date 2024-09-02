@@ -22,5 +22,9 @@ routes.delete(`/${apiBase}/${apiVersion}/rekam-medis/session`, SessionController
 
 // ASSESSMENT
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis/assessment`, AssessmentController.insert);
+routes.post(`/${apiBase}/${apiVersion}/rekam-medis/chat/catatan`, AssessmentController.insertCatatanPerawat);
+routes.post(`/${apiBase}/${apiVersion}/rekam-medis/chat/instruksi`, AssessmentController.insertInstruksiMedis);
+routes.put(`/${apiBase}/${apiVersion}/rekam-medis/chat/instruksi`, AssessmentController.updateInstruksiMedis);
+routes.put(`/${apiBase}/${apiVersion}/rekam-medis/chat/catatan`, AssessmentController.updateCatatanPerawat);
 
 export default routes;

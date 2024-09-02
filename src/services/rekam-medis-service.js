@@ -19,10 +19,20 @@ export default class RekamMedisService {
             };
         });
 
-        const date_order = (request.date_order ?? dates.length) - 1;
+        let date_order = request.date_order ?? dates.length;
+        if (date_order > dates.length) {
+            throw new NotfoundException("tanggal tidak ada");
+        }
+        date_order--;
+
         const sessions = rekamMedis.daily_records[date_order].sessions;
 
-        const session_order = (request.session_order ?? sessions.length) - 1;
+        let session_order = request.session_order ?? sessions.length;
+        if (session_order > sessions.length) {
+            throw new NotfoundException("sesi tidak ada");
+        }
+        session_order--;
+
         const data = await SessionRepository.getById(sessions[session_order]._id);
 
         return {
@@ -58,7 +68,15 @@ export default class RekamMedisService {
         const rekamMedis = await RekamMedisRepository.addRecord(validReq.id);
         const dailyRecords = rekamMedis.daily_records;
 
+        const dates = dailyRecords.map((daily_record) => {
+            return {
+                date: daily_record.created_at,
+            };
+        });
+
         return {
+            dates: dates,
+            sessions: [{_id: dailyRecords[dailyRecords.length -1].sessions[0], order: 1}],
             data : {
                 _id : rekamMedis.daily_records[dailyRecords.length -1].sessions[0],
                 order : 1,
