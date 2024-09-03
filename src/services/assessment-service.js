@@ -9,7 +9,6 @@ export default class AssessmentService {
 
         const session = await AssessmentRepository.insert(validReq.session_id, request.data ,validReq.key);
 
-        console.log(request.data)
         return {
             data: session
         }
