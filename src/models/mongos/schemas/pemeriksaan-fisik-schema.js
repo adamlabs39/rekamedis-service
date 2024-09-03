@@ -11,10 +11,16 @@ const pemeriksaanFisikSchema = new Schema({
     ket_kepala : {
         type: String,
     },
+    gambar_kepala : {
+        type: String,
+    },
     mata : {
         type: Boolean,
     },
     ket_mata : {
+        type: String,
+    },
+    gambar_mata : {
         type: String,
     },
     telinga : {
@@ -23,10 +29,16 @@ const pemeriksaanFisikSchema = new Schema({
     ket_telinga : {
         type: String,
     },
+    gambar_telinga : {
+        type : String,
+    },
     hidung : {
         type: Boolean,
     },
     ket_hidung : {
+        type: String,
+    },
+    gambar_hidung : {
         type: String,
     },
     tenggorokan : {
@@ -35,10 +47,16 @@ const pemeriksaanFisikSchema = new Schema({
     ket_tenggorokan : {
         type: String,
     },
+    gambar_tenggorokan : {
+        type: String,
+    },
     mulut : {
         type: Boolean,
     },
     ket_mulut : {
+        type: String,
+    },
+    gambar_mulut : {
         type: String,
     },
     leher : {
@@ -47,10 +65,16 @@ const pemeriksaanFisikSchema = new Schema({
     ket_leher : {
         type: String,
     },
+    gambar_leher : {
+        type: String,
+    },
     dada : {
         type: Boolean,
     },
     ket_dada : {
+        type: String,
+    },
+    gambar_dada : {
         type: String,
     },
     jantung : {

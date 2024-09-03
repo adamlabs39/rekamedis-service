@@ -2,12 +2,14 @@ import {Schema} from "mongoose";
 import baseSchema from "./base-schema.js";
 
 const lukaBakarSchema = new Schema({
-    grade : {
-        type: Number,
-    },
-    anggota_tubuh : {
-        type: String,
-    },
+    bodies : [{
+        grade : {
+            type: Number,
+        },
+        anggota_tubuh : {
+            type: String,
+        },
+    }],
     persentase_luka : {
         type: Number,
     },
