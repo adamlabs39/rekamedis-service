@@ -46,4 +46,15 @@ export default class FileService {
 
         return affectedRow;
     }
+
+    static async getLetters(rekamMedisUuid) {
+        ZodValidator.validate(z.string().min(1, "rekam_medis_uuid tidak boleh kosong"), rekamMedisUuid);
+
+        const files = await FileRepository.getLetters(rekamMedisUuid);
+        if (files == null || files.length === 0) {
+            throw new NotfoundException("File tidak ditemukan");
+        }
+
+        return files;
+    }
 }

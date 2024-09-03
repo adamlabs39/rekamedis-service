@@ -38,4 +38,13 @@ export default class FileController {
             nextFunction(error);
         }
     }
+
+    static async getLetters(request, response, nextFunction) {
+        try {
+            const result = await FileService.getLetters(request.query.rekam_medis_uuid);
+            response.status(200).json(successResponse("data berhasil didapat", result));
+        } catch (error) {
+            nextFunction(error);
+        }
+    }
 }

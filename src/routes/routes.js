@@ -33,5 +33,6 @@ routes.get(`/${apiBase}/${apiVersion}/rekam-medis/files`, FileController.getAll)
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis/files`, FileController.upload);
 routes.delete(`/${apiBase}/${apiVersion}/rekam-medis/files`, FileController.delete);
 routes.put(`/${apiBase}/${apiVersion}/rekam-medis/files`, FileController.update);
+routes.get(`/${apiBase}/${apiVersion}/rekam-medis/files/letters`, FileController.getLetters);
 
 export default routes;
