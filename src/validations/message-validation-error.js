@@ -8,6 +8,9 @@ const messageRequired = `${REQUIRED}`;
 const nameRequired = `${REQUIRED}`;
 const userUuidRequired = `${REQUIRED}`;
 const chatTypeRequired = `${REQUIRED}`;
+const required =  `${REQUIRED}`;
+const fileFortmatRequired = `seperti .png ${REQUIRED}`;
+const fileTypeRequired = `seperti 'surat keterangan sehat' ${REQUIRED}`;
 
 
 export {
@@ -19,5 +22,8 @@ export {
     messageRequired,
     nameRequired,
     userUuidRequired,
-    chatTypeRequired
+    chatTypeRequired,
+    required,
+    fileFortmatRequired,
+    fileTypeRequired
 };

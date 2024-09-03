@@ -4,6 +4,7 @@ import routes from "./routes/routes.js";
 import errorMiddleware from "./middlewares/error-middleware.js";
 import authorizationMiddleware from "./middlewares/authorization-middleware.js";
 import mongooseInstance from "./configurations/mongoose-instance.js";
+import MODELMERGE from "./models/postgreses/model-synchronize.js";
 
 const APPLICATION_PORT = process.env.APPLICATION_PORT;
 const APPLICATION_HOST = process.env.APPLICATION_HOST;
@@ -22,6 +23,15 @@ app.use(errorMiddleware);
 
 app.listen(APPLICATION_PORT, APPLICATION_HOST, async () => {
     await mongooseInstance();
+
+    // try {
+    //     for (const model of MODELMERGE) {
+    //         await model.sync({ alter: false, force: true });
+    //     }
+    // } catch (error) {
+    //     console.error("Failed to synchronize the database:", error);
+    // }
+
 
     console.log(`Server running on http://${APPLICATION_HOST}:${APPLICATION_PORT}`);
 });
