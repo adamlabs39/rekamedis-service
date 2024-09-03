@@ -6,6 +6,10 @@ const pemeriksaanTindakanSchema = new Schema({
         type: String,
         required: true,
     },
+    nama_tindakan : {
+        type: String,
+        required: true,
+    },
     harga_tindakan : {
         type: Number,
         required: true,
@@ -14,10 +18,10 @@ const pemeriksaanTindakanSchema = new Schema({
         type: Number,
         required: true,
     },
-    petugas : {
+    petugas : [{
         type: String,
         required: true,
-    }
+    }]
 })
 
 pemeriksaanTindakanSchema.add(baseSchema)
