@@ -37,7 +37,7 @@ app.listen(APPLICATION_PORT, APPLICATION_HOST, async () => {
     }
 
     await sequelizeInstance.transaction(async (tr) => {
-        const rawatJalan = await RawatJalanModel.findOrCreate({
+        await RawatJalanModel.findOrCreate({
             transaction: tr,
             where: {
                 no_reg: "1234abcd"
@@ -55,7 +55,7 @@ app.listen(APPLICATION_PORT, APPLICATION_HOST, async () => {
             },
 
         })
-        const rawatInap = await RawatInapModel.findOrCreate({
+         await RawatInapModel.findOrCreate({
             transaction: tr,
             where: {
                 no_reg: "1234abcd"
@@ -77,7 +77,7 @@ app.listen(APPLICATION_PORT, APPLICATION_HOST, async () => {
             },
 
         })
-        const igd = await InstalasiGawatDaruratModel.findOrCreate({
+        await InstalasiGawatDaruratModel.findOrCreate({
             transaction: tr,
             where: {
                 no_reg: "1234abcd"

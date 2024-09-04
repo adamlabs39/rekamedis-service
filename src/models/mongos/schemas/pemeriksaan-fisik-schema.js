@@ -83,10 +83,16 @@ const pemeriksaanFisikSchema = new Schema({
     ket_jantung : {
         type: String,
     },
+    gambar_jantung : {
+        type: String,
+    },
     paru : {
         type: Boolean,
     },
     ket_paru : {
+        type: String,
+    },
+    gambar_paru : {
         type: String,
     },
     abdomen : {
@@ -95,10 +101,16 @@ const pemeriksaanFisikSchema = new Schema({
     ket_abdomen : {
         type: String,
     },
+    gambar_abdomen : {
+        type: String,
+    },
     anus : {
         type: Boolean,
     },
     ket_anus : {
+        type: String,
+    },
+    gambar_anus : {
         type: String,
     },
     urogential : {
@@ -107,16 +119,25 @@ const pemeriksaanFisikSchema = new Schema({
     ket_urogential : {
         type: String,
     },
+    gambar_urogential : {
+        type: String,
+    },
     ekstermitas : {
         type: Boolean,
     },
     ket_ekstermitas : {
         type: String,
     },
+    gambar_ekstermitas : {
+        type: String,
+    },
     muskulosketerol : {
         type: Boolean,
     },
     ket_muskulosketerol : {
+        type: String,
+    },
+    gambar_muskulosketerol : {
         type: String,
     },
     pemeriksaan_lainnya : {

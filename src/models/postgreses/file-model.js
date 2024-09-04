@@ -1,7 +1,7 @@
 import {DataTypes, Model} from "sequelize";
 import {uuidv7} from "uuidv7";
 import sequelizeInstance from "../../configurations/sequelize-instance.js";
-import fieldTime from "./base-model.js";
+import fieldTime from "./common/base-model.js";
 
 export default class FileModel extends Model {
 }

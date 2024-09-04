@@ -1,5 +1,5 @@
 import {DataTypes, Model} from "sequelize";
-import fieldTime from "./base-model.js";
+import fieldTime from "./common/base-model.js";
 import {uuidv7} from "uuidv7";
 import sequelizeInstance from "../../configurations/sequelize-instance.js";
 

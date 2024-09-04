@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import { toEpochDate } from "../../helpers/date-helper.js";
+import { toEpochDate } from "../../../helpers/date-helper.js";
 
 const fieldTime = {
     createdAt: {
