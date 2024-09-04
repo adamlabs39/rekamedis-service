@@ -32,8 +32,6 @@ export default class AssessmentRepository {
     }
 
     static async updateCatatanPerawat(catatanPerawatId, data) {
-        const catatanPerawat = new CatatanPerawatModel(data);
-
         return await CatatanPerawatModel.findOneAndUpdate({_id: catatanPerawatId}, {
             message : data.message,
             time : data.time
@@ -41,8 +39,6 @@ export default class AssessmentRepository {
     }
 
     static async updateInstruksiMedis(instruksiMedisId, data) {
-        const instruksiMedis = new InstruksiMedisModel(data);
-
         return await InstruksiMedisModel.findOneAndUpdate({_id: instruksiMedisId}, {
             message : data.message,
             time : data.time

@@ -12,6 +12,7 @@ export default class SessionService {
 
         return {
             data: data,
+            is_latest : validReq.date_order === rekamMedis.daily_records.length
         }
     }
 

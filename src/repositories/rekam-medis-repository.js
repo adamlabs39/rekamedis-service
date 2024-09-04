@@ -37,6 +37,8 @@ export default class RekamMedisRepository {
                 const rekamMedis = new RekamMedisModel({
                     daily_records: [{sessions: [newSession._id]}],
                     faskes_uuid: createRequest.faskes_uuid,
+                    no_reg: createRequest.no_reg,
+                    no_rm: createRequest.no_rm,
                 });
 
                 return rekamMedis.save({session});
@@ -138,5 +140,19 @@ export default class RekamMedisRepository {
                 }
             }
         )
+    }
+
+    static async updateSummary(request){
+        const updateFields = {};
+
+        for (const key in request.summary) {
+            if (request.summary.hasOwnProperty(key)) {
+                updateFields[`summary.${key}`] = request.summary[key];
+            }
+        }
+
+        return await RekamMedisModel.findOneAndUpdate({_id: request.rekam_medis_uuid},
+        {$set: updateFields}, {new: true}
+        ).exec();
     }
 }

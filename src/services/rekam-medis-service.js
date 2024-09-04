@@ -39,10 +39,14 @@ export default class RekamMedisService {
             dates: dates,
             sessions: sessions,
             data: data,
+            summary : rekamMedis.summary,
+            is_latest : (++session_order === sessions.length) && (++date_order === dates.length)
         }
     }
 
     static async createNew(request) {
+        const validReq = ZodValidator.validate(RekamMedisValidation.CREATENEW, request);
+
         const rekamMedis = await RekamMedisRepository.createNew(request);
 
         const dates = rekamMedis.daily_records.map((daily_record) => {
@@ -59,7 +63,9 @@ export default class RekamMedisService {
             dates: dates,
             sessions: [{_id: data._id, order: 1}],
             data: data,
-            rekam_medis_uuid: rekamMedis._id
+            rekam_medis_uuid: rekamMedis._id,
+            summary : rekamMedis.summary,
+            is_latest : true
         }
     }
 
@@ -80,7 +86,9 @@ export default class RekamMedisService {
             data : {
                 _id : rekamMedis.daily_records[dailyRecords.length -1].sessions[0],
                 order : 1,
-            }
+            },
+            summary : rekamMedis.summary,
+            is_latest : true
         }
     }
 

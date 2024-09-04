@@ -11,6 +11,12 @@ export default class RekamMedisValidation {
       rekam_medis_uuid: z.string().min(1, rekamMedisUuidRequired),
     });
 
+    static CREATENEW = z.object({
+        faskes_uuid: z.string().min(1, required),
+        no_rm: z.string().min(1, required),
+        no_reg: z.string().min(1, required),
+    })
+
     static ADDSESSION = z.object({
         rekam_medis_uuid: z.string().min(1, rekamMedisUuidRequired),
         date_order: z.number().int(),
@@ -28,7 +34,9 @@ export default class RekamMedisValidation {
 
     static INSERTASSESSMENT = z.object({
         session_id : z.string().min(1, sessionIdRequired),
-        key : z.string().min(1, keyRequired)
+        key : z.string().min(1, keyRequired),
+        rekam_medis_uuid : z.string().min(1, rekamMedisUuidRequired),
+        is_latest : z.boolean(),
     })
 
     static INSERTCHAT = z.object(

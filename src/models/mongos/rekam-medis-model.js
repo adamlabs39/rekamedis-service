@@ -1,5 +1,6 @@
 import mongoose, {Schema} from "mongoose";
 import baseSchema from "./schemas/base-schema.js";
+import summarySchema from "./schemas/summary-schema.js";
 
 const recordSchema = new Schema({
     sessions : [{ type: Schema.Types.ObjectId, ref: 'sessions' }],
@@ -11,7 +12,7 @@ const rekamMedisSchema = new Schema({
     daily_records : [recordSchema],
     faskes_uuid: {
         type: String,
-        required: true,
+        required: true
     },
     no_reg : {
         type: String,
@@ -20,6 +21,10 @@ const rekamMedisSchema = new Schema({
     no_rm : {
         type: String,
         required: true,
+    },
+    summary : {
+        type: summarySchema,
+        default: () => ({})
     },
 })
 
