@@ -1,0 +1,205 @@
+import {
+    DataTypes,
+    Model,
+} from "sequelize";
+import fieldTime from "./common/fieldTime-model.js";
+import identifierModel from "./common/identifier-model.js";
+import sequelizeInstance from "../../configurations/sequelize-instance.js";
+export default class    RawatJalanModel extends Model{}
+
+RawatJalanModel.init(
+    {
+        ...identifierModel,
+        paymentMethod: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+            defaultValue: 1,
+        },
+        noReg: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+            unique: true,
+        },
+        patientUuid: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+        },
+        noAntrianAdmisi: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        noAntrianPoli: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        name: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+        },
+        noRm: {
+            type: DataTypes.STRING(150),
+            allowNull: false,
+        },
+        birthDetailUuid: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+        },
+        gender: {
+            type: DataTypes.STRING(15),
+            allowNull: false,
+        },
+        tanggalDaftar: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
+        tanggalPeriksa: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
+        practioner_uuid: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+        },
+        maternity: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        note: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        complaint: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        lokasiUuid: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        tanggalCheckin:{
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
+        platform: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        kodeBooking: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        alasanBatal: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        statusRj:{
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 1,
+        },
+        edukasi: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        edukasiText: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        prognosis: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        // rencanaTindaklanut: {
+        //     type: DataTypes.STRING(255),
+        //     allowNull: true,
+        // },
+        // rencanaTindaklanutText: {
+        //     type: DataTypes.TEXT,
+        //     allowNull: true,
+        // },
+        kondisiPasienPulang: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        statusPulang: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        statusPulangLainnya:{
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        instruksiLokasi: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        instruksiLokasiLainnya: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        instruksiDate:{
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
+        instruksiNoDarurat: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        transportRujuk: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        transportRujukLainnya: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        isInternal: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        rujukInternal: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        rujukInternalText: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        rujukEksternal: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        rujukEksternalText: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+        },
+        dischargeDate: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
+        petugas: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        rekamMedisUuid: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        labUuid: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        farmasiUuid: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        ...fieldTime
+    },
+    {
+        sequelize: sequelizeInstance,
+        modelName: "RawatJalan",
+        tableName: "rawat_jalans",
+        underscored: true,
+        timestamps: false,
+    }
+)

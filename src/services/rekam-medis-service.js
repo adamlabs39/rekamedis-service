@@ -83,4 +83,21 @@ export default class RekamMedisService {
             }
         }
     }
+
+    static async getHistory(req) {
+        const validReq = ZodValidator.validate(RekamMedisValidation.GETHISTORY, req);
+        const history = await RekamMedisRepository.getHistory(validReq.no_rm, validReq.faskes_uuid);
+
+        const combinedHistory = [
+            ...history.rawatJalan,
+            ...history.rawatInap,
+            ...history.igd
+        ];
+
+        combinedHistory.sort((a, b) => {
+            return b.createdAt - a.createdAt;
+        });
+
+        return combinedHistory
+    }
 }

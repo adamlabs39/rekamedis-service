@@ -17,6 +17,7 @@ routes.get(`/${apiBase}/${apiVersion}/setting/health`, (req, res) => res.status(
 routes.get(`/${apiBase}/${apiVersion}/rekam-medis`, RekamMedisController.get);
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis`, RekamMedisController.createNew);
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis/record`, RekamMedisController.addRecord);
+routes.get(`/${apiBase}/${apiVersion}/rekam-medis/history`, RekamMedisController.getHistory);
 
 // SESSION
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis/session`, SessionController.create);

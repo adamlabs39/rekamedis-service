@@ -29,4 +29,14 @@ export default class RekamMedisController {
             nextFunction(error);
         }
     }
+
+    static async getHistory(request, response, nextFunction){
+        try {
+            request.query.faskes_uuid = response.locals.jwtData.faskesUuid;
+            const result = await RekamMedisService.getHistory(request.query);
+            response.status(200).json(successResponse("data berhasil didapat", result));
+        } catch (error){
+            nextFunction(error);
+        }
+    }
 }

@@ -2,7 +2,7 @@ import {
     alasanRequired, chatTypeRequired,
     idRequired,
     keyRequired, messageRequired, nameRequired,
-    rekamMedisUuidRequired,
+    rekamMedisUuidRequired, required,
     sessionIdRequired, userUuidRequired
 } from "./message-validation-error.js";
 import { z } from "zod";
@@ -43,6 +43,12 @@ export default class RekamMedisValidation {
     static UPDATECHAT = z.object({
         chat_id : z.string().min(1, sessionIdRequired),
         message : z.string().min(1, messageRequired),
+        }
+    )
+
+    static GETHISTORY =  z.object({
+            faskes_uuid : z.string().min(1, required),
+            no_rm : z.string().min(1, required),
         }
     )
 }

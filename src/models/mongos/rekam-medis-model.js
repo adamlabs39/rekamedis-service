@@ -13,6 +13,14 @@ const rekamMedisSchema = new Schema({
         type: String,
         required: true,
     },
+    no_reg : {
+        type: String,
+        required: true,
+    },
+    no_rm : {
+        type: String,
+        required: true,
+    },
 })
 
 const RekamMedisModel = mongoose.model("rekam_medises", rekamMedisSchema);
