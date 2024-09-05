@@ -101,6 +101,10 @@ export default class AssessmentService {
                 if (request.data.keluhan_utama !== null) {
                     data.summary.keluhan_utama = request.data.keluhan_utama;
                 }
+
+                if (request.data.anamnesis !== null) {
+                    data.summary.anamnesis = request.data.anamnesis;
+                }
             } else if (request.key === 'diagnosis_dokter') {
                 if (request.data.diagnosis_primer !== null) {
                     data.summary.diagnosis_primer = request.data[0]?.diagnosis;

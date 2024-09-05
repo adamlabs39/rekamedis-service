@@ -49,9 +49,10 @@ app.listen(APPLICATION_PORT, APPLICATION_HOST, async () => {
                 noRm : "1234a",
                 birthDetailUuid : "aaaaa",
                 gender : "lakik",
-                practioner_uuid : "bbbb",
+                practitionerUuid : "bbbb",
                 status_rj : true,
-                faskesUuid : "9d403ufjh43ufh3uf8430ihf"
+                faskesUuid : "9d403ufjh43ufh3uf8430ihf",
+                rekamMedisUuid : "66d81d6845871723afbfe42d"
             },
 
         })
@@ -67,15 +68,15 @@ app.listen(APPLICATION_PORT, APPLICATION_HOST, async () => {
                 noRm : "1234a",
                 birthDetailUuid : "aaaaa",
                 gender : "lakik",
-                practioner_uuid : "bbbb",
+                practitionerUuid : "bbbb",
                 statusRi : 0,
                 encounter : "RI",
                 faskesUuid : "9d403ufjh43ufh3uf8430ihf",
                 paymentMethod : 0,
                 monitoringRoomUuid : "qowkqokdqolp",
-                lokasiUuid : "adlkepqldo"
+                lokasiUuid : "adlkepqldo",
+                rekamMedisUuid : "66d81d6845871723afbfe42d"
             },
-
         })
         await InstalasiGawatDaruratModel.findOrCreate({
             transaction: tr,
@@ -89,16 +90,16 @@ app.listen(APPLICATION_PORT, APPLICATION_HOST, async () => {
                 noRm : "1234a",
                 birthDetailUuid : "aaaaa",
                 gender : "lakik",
-                practioner_uuid : "bbbb",
+                practitionerUuid : "bbbb",
                 statusIgd : 0,
                 faskesUuid : "9d403ufjh43ufh3uf8430ihf",
                 paymentMethod : 0,
                 maternity : false,
                 newborn : false,
                 multipleBirth : false,
-                withoutIdentity : false
+                withoutIdentity : false,
+                rekamMedisUuid : "66d81d6845871723afbfe42d"
             },
-
         })
     });
 

@@ -45,6 +45,10 @@ const summarySchema = new Schema({
         type : String,
         default : "-",
     },
+    anamnesis : {
+        type : String,
+        default : "-"
+    }
 });
 
 export default summarySchema;

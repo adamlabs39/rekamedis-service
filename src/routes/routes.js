@@ -4,6 +4,7 @@ import SessionController from "../controllers/session-controller.js";
 import AssessmentController from "../controllers/assessment-controller.js";
 import FileController from "../controllers/file-controller.js";
 import InformConsentController from "../controllers/inform-consent-controller.js";
+import PelayananController from "../controllers/pelayanan-controller.js";
 
 const apiBase = process.env.API_BASE || "api";
 const apiVersion = process.env.API_VERSION || "v1";
@@ -40,5 +41,10 @@ routes.get(`/${apiBase}/${apiVersion}/rekam-medis/files/letters`, FileController
 // INFORM CONSENT
 routes.get(`/${apiBase}/${apiVersion}/rekam-medis/inform-consent`, InformConsentController.getAll);
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis/inform-consent`, InformConsentController.create);
+
+// RESUME MEDIS
+routes.put(`/${apiBase}/${apiVersion}/rekam-medis/resume`, PelayananController.updateResume);
+routes.get(`/${apiBase}/${apiVersion}/rekam-medis/resume`, PelayananController.getResume);
+routes.put(`/${apiBase}/${apiVersion}/rekam-medis/discharge`, PelayananController.dischargeService);
 
 export default routes;

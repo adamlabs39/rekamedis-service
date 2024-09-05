@@ -39,7 +39,7 @@ RawatInapModel.init(
             type: DataTypes.STRING(15),
             allowNull: false,
         },
-        practioner_uuid: {
+        practitionerUuid: {
             type: DataTypes.STRING(255),
             allowNull: false,
         },
@@ -157,27 +157,27 @@ RawatInapModel.init(
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        statusPulangLainnya: {
+        statusPulangKeterangan:{
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        instruksiLokasi: {
+        tujuanRujuk: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        instruksiLokasiLainnya: {
+        tujuanRujukLainnya: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        instruksiDate: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
-        },
+        // instruksiDate: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: true,
+        // },
         instruksiNoDarurat: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        transporRujuk: {
+        transportRujuk: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
@@ -201,7 +201,7 @@ RawatInapModel.init(
             type: DataTypes.STRING(255),
             allowNull: true,
         },
-        rujukEksternalText: {
+        instruksiTindakLanjut: {
             type: DataTypes.STRING(255),
             allowNull: true,
         },
