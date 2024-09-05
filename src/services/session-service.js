@@ -20,7 +20,7 @@ export default class SessionService {
         const validReq = ZodValidator.validate(RekamMedisValidation.DELETESESSION, request);
 
         return await SessionRepository.delete(
-            validReq.id,
+            validReq.session_uuid,
             validReq.alasan
         )
     }

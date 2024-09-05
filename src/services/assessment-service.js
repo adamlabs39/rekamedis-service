@@ -8,7 +8,7 @@ export default class AssessmentService {
     static async insert(request) {
         const validReq = ZodValidator.validate(RekamMedisValidation.INSERTASSESSMENT, request);
 
-        const session = await AssessmentRepository.insert(validReq.session_id, request.data, validReq.key);
+        const session = await AssessmentRepository.insert(validReq.session_uuid, request.data, validReq.key);
 
         const rekamMedis = await this.updateSummary(request);
         return {
@@ -27,7 +27,7 @@ export default class AssessmentService {
             time: toEpochDate(new Date())
         }
 
-        return await AssessmentRepository.insertCatatanPerawat(validReq.session_id, data);
+        return await AssessmentRepository.insertCatatanPerawat(validReq.session_uuid, data);
     }
 
     static async insertInstruksiMedis(request) {
@@ -40,19 +40,19 @@ export default class AssessmentService {
             time: toEpochDate(new Date())
         }
 
-        return await AssessmentRepository.insertInstruksiMedis(validReq.session_id, data);
+        return await AssessmentRepository.insertInstruksiMedis(validReq.session_uuid, data);
     }
 
     static async updateInstruksiMedis(request) {
         const validReq = ZodValidator.validate(RekamMedisValidation.UPDATECHAT, request);
-        return AssessmentRepository.updateInstruksiMedis(validReq.chat_id, {
+        return AssessmentRepository.updateInstruksiMedis(validReq.chat_uuid, {
             message: validReq.message,
         });
     }
 
     static async updateCatatanPerawat(request) {
         const validReq = ZodValidator.validate(RekamMedisValidation.UPDATECHAT, request);
-        return AssessmentRepository.updateCatatanPerawat(validReq.chat_id, {
+        return AssessmentRepository.updateCatatanPerawat(validReq.chat_uuid, {
             message: validReq.message,
         });
     }

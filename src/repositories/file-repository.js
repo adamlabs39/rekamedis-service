@@ -43,7 +43,7 @@ export default class FileRepository {
         return await sequelizeInstance.transaction(async tr => {
             let affectedRow = await FileModel.update(request, {
                 where: {
-                    uuid: request.uuid
+                    uuid: request.file_uuid
                 },
                 transaction: tr
             });

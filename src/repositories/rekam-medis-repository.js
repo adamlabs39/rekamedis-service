@@ -35,7 +35,7 @@ export default class RekamMedisRepository {
             })
             .then(newSession => {
                 const rekamMedis = new RekamMedisModel({
-                    daily_records: [{sessions: [newSession._id]}],
+                    daily_records: [{sessions: [newSession._id], date : createRequest.date}],
                     faskes_uuid: createRequest.faskes_uuid,
                     no_reg: createRequest.no_reg,
                     no_rm: createRequest.no_rm,
@@ -58,7 +58,7 @@ export default class RekamMedisRepository {
             });
     }
 
-    static async addRecord(id) {
+    static async addRecord(id, date) {
         const session = new SessionModel({
             order: 1
         });
@@ -68,7 +68,8 @@ export default class RekamMedisRepository {
         return await RekamMedisModel.findOneAndUpdate({_id: id}, {
             $push: {
                 "daily_records": {
-                    sessions: [session._id]
+                    sessions: [session._id],
+                    date : date
                 }
             }
         }, {new: true}).exec();

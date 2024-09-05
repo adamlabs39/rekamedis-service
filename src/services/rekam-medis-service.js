@@ -13,9 +13,10 @@ export default class RekamMedisService {
             throw new NotfoundException("Rekam Medis tidak ditemukan");
         }
 
-        const dates = rekamMedis.daily_records.map((daily_record) => {
+        const dates = rekamMedis.daily_records.map((daily_record, index) => {
             return {
-                date: daily_record.created_at,
+                date: daily_record.date,
+                is_selected : ((request.date_order ?? rekamMedis.daily_records.length) - 1)  === index
             };
         });
 
@@ -25,7 +26,7 @@ export default class RekamMedisService {
         }
         date_order--;
 
-        const sessions = rekamMedis.daily_records[date_order].sessions;
+        let sessions = rekamMedis.daily_records[date_order].sessions;
 
         let session_order = request.session_order ?? sessions.length;
         if (session_order > sessions.length) {
@@ -34,6 +35,14 @@ export default class RekamMedisService {
         session_order--;
 
         const data = await SessionRepository.getById(sessions[session_order]._id);
+
+        sessions = sessions.map((session, index) => {
+            return {
+                id : session._id,
+                order : index + 1,
+                is_selected : index === session_order
+            }
+        });
 
         return {
             dates: dates,
@@ -45,23 +54,32 @@ export default class RekamMedisService {
     }
 
     static async createNew(request) {
-        const validReq = ZodValidator.validate(RekamMedisValidation.CREATENEW, request);
+        ZodValidator.validate(RekamMedisValidation.CREATENEW, request);
 
         const rekamMedis = await RekamMedisRepository.createNew(request);
 
         const dates = rekamMedis.daily_records.map((daily_record) => {
             return {
-                date: daily_record.created_at,
+                date: daily_record.date,
+                is_selected : true
             };
         });
 
-        const sessions = rekamMedis.daily_records[0].sessions;
+        let sessions = rekamMedis.daily_records[0].sessions;
 
         const data = await SessionRepository.getById(sessions[0]._id);
 
+        sessions = sessions.map((session, index) => {
+            return {
+                id : session._id,
+                order : index + 1,
+                is_selected : true
+            }
+        });
+
         return {
             dates: dates,
-            sessions: [{_id: data._id, order: 1}],
+            sessions: sessions,
             data: data,
             rekam_medis_uuid: rekamMedis._id,
             summary : rekamMedis.summary,
@@ -71,18 +89,19 @@ export default class RekamMedisService {
 
     static async addRecord(request){
         const validReq = ZodValidator.validate(RekamMedisValidation.ADDRECORD, request);
-        const rekamMedis = await RekamMedisRepository.addRecord(validReq.id);
+        const rekamMedis = await RekamMedisRepository.addRecord(validReq.rekam_medis_uuid, validReq.date);
         const dailyRecords = rekamMedis.daily_records;
 
         const dates = dailyRecords.map((daily_record) => {
             return {
-                date: daily_record.created_at,
+                date: daily_record.date,
+                is_selected : daily_record.date === validReq.date
             };
         });
 
         return {
             dates: dates,
-            sessions: [{_id: dailyRecords[dailyRecords.length -1].sessions[0], order: 1}],
+            sessions: [{id: dailyRecords[dailyRecords.length -1].sessions[0], order: 1, is_selected : true}],
             data : {
                 _id : rekamMedis.daily_records[dailyRecords.length -1].sessions[0],
                 order : 1,

@@ -4,6 +4,10 @@ import summarySchema from "./schemas/summary-schema.js";
 
 const recordSchema = new Schema({
     sessions : [{ type: Schema.Types.ObjectId, ref: 'sessions' }],
+    date : {
+        type: String,
+        required: true,
+    },
 });
 
 recordSchema.add(baseSchema);

@@ -8,7 +8,7 @@ import { z } from "zod";
 
 export default class FileValidation {
     static UPDATE = z.object({
-        uuid : z.string().min(1, required),
+        file_uuid : z.string().min(1, required),
         file : z.string().min(1, required)
     });
 

@@ -15,6 +15,7 @@ export default class RekamMedisValidation {
         faskes_uuid: z.string().min(1, required),
         no_rm: z.string().min(1, required),
         no_reg: z.string().min(1, required),
+        date: z.string().min(1, required),
     })
 
     static ADDSESSION = z.object({
@@ -24,16 +25,17 @@ export default class RekamMedisValidation {
     })
 
     static DELETESESSION = z.object({
-        id: z.string().min(1, idRequired),
+        session_uuid: z.string().min(1, idRequired),
         alasan : z.string().min(1, alasanRequired)
     })
 
     static ADDRECORD = z.object({
-        id: z.string().min(1, idRequired)
+        rekam_medis_uuid: z.string().min(1, idRequired),
+        date : z.string().min(1, required),
     })
 
     static INSERTASSESSMENT = z.object({
-        session_id : z.string().min(1, sessionIdRequired),
+        session_uuid : z.string().min(1, sessionIdRequired),
         key : z.string().min(1, keyRequired),
         rekam_medis_uuid : z.string().min(1, rekamMedisUuidRequired),
         is_latest : z.boolean(),
@@ -41,7 +43,7 @@ export default class RekamMedisValidation {
 
     static INSERTCHAT = z.object(
         {
-            session_id : z.string().min(1, sessionIdRequired),
+            session_uuid : z.string().min(1, sessionIdRequired),
             message : z.string().min(1, messageRequired),
             name : z.string().min(1, nameRequired),
             user_uuid : z.string().min(1, userUuidRequired),
@@ -49,7 +51,7 @@ export default class RekamMedisValidation {
     )
 
     static UPDATECHAT = z.object({
-        chat_id : z.string().min(1, sessionIdRequired),
+        chat_uuid : z.string().min(1, sessionIdRequired),
         message : z.string().min(1, messageRequired),
         }
     )

@@ -23,7 +23,7 @@ export default class FileController {
 
     static async delete(request, response, nextFunction) {
         try {
-            const result = await FileService.delete(request.body.uuid);
+            const result = await FileService.delete(request.body.file_uuid);
             response.status(200).json(successResponse("data berhasil dihapus"));
         } catch (error) {
             nextFunction(error);
