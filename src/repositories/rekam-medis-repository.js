@@ -18,6 +18,16 @@ export default class RekamMedisRepository {
         ).exec();
     }
 
+    static async getResumeNeed(request) {
+        return await RekamMedisModel.findById(request.rekam_medis_uuid).populate(
+            {
+                path: "daily_records.sessions",
+                select: "pemeriksaan_tindakan tanda_vital pemeriksaan_fisik",
+                match: {deleted_at: null},
+            }
+        ).exec();
+    }
+
 
     static async createNew(createRequest) {
         let session = null;
@@ -27,9 +37,7 @@ export default class RekamMedisRepository {
                 session = _session;
                 session.startTransaction();
 
-                const newSession = new SessionModel({
-                    order: 1,
-                });
+                const newSession = new SessionModel();
 
                 return newSession.save({session});
             })
@@ -59,9 +67,7 @@ export default class RekamMedisRepository {
     }
 
     static async addRecord(id, date) {
-        const session = new SessionModel({
-            order: 1
-        });
+        const session = new SessionModel();
 
         await session.save();
 

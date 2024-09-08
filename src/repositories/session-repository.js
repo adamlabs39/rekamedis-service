@@ -7,10 +7,8 @@ export default class SessionRepository {
         return await SessionModel.findById(id).exec();
     }
 
-    static async add(rekamMedisId, dateOrder, sessionOrder) {
-        const session = new SessionModel({
-            order: sessionOrder,
-        });
+    static async add(rekamMedisId, dateOrder) {
+        const session = new SessionModel();
 
         await session.save();
         return await RekamMedisModel.findOneAndUpdate({_id: rekamMedisId}, {

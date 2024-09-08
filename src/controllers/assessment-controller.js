@@ -48,4 +48,13 @@ export default class AssessmentController {
             nextFunction(error);
         }
     }
+
+    static async insertTindakan(request, response, nextFunction) {
+        try {
+            const result = await AssessmentService.insertTindakan(request.body);
+            response.status(200).json(successResponse("data berhasil dibuat", result));
+        } catch (error) {
+            nextFunction(error);
+        }
+    }
 }

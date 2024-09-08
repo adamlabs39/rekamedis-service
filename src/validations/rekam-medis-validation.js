@@ -21,7 +21,6 @@ export default class RekamMedisValidation {
     static ADDSESSION = z.object({
         rekam_medis_uuid: z.string().min(1, rekamMedisUuidRequired),
         date_order: z.number().int(),
-        sesi: z.number().int(),
     })
 
     static DELETESESSION = z.object({
@@ -61,4 +60,8 @@ export default class RekamMedisValidation {
             no_rm : z.string().min(1, required),
         }
     )
+
+    static INSERT_TINDAKAN = z.object({
+        session_uuid : z.string().min(1, sessionIdRequired),
+    })
 }

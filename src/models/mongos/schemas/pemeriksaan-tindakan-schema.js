@@ -18,10 +18,18 @@ const pemeriksaanTindakanSchema = new Schema({
         type: Number,
         required: true,
     },
+    is_mcu : {
+        type: Boolean,
+        required: true,
+    },
+    lab_order_uuid : {
+        type: String,
+    },
     petugas : [{
         type: String,
         required: true,
-    }]
+    }],
+
 })
 
 pemeriksaanTindakanSchema.add(baseSchema)

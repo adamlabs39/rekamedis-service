@@ -28,17 +28,69 @@ export default class PelayananService {
     static async getResume(request) {
         ZodValidator.validate(PelayananValidation.GET, request);
 
+        let tindakans = [];
+
         const resume = await PelayananRepository.getResume(request.pelayanan, Utils.snakeToCamelObject(request));
         if (!resume) {
             throw new InternalServerException("Resume medis tidak ditemukan");
         }
 
-        const rekamMedis = await RekamMedisRepository.get({rekam_medis_uuid: resume.dataValues.rekam_medis_uuid})
+        const rekamMedis = await RekamMedisRepository.getResumeNeed({rekam_medis_uuid: resume.dataValues.rekam_medis_uuid})
+
         if (rekamMedis === null){
             throw new InternalServerException("Rekam medis tidak ditemukan");
         }
 
-        resume.anamnesis = rekamMedis.summary.anamnesis;
+
+        rekamMedis.daily_records.forEach((daily_record) => {
+            const sessions = daily_record.sessions ?? [];
+            sessions.forEach((session) => {
+                const pemeriksaan_tindakan = session.pemeriksaan_tindakan ?? [];
+
+                if (pemeriksaan_tindakan?.length !== 0) {
+                    pemeriksaan_tindakan.forEach((tindakan_item) => {
+                        tindakans.push(tindakan_item);
+                    })
+                }
+            })
+        })
+
+        resume.dataValues.tanda_vital_pulang = {
+            tekanan_darah : rekamMedis.summary.tekanan_darah,
+            frekuensi_nadi : rekamMedis.summary.frekuensi_nadi,
+            frekuensi_nafas : rekamMedis.summary.frekuensi_nafas,
+            suhu : rekamMedis.summary.suhu,
+        };
+
+        resume.dataValues.pemeriksaan_tindakan = tindakans;
+
+        resume.dataValues.tanda_vital_awal = {
+            tekanan_darah : rekamMedis.daily_records[0]?.sessions[0]?.tanda_vital?.tekanan_darah,
+            frekuensi_nadi : rekamMedis.daily_records[0]?.sessions[0]?.tanda_vital?.frekuensi_nadi,
+            frekuensi_nafas : rekamMedis.daily_records[0]?.sessions[0]?.tanda_vital?.frekuensi_nafas,
+            suhu : rekamMedis.daily_records[0]?.sessions[0]?.tanda_vital?.suhu,
+        }
+
+        resume.dataValues.pemeriksaan_fisik = {
+            dada : rekamMedis.summary.ket_dada,
+            perut : rekamMedis.summary.ket_perut,
+            ekstremitas : rekamMedis.summary.ket_ekstremitas,
+            kepala : rekamMedis.summary.ket_kepala,
+            anus : rekamMedis.summary.ket_anus,
+            abdomen : rekamMedis.summary.ket_abdomen,
+            leher : rekamMedis.summary.ket_leher,
+            mata : rekamMedis.summary.ket_mata,
+            mulut : rekamMedis.summary.ket_mulut,
+            hidung : rekamMedis.summary.ket_hidung,
+            telinga : rekamMedis.summary.ket_telinga,
+            paru : rekamMedis.summary.ket_paru,
+            jantung : rekamMedis.summary.ket_jantung,
+            urogenital : rekamMedis.summary.ket_urogenital,
+            tenggorokan : rekamMedis.summary.ket_tenggorokan,
+            muskuloskeletal : rekamMedis.summary.ket_muskuloskeletal,
+        }
+
+        resume.dataValues.anamnesis = rekamMedis.summary.keluhan_utama
 
         return resume;
     }

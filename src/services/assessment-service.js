@@ -3,6 +3,7 @@ import RekamMedisValidation from "../validations/rekam-medis-validation.js";
 import AssessmentRepository from "../repositories/assessment-repository.js";
 import {toEpochDate} from "../helpers/date-helper.js";
 import RekamMedisRepository from "../repositories/rekam-medis-repository.js";
+import {z} from "zod";
 
 export default class AssessmentService {
     static async insert(request) {
@@ -60,7 +61,7 @@ export default class AssessmentService {
     static async updateSummary(request) {
         let data = {
             rekam_medis_uuid: request.rekam_medis_uuid,
-            summary: request.data
+            summary: {}
         }
 
         if (request.is_latest) {
@@ -106,8 +107,70 @@ export default class AssessmentService {
                     data.summary.anamnesis = request.data.anamnesis;
                 }
             } else if (request.key === 'diagnosis_dokter') {
-                if (request.data.diagnosis_primer !== null) {
+                if (request.data[0]?.diagnosis !== null) {
                     data.summary.diagnosis_primer = request.data[0]?.diagnosis;
+
+                    data.summary.diagnosis_dokter = request.data;
+                }
+            } else if (request.key === 'pemeriksaan_fisik') {
+                if (request.data.ket_kepala !== null) {
+                    data.summary.ket_kepala = request.data.ket_kepala;
+                }
+
+                if (request.data.ket_mata !== null) {
+                    data.summary.ket_mata = request.data.ket_mata;
+                }
+
+                if (request.data.ket_telinga !== null) {
+                    data.summary.ket_telinga = request.data.ket_telinga;
+                }
+
+                if (request.data.ket_hidung !== null) {
+                    data.summary.ket_hidung = request.data.ket_hidung;
+                }
+
+                if (request.data.ket_tenggorokan !== null) {
+                    data.summary.ket_tenggorokan = request.data.ket_tenggorokan;
+                }
+
+                if (request.data.ket_mulut !== null) {
+                    data.summary.ket_mulut = request.data.ket_mulut;
+                }
+
+                if (request.data.ket_leher !== null) {
+                    data.summary.ket_leher = request.data.ket_leher;
+                }
+
+                if (request.data.ket_dada !== null) {
+                    data.summary.ket_dada = request.data.ket_dada;
+                }
+
+                if (request.data.ket_jantung !== null) {
+                    data.summary.ket_jantung = request.data.ket_jantung;
+                }
+
+                if (request.data.ket_paru !== null) {
+                    data.summary.ket_paru = request.data.ket_paru;
+                }
+
+                if (request.data.ket_abdomen !== null) {
+                    data.summary.ket_abdomen = request.data.ket_abdomen;
+                }
+
+                if (request.data.ket_ekstremitas !== null) {
+                    data.summary.ket_ekstremitas = request.data.ket_ekstremitas;
+                }
+
+                if (request.data.ket_anus !== null) {
+                    data.summary.ket_anus = request.data.ket_anus;
+                }
+
+                if (request.data.ket_urogenital !== null) {
+                    data.summary.ket_urogenital = request.data.ket_urogenital;
+                }
+
+                if (request.data.ket_muskuloskeletal !== null) {
+                    data.summary.ket_muskuloskeletal = request.data.ket_muskuloskeletal;
                 }
             }
         }
@@ -115,8 +178,36 @@ export default class AssessmentService {
         if (Object.keys(data.summary).length > 0) {
             return await RekamMedisRepository.updateSummary(data);
         } else {
-            return null
+            return await RekamMedisRepository.get({rekam_medis_uuid: request.rekam_medis_uuid});
         }
 
+    }
+
+    static async insertTindakan(request) {
+        const validReq = ZodValidator.validate(RekamMedisValidation.INSERT_TINDAKAN, request);
+
+        let tindakans = [];
+
+        if (Array.isArray(request.data)){
+            request.data.forEach((tindakan) => {
+                ZodValidator.validate(z.boolean(), tindakan.is_mcu)
+
+                if (tindakan.is_mcu) {
+                    if (tindakan.is_deleted){
+                        // TODO : DELETE IN LAB ORDER TABLE
+                        return;
+                    } else if (tindakan.is_new){
+                        // TODO : INSERT IN LAB ORDER TABLE
+                    }
+                }
+
+                tindakans.push(tindakan);
+            })
+        }
+
+        const session = await AssessmentRepository.insert(validReq.session_uuid, tindakans, "pemeriksaan_tindakan");
+        return {
+            data: session,
+        }
     }
 }

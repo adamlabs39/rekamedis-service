@@ -17,9 +17,6 @@ import fpoSchema from "./schemas/fpo_schema.js";
 
 const sessionSchema = new Schema(
     {
-        order: {
-            type: Number,
-        },
         deleted_at: {
             type: Number,
         },

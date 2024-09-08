@@ -1,4 +1,5 @@
 import {Schema} from "mongoose";
+import diagnosisDokterSchema from "./diagnosis-dokter-schema.js";
 
 const summarySchema = new Schema({
     tekanan_darah : {
@@ -48,7 +49,54 @@ const summarySchema = new Schema({
     anamnesis : {
         type : String,
         default : "-"
-    }
+    },
+    ket_kepala : {
+        type : String,
+    },
+    ket_mata : {
+        type : String,
+    },
+    ket_telinga : {
+        type : String,
+    },
+    ket_hidung : {
+        type : String,
+    },
+    ket_tenggorokan : {
+        type : String,
+    },
+    ket_mulut : {
+        type : String,
+    },
+    ket_leher : {
+        type : String,
+    },
+    ket_dada : {
+        type : String,
+    },
+    ket_jantung : {
+        type : String,
+    },
+    ket_paru : {
+        type : String,
+    },
+    ket_abdomen : {
+        type : String,
+    },
+    ket_ekstremitas : {
+        type : String,
+    },
+    ket_anus : {
+        type : String,
+    },
+    ket_urogenital : {
+        type : String,
+    },
+    ket_muskuloskeletal : {
+        type : String,
+    },
+
+    diagnosis_dokter : [diagnosisDokterSchema],
 });
 
 export default summarySchema;
