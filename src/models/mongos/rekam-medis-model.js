@@ -30,6 +30,13 @@ const rekamMedisSchema = new Schema({
         type: summarySchema,
         default: () => ({})
     },
+    pelayanan : {
+        type: String,
+        required: true,
+    },
+    lokasi_uuid : {
+        type: String,
+    }
 })
 
 const RekamMedisModel = mongoose.model("rekam_medises", rekamMedisSchema);

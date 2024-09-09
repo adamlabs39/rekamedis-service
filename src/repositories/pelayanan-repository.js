@@ -4,6 +4,8 @@ import {Op} from "sequelize";
 import RawatJalanModel from "../models/postgreses/rawat-jalan-model.js";
 import RawatInapModel from "../models/postgreses/rawat-inap-model.js";
 import BadRequestException from "../errors/bad-request-exception.js";
+import HistoryTindakanModel from "../models/postgreses/history-tindakan-model.js";
+import PetugasTindakanModel from "../models/postgreses/petugas-tindakan-model.js";
 
 export default class PelayananRepository {
     static async updateResume(pelayanan ,data) {
@@ -143,5 +145,50 @@ export default class PelayananRepository {
         } else {
             throw new BadRequestException(`Pelayanan ${pelayanan} tidak ada`);
         }
+    }
+
+    static async insertRekamMedis(pelayanan, data){
+        if (pelayanan === "igd") {
+            return await sequelizeInstance.transaction(async tr => {
+                return await InstalasiGawatDaruratModel.update({rekamMedisUuid : data.rekamMedisUuid}, {
+                    where: {
+                        no_reg : data.noReg,
+                        faskes_uuid: data.faskesUuid
+                    },
+                    transaction: tr
+                });
+            });
+        } else if (pelayanan === "rj") {
+            return await sequelizeInstance.transaction(async tr => {
+                return await RawatJalanModel.update({rekamMedisUuid : data.rekamMedisUuid}, {
+                    where: {
+                        no_reg : data.noReg,
+                        faskes_uuid: data.faskesUuid
+                    },
+                    transaction: tr
+                });
+            });
+        } else if (pelayanan === "ri") {
+            return await sequelizeInstance.transaction(async tr => {
+                return await RawatInapModel.update({rekamMedisUuid : data.rekamMedisUuid}, {
+                    where: {
+                        no_reg : data.noReg,
+                        faskes_uuid: data.faskesUuid
+                    },
+                    transaction: tr
+                });
+            });
+        } else {
+            throw new BadRequestException(`Pelayanan ${pelayanan} tidak ada`);
+        }
+    }
+
+    static async insertHistory(histories, petugas) {
+        return await sequelizeInstance.transaction(
+            async tr => {
+                await HistoryTindakanModel.bulkCreate(histories, {transaction: tr});
+                await PetugasTindakanModel.bulkCreate(petugas, {transaction: tr});
+            }
+        )
     }
 }

@@ -34,4 +34,10 @@ export default class PelayananValidation {
         pelayanan : z.string().min(1, required),
         faskes_uuid : z.string().min(1, required),
     })
+
+    static DISCHARGE = z.object({
+        no_reg: z.string().min(1, required),
+        pelayanan : z.string().min(1, required),
+        faskes_uuid : z.string().min(1, required),
+    })
 }

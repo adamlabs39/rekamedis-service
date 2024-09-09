@@ -4,6 +4,8 @@ import PelayananRepository from "../repositories/pelayanan-repository.js";
 import InternalServerException from "../errors/internal-server-exception.js";
 import Utils from "../helpers/utils.js";
 import RekamMedisRepository from "../repositories/rekam-medis-repository.js";
+import {uuidv7} from "uuidv7";
+import BadRequestException from "../errors/bad-request-exception.js";
 
 export default class PelayananService {
     static async updateResume(request) {
@@ -40,7 +42,6 @@ export default class PelayananService {
         if (rekamMedis === null){
             throw new InternalServerException("Rekam medis tidak ditemukan");
         }
-
 
         rekamMedis.daily_records.forEach((daily_record) => {
             const sessions = daily_record.sessions ?? [];
@@ -96,7 +97,7 @@ export default class PelayananService {
     }
 
     static async dischargeService(request) {
-        ZodValidator.validate(PelayananValidation.GET, request);
+        ZodValidator.validate(PelayananValidation.DISCHARGE, request);
 
         const affectedRow = await PelayananRepository.dichargeService(request.pelayanan , Utils.snakeToCamelObject(request));
 
@@ -105,5 +106,50 @@ export default class PelayananService {
         } else {
             return {message: `berhasil discharge resume medis`}
         }
+    }
+
+    static async insertHistory(request) {
+        let historyTindakan = [];
+        let petugasTindakan = [];
+        const rekamMedis = await RekamMedisRepository.getResumeNeed({rekam_medis_uuid: request.rekam_medis_uuid})
+
+        if (rekamMedis !== null) {
+            rekamMedis.daily_records.forEach((daily_record) => {
+                const sessions = daily_record.sessions ?? [];
+                sessions.forEach((session) => {
+                    const pemeriksaan_tindakan = session.pemeriksaan_tindakan ?? [];
+
+                    if (pemeriksaan_tindakan?.length !== 0) {
+                        pemeriksaan_tindakan.forEach((tindakan_item) => {
+                            const tindakan_uuid = uuidv7();
+                            const tindakan = {
+                                faskesUuid: request.faskes_uuid,
+                                uuid: tindakan_uuid,
+                                tarif_uuid: tindakan_item.tarif_uuid,
+                                nama_tindakan: tindakan_item.tarif_uuid,
+                                harga_tindakan: tindakan_item.harga_tindakan,
+                                qty_tindakan: tindakan_item.qty_tindakan,
+                                lokasi_uuid: request.lokasi_uuid,
+                                pelayanan: request.pelayanan,
+                            }
+                            historyTindakan.push(tindakan);
+
+                            tindakan_item.petugas.forEach((petugas_item) => {
+                                const petugas = {
+                                    faskesUuid: request.faskes_uuid,
+                                    historyTindakanUuid: tindakan_uuid,
+                                    practitionerUuid: petugas_item.practitioner_uuid,
+                                }
+
+                                petugasTindakan.push(petugas)
+                            })
+                        })
+                    }
+                })
+            })
+        } else {
+            throw new BadRequestException("Rekam medis tidak ditemukan");
+        }
+        await PelayananRepository.insertHistory(historyTindakan, petugasTindakan);
     }
 }

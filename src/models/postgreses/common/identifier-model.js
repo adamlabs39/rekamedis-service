@@ -9,7 +9,7 @@ const tableIdentifier = {
         unique: true,
     },
     uuid: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING(255),
         primaryKey: true,
         defaultValue: function() {
             return uuidv7();

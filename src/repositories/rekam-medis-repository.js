@@ -47,6 +47,8 @@ export default class RekamMedisRepository {
                     faskes_uuid: createRequest.faskes_uuid,
                     no_reg: createRequest.no_reg,
                     no_rm: createRequest.no_rm,
+                    pelayanan : createRequest.pelayanan,
+                    lokasi_uuid : createRequest.lokasi_uuid
                 });
 
                 return rekamMedis.save({session});

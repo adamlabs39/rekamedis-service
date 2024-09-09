@@ -3,6 +3,7 @@ import NotfoundException from "../errors/notfound-exception.js";
 import SessionRepository from "../repositories/session-repository.js";
 import ZodValidator from "../validations/zod-validator.js";
 import RekamMedisValidation from "../validations/rekam-medis-validation.js";
+import PelayananRepository from "../repositories/pelayanan-repository.js";
 
 export default class RekamMedisService {
     static async get(request) {
@@ -76,6 +77,12 @@ export default class RekamMedisService {
                 is_selected : true
             }
         });
+
+        await PelayananRepository.insertRekamMedis(request.pelayanan, {
+            rekamMedisUuid: rekamMedis._id.toString(),
+            noReg: request.no_reg,
+            faskesUuid: request.faskes_uuid
+        })
 
         return {
             dates: dates,
