@@ -5,6 +5,9 @@ import RawatJalanModel from "./rawat-jalan-model.js";
 import RawatInapModel from "./rawat-inap-model.js";
 import HistoryTindakanModel from "./history-tindakan-model.js";
 import PetugasTindakanModel from "./petugas-tindakan-model.js";
+import PegawaiModel from "./pegawai-model.js";
+import PractitionerModel from "./practitioner-model.js";
+import LokasiModel from "./lokasi-model.js";
 
 const MODELMERGE = [
     InformConsentModel,
@@ -14,6 +17,9 @@ const MODELMERGE = [
     RawatInapModel,
     HistoryTindakanModel,
     PetugasTindakanModel,
+    PegawaiModel,
+    PractitionerModel,
+    LokasiModel
 ];
 
 export default MODELMERGE;

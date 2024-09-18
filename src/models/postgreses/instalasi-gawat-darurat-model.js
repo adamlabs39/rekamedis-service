@@ -5,6 +5,7 @@ import {
 import fieldTime from "./common/fieldTime-model.js";
 import identifierModel from "./common/identifier-model.js";
 import sequelizeInstance from "../../configurations/sequelize-instance.js";
+import PractitionerModel from "./practitioner-model.js";
 
 export default class InstalasiGawatDaruratModel extends Model {}
 InstalasiGawatDaruratModel.init(
@@ -193,3 +194,9 @@ InstalasiGawatDaruratModel.init(
         timestamps: false,
     }
 )
+
+InstalasiGawatDaruratModel.belongsTo(PractitionerModel,{
+    foreignKey: "practitioner_uuid",
+    as: "practitioner",
+    constraints: false,
+})

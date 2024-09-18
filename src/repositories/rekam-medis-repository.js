@@ -6,6 +6,9 @@ import RawatJalanModel from "../models/postgreses/rawat-jalan-model.js";
 import RawatInapModel from "../models/postgreses/rawat-inap-model.js";
 import InstalasiGawatDaruratModel from "../models/postgreses/instalasi-gawat-darurat-model.js";
 import {Op} from "sequelize";
+import PractitionerModel from "../models/postgreses/practitioner-model.js";
+import PegawaiModel from "../models/postgreses/pegawai-model.js";
+import LokasiModel from "../models/postgreses/lokasi-model.js";
 
 export default class RekamMedisRepository {
     static async get(request) {
@@ -89,11 +92,39 @@ export default class RekamMedisRepository {
                     [
                         RawatJalanModel.findAll(
                             {
+                                include : [
+                                    {
+                                        model: PractitionerModel,
+                                        as: "practitioner",
+                                        required: true,
+                                        where: {deletedAt: {[Op.is]: null}},
+                                        attributes: ["uuid"],
+                                        include: [
+                                            {
+                                                model: PegawaiModel,
+                                                as: "pegawai",
+                                                required: true,
+                                                where: {deletedAt: {[Op.is]: null}},
+                                                attributes: ["title", "nama", "gender"]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        model: LokasiModel,
+                                        as: "lokasi",
+                                        required: true,
+                                        where: {deletedAt: {[Op.is]: null}},
+                                        attributes: ["code", "name", "uuid"]
+                                    }
+                                ],
                                 where: {
                                     [Op.and] : [
                                         {
                                             noRm: noRm,
-                                            faskesUuid: faskesUuid
+                                            faskesUuid: faskesUuid,
+                                            statusRj : {
+                                                [Op.eq] : 5
+                                            }
                                         },
                                         {
                                             deletedAt: {
@@ -102,16 +133,38 @@ export default class RekamMedisRepository {
                                         }
                                     ]
                                 },
+                                attributes: ["no_reg", "faskes_uuid", "uuid", "status_rj", "tanggal_daftar", "payment_method", "rekam_medis_uuid"],
                                 transaction: tr,
                             }
                         ),
                         RawatInapModel.findAll(
                             {
+                                include : [
+                                    {
+                                        model: PractitionerModel,
+                                        as: "practitioner",
+                                        required: true,
+                                        where: {deletedAt: {[Op.is]: null}},
+                                        attributes: ["uuid"],
+                                        include: [
+                                            {
+                                                model: PegawaiModel,
+                                                as: "pegawai",
+                                                required: true,
+                                                where: {deletedAt: {[Op.is]: null}},
+                                                attributes: ["title", "nama", "gender"]
+                                            }
+                                        ]
+                                    }
+                                ],
                                 where: {
                                     [Op.and] : [
                                         {
                                             noRm: noRm,
-                                            faskesUuid: faskesUuid
+                                            faskesUuid: faskesUuid,
+                                            statusRi : {
+                                                [Op.eq] : 4
+                                            }
                                         },
                                         {
                                             deletedAt: {
@@ -120,16 +173,38 @@ export default class RekamMedisRepository {
                                         }
                                     ]
                                 },
+                                attributes: ["no_reg", "faskes_uuid", "uuid", "status_ri", "tanggal_daftar", "payment_method", "rekam_medis_uuid"],
                                 transaction: tr,
                             }
                         ),
                         InstalasiGawatDaruratModel.findAll(
                             {
+                                include : [
+                                    {
+                                        model: PractitionerModel,
+                                        as: "practitioner",
+                                        required: true,
+                                        where: {deletedAt: {[Op.is]: null}},
+                                        attributes: ["uuid"],
+                                        include: [
+                                            {
+                                                model: PegawaiModel,
+                                                as: "pegawai",
+                                                required: true,
+                                                where: {deletedAt: {[Op.is]: null}},
+                                                attributes: ["title", "nama", "gender"]
+                                            }
+                                        ]
+                                    }
+                                ],
                                 where: {
                                     [Op.and] : [
                                         {
                                             noRm: noRm,
-                                            faskesUuid: faskesUuid
+                                            faskesUuid: faskesUuid,
+                                            statusIgd : {
+                                                [Op.eq] : 2
+                                            }
                                         },
                                         {
                                             deletedAt: {
@@ -138,6 +213,7 @@ export default class RekamMedisRepository {
                                         }
                                     ]
                                 },
+                                attributes: ["no_reg", "faskes_uuid", "uuid", "status_igd", "tanggal_daftar", "payment_method", "rekam_medis_uuid"],
                                 transaction: tr,
                             }
                         ),

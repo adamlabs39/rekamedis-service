@@ -5,6 +5,7 @@ import {
 import fieldTime from "./common/fieldTime-model.js";
 import identifierModel from "./common/identifier-model.js";
 import sequelizeInstance from "../../configurations/sequelize-instance.js";
+import PractitionerModel from "./practitioner-model.js";
 
 export default class RawatInapModel extends Model {}
 RawatInapModel.init(
@@ -235,3 +236,9 @@ RawatInapModel.init(
         timestamps: false,
     }
 )
+
+RawatInapModel.belongsTo(PractitionerModel,{
+    foreignKey: "practitioner_uuid",
+    as: "practitioner",
+    constraints: false,
+})

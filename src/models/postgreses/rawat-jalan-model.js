@@ -5,8 +5,10 @@ import {
 import fieldTime from "./common/fieldTime-model.js";
 import identifierModel from "./common/identifier-model.js";
 import sequelizeInstance from "../../configurations/sequelize-instance.js";
-export default class    RawatJalanModel extends Model{}
+import PractitionerModel from "./practitioner-model.js";
+import LokasiModel from "./lokasi-model.js";
 
+export default class    RawatJalanModel extends Model{}
 RawatJalanModel.init(
     {
         ...identifierModel,
@@ -203,3 +205,15 @@ RawatJalanModel.init(
         timestamps: false,
     }
 )
+
+RawatJalanModel.belongsTo(PractitionerModel,{
+    foreignKey: "practitioner_uuid",
+    as: "practitioner",
+    constraints: false,
+})
+
+RawatJalanModel.belongsTo(LokasiModel,{
+    foreignKey: "lokasi_uuid",
+    as: "lokasi",
+    constraints: false,
+})
