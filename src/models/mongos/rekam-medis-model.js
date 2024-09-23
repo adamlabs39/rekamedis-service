@@ -26,6 +26,10 @@ const rekamMedisSchema = new Schema({
         type: String,
         required: true,
     },
+    no_pelayanan : {
+        type: String,
+        required: true,
+    },
     summary : {
         type: summarySchema,
         default: () => ({})

@@ -57,7 +57,8 @@ app.listen(APPLICATION_PORT, APPLICATION_HOST, async () => {
                 statusRj : 5,
                 lokasiUuid : "0191a18a-22e4-773b-8229-a023f420d0bb",
                 faskesUuid : "9d403ufjh43ufh3uf8430ihf",
-                rekamMedisUuid : "66d81d6845871723afbfe42d"
+                rekamMedisUuid : "66d81d6845871723afbfe42d",
+                noPelayanan : "pelayanan1"
             },
 
         })
@@ -80,7 +81,8 @@ app.listen(APPLICATION_PORT, APPLICATION_HOST, async () => {
                 paymentMethod : 0,
                 monitoringRoomUuid : "qowkqokdqolp",
                 lokasiUuid : "adlkepqldo",
-                rekamMedisUuid : "66d81d6845871723afbfe42d"
+                rekamMedisUuid : "66d81d6845871723afbfe42d",
+                noPelayanan : "pelayanan1"
             },
         })
         await InstalasiGawatDaruratModel.findOrCreate({
@@ -103,7 +105,8 @@ app.listen(APPLICATION_PORT, APPLICATION_HOST, async () => {
                 newborn : false,
                 multipleBirth : false,
                 withoutIdentity : false,
-                rekamMedisUuid : "66d81d6845871723afbfe42d"
+                rekamMedisUuid : "66d81d6845871723afbfe42d",
+                noPelayanan : "pelayanan1"
             },
         })
     });

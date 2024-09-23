@@ -15,7 +15,7 @@ export default class PelayananValidation {
     });
 
     static BEFOREUPDATE = z.object({
-        no_reg: z.string().min(1, required),
+        rekam_medis_uuid: z.string().min(1, required),
         status_pulang : z.string().min(1, required),
         pelayanan : z.string().min(1, required),
         edukasi : z.string().min(1, required),
@@ -30,13 +30,13 @@ export default class PelayananValidation {
     })
 
     static GET = z.object({
-        no_reg: z.string().min(1, required),
+        rekam_medis_uuid: z.string().min(1, required),
         pelayanan : z.string().min(1, required),
         faskes_uuid : z.string().min(1, required),
     })
 
     static DISCHARGE = z.object({
-        no_reg: z.string().min(1, required),
+        rekam_medis_uuid: z.string().min(1, required),
         pelayanan : z.string().min(1, required),
         faskes_uuid : z.string().min(1, required),
     })

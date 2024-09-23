@@ -80,7 +80,7 @@ export default class RekamMedisService {
 
         await PelayananRepository.insertRekamMedis(request.pelayanan, {
             rekamMedisUuid: rekamMedis._id.toString(),
-            noReg: request.no_reg,
+            noPelayanan: request.no_pelayanan,
             faskesUuid: request.faskes_uuid
         })
 

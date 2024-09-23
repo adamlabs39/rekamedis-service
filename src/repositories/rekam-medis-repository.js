@@ -50,6 +50,7 @@ export default class RekamMedisRepository {
                     faskes_uuid: createRequest.faskes_uuid,
                     no_reg: createRequest.no_reg,
                     no_rm: createRequest.no_rm,
+                    no_pelayanan : createRequest.no_pelayanan,
                     pelayanan : createRequest.pelayanan,
                     lokasi_uuid : createRequest.lokasi_uuid
                 });

@@ -17,6 +17,7 @@ export default class RekamMedisValidation {
         no_reg: z.string().min(1, required),
         date: z.string().min(1, required),
         pelayanan : z.string().min(1, required),
+        no_pelayanan : z.string().min(1, required),
     })
 
     static ADDSESSION = z.object({

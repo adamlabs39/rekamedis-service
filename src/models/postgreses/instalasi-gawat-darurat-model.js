@@ -184,6 +184,10 @@ InstalasiGawatDaruratModel.init(
             type: DataTypes.STRING(255),
             allowNull: true,
         },
+        noPelayanan: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
         ...fieldTime
     },
     {

@@ -13,7 +13,7 @@ export default class PelayananRepository {
             return await sequelizeInstance.transaction(async tr => {
                 return await InstalasiGawatDaruratModel.update(data, {
                     where: {
-                        no_reg : data.noReg,
+                        rekam_medis_uuid : data.rekamMedisUuid,
                         deletedAt: {
                             [Op.is]: null
                         },
@@ -26,7 +26,7 @@ export default class PelayananRepository {
             return await sequelizeInstance.transaction(async tr => {
                 return await RawatJalanModel.update(data, {
                     where: {
-                        no_reg : data.noReg,
+                        rekam_medis_uuid : data.rekamMedisUuid,
                         deletedAt: {
                             [Op.is]: null
                         },
@@ -39,7 +39,7 @@ export default class PelayananRepository {
             return await sequelizeInstance.transaction(async tr => {
                 return await RawatInapModel.update(data, {
                     where: {
-                        no_reg : data.noReg,
+                        rekam_medis_uuid : data.rekamMedisUuid,
                         deletedAt: {
                             [Op.is]: null
                         },
@@ -76,7 +76,7 @@ export default class PelayananRepository {
         if (pelayanan === "igd") {
             return await InstalasiGawatDaruratModel.findOne({
                 where: {
-                    no_reg: data.noReg,
+                    rekam_medis_uuid: data.rekamMedisUuid,
                     deletedAt: {
                         [Op.is]: null
                     },
@@ -87,7 +87,7 @@ export default class PelayananRepository {
         } else if (pelayanan === "rj") {
             return await RawatJalanModel.findOne({
                 where: {
-                    no_reg: data.noReg,
+                    rekam_medis_uuid: data.rekamMedisUuid,
                     deletedAt: {
                         [Op.is]: null
                     },
@@ -98,7 +98,7 @@ export default class PelayananRepository {
         } else if (pelayanan === "ri") {
             return await RawatInapModel.findOne({
                 where: {
-                    no_reg: data.noReg,
+                    rekam_medis_uuid: data.rekamMedisUuid,
                     deletedAt: {
                         [Op.is]: null
                     },
@@ -116,7 +116,7 @@ export default class PelayananRepository {
             return await sequelizeInstance.transaction(async tr => {
                 return await InstalasiGawatDaruratModel.update({statusIgd : 2}, {
                     where: {
-                        no_reg : data.noReg,
+                        rekam_medis_uuid : data.rekamMedisUuid,
                         faskes_uuid: data.faskesUuid
                     },
                     transaction: tr
@@ -126,7 +126,7 @@ export default class PelayananRepository {
             return await sequelizeInstance.transaction(async tr => {
                 return await RawatJalanModel.update({statusRj : 5}, {
                     where: {
-                        no_reg : data.noReg,
+                        rekam_medis_uuid : data.rekamMedisUuid,
                         faskes_uuid: data.faskesUuid
                     },
                     transaction: tr
@@ -136,7 +136,7 @@ export default class PelayananRepository {
             return await sequelizeInstance.transaction(async tr => {
                 return await RawatInapModel.update({statusRi : 4}, {
                     where: {
-                        no_reg : data.noReg,
+                        rekam_medis_uuid : data.rekamMedisUuid,
                         faskes_uuid: data.faskesUuid
                     },
                     transaction: tr
@@ -152,7 +152,7 @@ export default class PelayananRepository {
             return await sequelizeInstance.transaction(async tr => {
                 return await InstalasiGawatDaruratModel.update({rekamMedisUuid : data.rekamMedisUuid}, {
                     where: {
-                        no_reg : data.noReg,
+                        no_pelayanan : data.noPelayanan,
                         faskes_uuid: data.faskesUuid
                     },
                     transaction: tr
@@ -162,7 +162,7 @@ export default class PelayananRepository {
             return await sequelizeInstance.transaction(async tr => {
                 return await RawatJalanModel.update({rekamMedisUuid : data.rekamMedisUuid}, {
                     where: {
-                        no_reg : data.noReg,
+                        no_pelayanan : data.noPelayanan,
                         faskes_uuid: data.faskesUuid
                     },
                     transaction: tr
@@ -172,7 +172,7 @@ export default class PelayananRepository {
             return await sequelizeInstance.transaction(async tr => {
                 return await RawatInapModel.update({rekamMedisUuid : data.rekamMedisUuid}, {
                     where: {
-                        no_reg : data.noReg,
+                        no_pelayanan : data.noPelayanan,
                         faskes_uuid: data.faskesUuid
                     },
                     transaction: tr
