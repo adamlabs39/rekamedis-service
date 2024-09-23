@@ -1,5 +1,6 @@
 import {Schema} from "mongoose";
 import baseSchema from "./base-schema.js";
+import ohisSchema from "./ohis-schema.js";
 
 const pemeriksaanFisikSchema = new Schema({
     keadaan_umum : {
@@ -143,6 +144,7 @@ const pemeriksaanFisikSchema = new Schema({
     pemeriksaan_lainnya : {
         type: String,
     },
+    ohis : ohisSchema,
     petugas : {
         type: String,
         required: true,

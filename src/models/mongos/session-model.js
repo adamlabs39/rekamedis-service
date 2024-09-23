@@ -14,6 +14,9 @@ import pemeriksaanTindakanSchema from "./schemas/pemeriksaan-tindakan-schema.js"
 import tandaVitalSchema from "./schemas/tanda-vital-schema.js";
 import triaseSchema from "./schemas/triase-schema.js";
 import fpoSchema from "./schemas/fpo_schema.js";
+import odontogramSchema from "./schemas/pemeriksaan-gigi-schema.js";
+import pemeriksaanGigiSchema from "./schemas/pemeriksaan-gigi-schema.js";
+import pemeriksaanMataSchema from "./schemas/pemeriksaan-mata-schema.js";
 
 const sessionSchema = new Schema(
     {
@@ -29,10 +32,10 @@ const sessionSchema = new Schema(
         antropometri: antropometriSchema,
         asesmen_nyeri: asesmenNyeriSchema,
         catatan_penunjang: catatanPenunjangSchema,
-        catatan_perawat: [{ type: Schema.Types.ObjectId, ref: 'catatan_perawats' }],
+        catatan_perawat: [{type: Schema.Types.ObjectId, ref: 'catatan_perawats'}],
         diagnosis_dokter: [diagnosisDokterSchema],
         diagnosa_perawat: diagnosaPerawatSchema,
-        instruksi_medis:  [{ type: Schema.Types.ObjectId, ref: 'instruksi_medises' }],
+        instruksi_medis: [{type: Schema.Types.ObjectId, ref: 'instruksi_medises'}],
         kesadaran: kesadaranSchema,
         luka_bakar: lukaBakarSchema,
         pemeriksaan_fisik: pemeriksaanFisikSchema,
@@ -40,6 +43,8 @@ const sessionSchema = new Schema(
         tanda_vital: tandaVitalSchema,
         triase: triaseSchema,
         fpo: fpoSchema,
+        pemeriksaan_gigi: pemeriksaanGigiSchema,
+        pemeriksaan_mata: pemeriksaanMataSchema,
     }
 )
 
