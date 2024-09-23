@@ -14,7 +14,6 @@ import pemeriksaanTindakanSchema from "./schemas/pemeriksaan-tindakan-schema.js"
 import tandaVitalSchema from "./schemas/tanda-vital-schema.js";
 import triaseSchema from "./schemas/triase-schema.js";
 import fpoSchema from "./schemas/fpo_schema.js";
-import odontogramSchema from "./schemas/pemeriksaan-gigi-schema.js";
 import pemeriksaanGigiSchema from "./schemas/pemeriksaan-gigi-schema.js";
 import pemeriksaanMataSchema from "./schemas/pemeriksaan-mata-schema.js";
 
@@ -45,6 +44,15 @@ const sessionSchema = new Schema(
         fpo: fpoSchema,
         pemeriksaan_gigi: pemeriksaanGigiSchema,
         pemeriksaan_mata: pemeriksaanMataSchema,
+        implementation: {
+            type: String,
+        },
+        evaluation: {
+            type: String,
+        },
+        reassessment: {
+            type: String,
+        },
     }
 )
 
