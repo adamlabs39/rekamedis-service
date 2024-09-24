@@ -10,7 +10,7 @@ export default class OrderFisioSeeder {
                 no_reg: "0001",
                 patient_uuid: "0191a18a-22e4-79f7-9da5-a10a6e1a60f5",
                 no_rm: "1234a",
-                rekam_medis_fisio_uuid: "66d81d6845871723afbfe42d",
+                rekam_medis_uuid: "66d81d6845871723afbfe42d",
                 rekam_medis_pelayanan_uuid: "0191a18a-22e4-79f7-9da5-a10a6e1a60f3",
                 rekam_medis_pelayanan_date: "2021-01-01",
                 payment_method: 1,

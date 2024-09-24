@@ -255,7 +255,7 @@ export default class RekamMedisRepository {
                                         }
                                     ]
                                 },
-                                attributes: ["no_reg", "faskes_uuid", "uuid", "status_fisio", "tanggal_terapi", "payment_method", "rekam_medis_fisio_uuid"],
+                                attributes: ["no_reg", "faskes_uuid", "uuid", "status_fisio", "tanggal_terapi", "payment_method", "rekam_medis_uuid"],
                                 transaction: tr,
                             }
                         ),

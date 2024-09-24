@@ -41,17 +41,14 @@ OrderFisioModel.init({
         type: DataTypes.STRING(150),
         allowNull: false,
     },
-    rekam_medis_fisio_uuid : {
+    rekam_medis_uuid : {
         type: DataTypes.STRING(255),
-        allowNull: false,
     },
     rekam_medis_pelayanan_uuid : {
         type: DataTypes.STRING(255),
-        allowNull: false,
     },
     rekam_medis_pelayanan_date : {
         type: DataTypes.DATE,
-        allowNull: false,
     },
     payment_method : {
         type: DataTypes.INTEGER,
@@ -134,6 +131,42 @@ OrderFisioModel.init({
     },
     status_pulang : {
         type: DataTypes.STRING(255),
+    },
+    status_pulang_keterangan : {
+        type: DataTypes.STRING(255),
+    },
+    tujuan_rujuk : {
+        type: DataTypes.STRING(255),
+    },
+    tujuan_rujuk_lainnya : {
+        type: DataTypes.STRING(255),
+    },
+    instruksi_date : {
+        type: DataTypes.INTEGER,
+    },
+    instruksi_no_darurat : {
+        type: DataTypes.STRING(255),
+    },
+    transport_rujuk : {
+        type: DataTypes.STRING(255),
+    },
+    transport_rujuk_lainnya : {
+        type: DataTypes.STRING(225),
+    },
+    is_internal : {
+        type: DataTypes.BOOLEAN,
+    },
+    rujuk_internal : {
+        type: DataTypes.STRING(255),
+    },
+    rujuk_eksternal : {
+        type: DataTypes.STRING(255),
+    },
+    instruksi_tindak_lanjut : {
+        type: DataTypes.TEXT,
+    },
+    discharge_date : {
+        type: DataTypes.INTEGER,
     },
     ...fieldTime
     }, {

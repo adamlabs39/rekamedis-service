@@ -6,6 +6,8 @@ import RawatInapModel from "../models/postgreses/rawat-inap-model.js";
 import BadRequestException from "../errors/bad-request-exception.js";
 import HistoryTindakanModel from "../models/postgreses/history-tindakan-model.js";
 import PetugasTindakanModel from "../models/postgreses/petugas-tindakan-model.js";
+import OrderFisioModel from "../models/postgreses/order-fisio-model.js";
+import Utils from "../helpers/utils.js";
 
 export default class PelayananRepository {
     static async updateResume(pelayanan ,data) {
@@ -38,6 +40,19 @@ export default class PelayananRepository {
         } else if (pelayanan === "ri") {
             return await sequelizeInstance.transaction(async tr => {
                 return await RawatInapModel.update(data, {
+                    where: {
+                        rekam_medis_uuid : data.rekamMedisUuid,
+                        deletedAt: {
+                            [Op.is]: null
+                        },
+                        faskes_uuid: data.faskesUuid
+                    },
+                    transaction: tr
+                });
+            });
+        }else if (pelayanan === "fisio") {
+            return await sequelizeInstance.transaction(async tr => {
+                return await OrderFisioModel.update(Utils.camelToSnakeObject(data), {
                     where: {
                         rekam_medis_uuid : data.rekamMedisUuid,
                         deletedAt: {
@@ -106,6 +121,18 @@ export default class PelayananRepository {
                 },
                 attributes : attributes
             });
+        } else if (pelayanan === "fisio") {
+            attributes.push(...["fase_rehabilitasi", "prognosis"]);
+            return await OrderFisioModel.findOne({
+                where: {
+                    rekam_medis_uuid: data.rekamMedisUuid,
+                    deletedAt: {
+                        [Op.is]: null
+                    },
+                    faskes_uuid: data.faskesUuid
+                },
+                attributes : attributes
+            });
         } else {
             throw new BadRequestException(`Pelayanan ${pelayanan} tidak ada`);
         }
@@ -135,6 +162,16 @@ export default class PelayananRepository {
         } else if (pelayanan === "ri") {
             return await sequelizeInstance.transaction(async tr => {
                 return await RawatInapModel.update({statusRi : 4}, {
+                    where: {
+                        rekam_medis_uuid : data.rekamMedisUuid,
+                        faskes_uuid: data.faskesUuid
+                    },
+                    transaction: tr
+                });
+            });
+        }else if (pelayanan === "fisio") {
+            return await sequelizeInstance.transaction(async tr => {
+                return await OrderFisioModel.update({status_fisio : 5}, {
                     where: {
                         rekam_medis_uuid : data.rekamMedisUuid,
                         faskes_uuid: data.faskesUuid
@@ -178,7 +215,17 @@ export default class PelayananRepository {
                     transaction: tr
                 });
             });
-        } else {
+        } else if (pelayanan === "fisio") {
+            return await sequelizeInstance.transaction(async tr => {
+                return await OrderFisioModel.update({rekam_medis_uuid : data.rekamMedisUuid}, {
+                    where: {
+                        no_order : data.noPelayanan,
+                        faskes_uuid: data.faskesUuid
+                    },
+                    transaction: tr
+                });
+            });
+        }else {
             throw new BadRequestException(`Pelayanan ${pelayanan} tidak ada`);
         }
     }
