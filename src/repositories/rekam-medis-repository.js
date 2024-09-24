@@ -9,6 +9,7 @@ import {Op} from "sequelize";
 import PractitionerModel from "../models/postgreses/practitioner-model.js";
 import PegawaiModel from "../models/postgreses/pegawai-model.js";
 import LokasiModel from "../models/postgreses/lokasi-model.js";
+import OrderFisioModel from "../models/postgreses/order-fisio-model.js";
 
 export default class RekamMedisRepository {
     static async get(request) {
@@ -89,7 +90,7 @@ export default class RekamMedisRepository {
 
     static async getHistory(noRm, faskesUuid) {
         return await sequelizeInstance.transaction(async (tr) => {
-                const [rawatJalan, rawatInap, igd] = await Promise.all(
+                const [rawatJalan, rawatInap, igd, fisio] = await Promise.all(
                     [
                         RawatJalanModel.findAll(
                             {
@@ -218,11 +219,51 @@ export default class RekamMedisRepository {
                                 transaction: tr,
                             }
                         ),
+                        OrderFisioModel.findAll(
+                            {
+                                include : [
+                                    {
+                                        model: PractitionerModel,
+                                        as: "practitioner",
+                                        required: true,
+                                        where: {deletedAt: {[Op.is]: null}},
+                                        attributes: ["uuid"],
+                                        include: [
+                                            {
+                                                model: PegawaiModel,
+                                                as: "pegawai",
+                                                required: true,
+                                                where: {deletedAt: {[Op.is]: null}},
+                                                attributes: ["title", "nama", "gender"]
+                                            }
+                                        ]
+                                    }
+                                ],
+                                where: {
+                                    [Op.and] : [
+                                        {
+                                            no_rm: noRm,
+                                            faskes_uuid: faskesUuid,
+                                            status_fisio : {
+                                                [Op.eq] : 5
+                                            }
+                                        },
+                                        {
+                                            deletedAt: {
+                                                [Op.is]: null
+                                            }
+                                        }
+                                    ]
+                                },
+                                attributes: ["no_reg", "faskes_uuid", "uuid", "status_fisio", "tanggal_terapi", "payment_method", "rekam_medis_fisio_uuid"],
+                                transaction: tr,
+                            }
+                        ),
                     ]
                 );
 
                 return {
-                    rawatJalan, rawatInap, igd
+                    rawatJalan, rawatInap, igd, fisio
                 }
             }
         )

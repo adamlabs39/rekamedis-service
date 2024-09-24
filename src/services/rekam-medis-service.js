@@ -125,7 +125,8 @@ export default class RekamMedisService {
         const combinedHistory = [
             ...history.rawatJalan,
             ...history.rawatInap,
-            ...history.igd
+            ...history.igd,
+            ...history.fisio
         ];
 
         combinedHistory.sort((a, b) => {
