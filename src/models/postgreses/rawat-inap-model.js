@@ -123,11 +123,9 @@ RawatInapModel.init(
         },
         monitoringRoomUuid: {
             type: DataTypes.STRING(255),
-            allowNull: false,
         },
         lokasiUuid: {
             type: DataTypes.STRING(255),
-            allowNull: false,
         },
         alasanBatal: {
             type: DataTypes.STRING(255),

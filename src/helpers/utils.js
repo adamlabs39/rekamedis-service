@@ -1,3 +1,9 @@
+import InstalasiGawatDaruratModel from "../models/postgreses/instalasi-gawat-darurat-model.js";
+import RawatInapModel from "../models/postgreses/rawat-inap-model.js";
+import RawatJalanModel from "../models/postgreses/rawat-jalan-model.js";
+import moment from "moment";
+import {Op} from "sequelize";
+
 export default class Utils {
     static camelToSnakeObject(obj, exclude = []) {
         const newObj = {};
@@ -30,4 +36,21 @@ export default class Utils {
 
         return newObj;
     }
+
+    static generateNoPelayanan = async (service, faskesUuid) => {
+        const today = moment().format('YYMMDD');
+        const { model, prefix } = {
+            'IGD': { model: InstalasiGawatDaruratModel, prefix: 'IGD' },
+            'RI': { model: RawatInapModel, prefix: 'RI' },
+            'RJ': { model: RawatJalanModel, prefix: 'RJ' }
+        }[service] || {};
+
+        if (!model) throw new Error('Service not found');
+
+        const count = await model.count({
+            where: { faskesUuid, createdAt: { [Op.between]: [today, today + 86400] } }
+        });
+
+        return `${prefix}${today}${(count + 1).toString().padStart(4, '0')}`;
+    };
 }

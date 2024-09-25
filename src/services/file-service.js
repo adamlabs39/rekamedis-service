@@ -4,6 +4,10 @@ import FileValidation from "../validations/file-validation.js";
 import NotfoundException from "../errors/notfound-exception.js";
 import { z } from "zod";
 import {toEpochDate} from "../helpers/date-helper.js";
+import PelayananRepository from "../repositories/pelayanan-repository.js";
+import Utils from "../helpers/utils.js";
+import PelayananValidation from "../validations/pelayanan-validation.js";
+import PelayananService from "./pelayanan-service.js";
 
 
 export default class FileService {
@@ -20,6 +24,10 @@ export default class FileService {
 
     static async upload(request) {
         ZodValidator.validate(FileValidation.UPLOAD, request);
+
+        if (request.file_type === "surat permohonan rawat inap") {
+            await PelayananService.createRiFromSrpi(request);
+        }
 
         return await FileRepository.create(request);
     }

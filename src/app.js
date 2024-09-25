@@ -65,10 +65,10 @@ app.listen(APPLICATION_PORT, APPLICATION_HOST, async () => {
          await RawatInapModel.findOrCreate({
             transaction: tr,
             where: {
-                no_reg: "1234abcd"
+                no_reg: "1234abce"
             },
             defaults : {
-                noReg : "1234abcd",
+                noReg : "1234abce",
                 patientUuid : "1234aabb",
                 name : "joko",
                 noRm : "1234a",

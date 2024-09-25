@@ -40,4 +40,8 @@ export default class PelayananValidation {
         pelayanan : z.string().min(1, required),
         faskes_uuid : z.string().min(1, required),
     })
+
+    static CREATE_RAWAT_INAP = z.object({
+        practitioner_uuid: z.string().min(1, required),
+    })
 }

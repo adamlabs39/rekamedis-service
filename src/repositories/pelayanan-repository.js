@@ -238,4 +238,36 @@ export default class PelayananRepository {
             }
         )
     }
+
+    static async getPelayanan(pelayanan, rekam_medis_uuid) {
+        if (pelayanan === "igd") {
+            return await InstalasiGawatDaruratModel.findOne({
+                where: {
+                    rekamMedisUuid: rekam_medis_uuid,
+                    deletedAt: {
+                        [Op.is]: null
+                    }
+                }
+            });
+        } else if (pelayanan === "rj") {
+            return await RawatJalanModel.findOne({
+                where: {
+                    rekamMedisUuid: rekam_medis_uuid,
+                    deletedAt: {
+                        [Op.is]: null
+                    }
+                }
+            });
+        } else {
+            throw new BadRequestException(`Pelayanan ${pelayanan} tidak ada`);
+        }
+    }
+
+    static async createRawatInap(data) {
+        return await sequelizeInstance.transaction(async tr => {
+            return await RawatInapModel.create(data, {
+                transaction: tr
+            });
+        });
+    }
 }

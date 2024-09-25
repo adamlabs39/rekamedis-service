@@ -6,6 +6,7 @@ import Utils from "../helpers/utils.js";
 import RekamMedisRepository from "../repositories/rekam-medis-repository.js";
 import {uuidv7} from "uuidv7";
 import BadRequestException from "../errors/bad-request-exception.js";
+import NotfoundException from "../errors/notfound-exception.js";
 
 export default class PelayananService {
     static async updateResume(request) {
@@ -151,5 +152,31 @@ export default class PelayananService {
             throw new BadRequestException("Rekam medis tidak ditemukan");
         }
         await PelayananRepository.insertHistory(historyTindakan, petugasTindakan);
+    }
+
+    static async createRiFromSrpi(request) {
+        ZodValidator.validate(PelayananValidation.CREATE_RAWAT_INAP, request);
+        const layanan = await PelayananRepository.getPelayanan(request.admission_type, request.rekam_medis_uuid);
+        if (layanan == null) {
+            throw new NotfoundException("Pelayanan tidak ditemukan");
+        }
+
+        const noPelayanan = await Utils.generateNoPelayanan("RI", layanan.dataValues.faskesUuid);
+
+        const data = {
+            noReg : layanan.dataValues.noReg,
+            patientUuid : layanan.dataValues.patientUuid,
+            name : layanan.dataValues.name,
+            noRm : layanan.dataValues.noRm,
+            birthDetailUuid : layanan.dataValues.birthDetailUuid,
+            gender: layanan.dataValues.gender,
+            practitionerUuid : request.practitioner_uuid,
+            statusRi : 1,
+            encounter : "RI",
+            faskesUuid : layanan.dataValues.faskesUuid,
+            paymentMethod : layanan.dataValues.paymentMethod,
+            noPelayanan : noPelayanan
+        };
+        return await PelayananRepository.createRawatInap(data);
     }
 }
