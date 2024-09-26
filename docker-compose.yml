@@ -2,7 +2,7 @@ version: '3.3'
 services:
   app:
     build: .
-    container_name: adameds-setting
+    container_name: adameds-Rekamedis
     ports:
       - ${APPLICATION_PORT}:${APPLICATION_PORT}
     restart: always
@@ -17,6 +17,11 @@ services:
       - DB_PORT=${DB_PORT}
       - APPLICATION_PORT=${APPLICATION_PORT}
       - APPLICATION_HOST=${APPLICATION_HOST}
+      - MONGO_DB_NAME=${MONGO_DB_NAME}
+      - MONGO_DB_HOST=${MONGO_DB_HOST}
+      - MONGO_DB_PORT=${MONGO_DB_PORT}
+      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
 networks:
     adameds-network:
         driver: bridge
