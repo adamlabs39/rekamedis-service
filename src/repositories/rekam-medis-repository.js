@@ -34,43 +34,24 @@ export default class RekamMedisRepository {
 
 
     static async createNew(createRequest) {
-        let session = null;
+        const newSession = new SessionModel();
 
-        return mongoose.startSession()
-            .then(_session => {
-                session = _session;
-                session.startTransaction();
+        await newSession.save();
 
-                const newSession = new SessionModel();
+        const rekamMedis = new RekamMedisModel({
+            daily_records: [{sessions: [newSession._id], date : createRequest.date}],
+            faskes_uuid: createRequest.faskes_uuid,
+            no_reg: createRequest.no_reg,
+            no_rm: createRequest.no_rm,
+            no_pelayanan : createRequest.no_pelayanan,
+            pelayanan : createRequest.pelayanan,
+            lokasi_uuid : createRequest.lokasi_uuid
+        });
 
-                return newSession.save({session});
-            })
-            .then(newSession => {
-                const rekamMedis = new RekamMedisModel({
-                    daily_records: [{sessions: [newSession._id], date : createRequest.date}],
-                    faskes_uuid: createRequest.faskes_uuid,
-                    no_reg: createRequest.no_reg,
-                    no_rm: createRequest.no_rm,
-                    no_pelayanan : createRequest.no_pelayanan,
-                    pelayanan : createRequest.pelayanan,
-                    lokasi_uuid : createRequest.lokasi_uuid
-                });
+        await rekamMedis.save();
 
-                return rekamMedis.save({session});
-            })
-            .then(rekamMedis => {
-                return session.commitTransaction().then(() => rekamMedis);
-            })
-            .then(rekamMedis => {
-                return session.endSession().then(() => rekamMedis);
-            })
-            .catch(err => {
-                return session.abortTransaction()
-                    .then(() => session.endSession())
-                    .then(() => {
-                        throw err;
-                    });
-            });
+
+        return rekamMedis;
     }
 
     static async addRecord(id, date) {
