@@ -38,7 +38,10 @@ FileModel.init({
         },
         admission_type: {
             type: DataTypes.ENUM,
-            values: ['igd', 'ri', 'rj'],
+            values: ['igd', 'ri', 'rj', 'fisio'],
+        },
+        nomor_surat: {
+            type: DataTypes.STRING(255),
         },
         ...fieldTime
     }, {
@@ -50,6 +53,11 @@ FileModel.init({
             {
                 fields: ['rekam_medis_uuid', 'file_type'],
             }
-        ]
+        ],
+        uniqueKeys: {
+            uniq_scores: {
+                fields: ['nomor_surat', 'faskes_uuid']
+            }
+        }
     }
 )

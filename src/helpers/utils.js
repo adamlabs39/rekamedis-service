@@ -3,6 +3,7 @@ import RawatInapModel from "../models/postgreses/rawat-inap-model.js";
 import RawatJalanModel from "../models/postgreses/rawat-jalan-model.js";
 import moment from "moment";
 import {Op} from "sequelize";
+import BadRequestException from "../errors/bad-request-exception.js";
 
 export default class Utils {
     static camelToSnakeObject(obj, exclude = []) {
@@ -53,4 +54,25 @@ export default class Utils {
 
         return `${prefix}${today}${(count + 1).toString().padStart(4, '0')}`;
     };
+
+    static generateCodeFileType = async (surat) => {
+        switch (surat) {
+            case 'surat_kontrol_rawat_jalan':
+                return 'K';
+            case 'surat_permohonan_rawat_inap':
+                return 'R';
+            case 'surat_keterangan_sakit':
+                return 'S';
+            case 'surat_keterangan_sehat':
+                return 'H';
+            case 'surat_rujuk_keluar_faskes':
+                return 'J';
+            case 'surat_keterangan_meninggal':
+                return 'M';
+            case 'resep_kacamata':
+                return 'T';
+            default:
+                throw new BadRequestException('Tipe surat tidak ada');
+        }
+    }
 }

@@ -9,6 +9,8 @@ import PegawaiModel from "./pegawai-model.js";
 import PractitionerModel from "./practitioner-model.js";
 import LokasiModel from "./lokasi-model.js";
 import OrderFisioModel from "./order-fisio-model.js";
+import FaskesModel from "./faskes-model.js";
+import FaskesProfilesModel from "./faskes-profiles-model.js";
 
 const MODELMERGE = [
     InformConsentModel,
@@ -21,7 +23,9 @@ const MODELMERGE = [
     PegawaiModel,
     PractitionerModel,
     LokasiModel,
-    OrderFisioModel
+    OrderFisioModel,
+    FaskesModel,
+    FaskesProfilesModel
 ];
 
 export default MODELMERGE;

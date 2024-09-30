@@ -38,6 +38,7 @@ routes.post(`/${apiBase}/${apiVersion}/rekam-medis/files`, FileController.upload
 routes.delete(`/${apiBase}/${apiVersion}/rekam-medis/files`, FileController.delete);
 routes.put(`/${apiBase}/${apiVersion}/rekam-medis/files`, FileController.update);
 routes.get(`/${apiBase}/${apiVersion}/rekam-medis/files/letters`, FileController.getLetters);
+routes.get(`/${apiBase}/${apiVersion}/rekam-medis/files/generate-code`, FileController.generateLetterCode);
 
 // INFORM CONSENT
 routes.get(`/${apiBase}/${apiVersion}/rekam-medis/inform-consent`, InformConsentController.getAll);

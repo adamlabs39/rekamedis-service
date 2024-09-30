@@ -20,4 +20,13 @@ export default class FileValidation {
         file_format : z.string().min(1, fileFortmatRequired),
         admission_type : z.string().min(1, required),
     })
+
+    static NOMOR_SURAT = z.object({
+        nomor_surat: z.string().min(1, required),
+    })
+
+    static GENERATE_CODE = z.object({
+        faskes_uuid: z.string().min(1, required),
+        file_type: z.string().min(1, fileTypeRequired),
+    })
 }

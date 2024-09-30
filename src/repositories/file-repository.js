@@ -31,6 +31,18 @@ export default class FileRepository {
         });
     }
 
+    static async getLastLetterByType(faskes_uuid, file_type) {
+        return FileModel.findOne({
+            where: {
+                faskes_uuid: faskes_uuid,
+                file_type: file_type
+            },
+            order: [
+                ['created_at', 'DESC']
+            ]
+        });
+    }
+
     static async deleteByUuid(uuid) {
         return await FileModel.destroy({
             where: {

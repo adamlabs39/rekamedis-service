@@ -23,7 +23,7 @@ export default class FileController {
 
     static async delete(request, response, nextFunction) {
         try {
-            const result = await FileService.delete(request.body.file_uuid);
+            await FileService.delete(request.body.file_uuid);
             response.status(200).json(successResponse("data berhasil dihapus"));
         } catch (error) {
             nextFunction(error);
@@ -32,7 +32,7 @@ export default class FileController {
 
     static async update(request, response, nextFunction) {
         try {
-            const result = await FileService.update(request.body);
+            await FileService.update(request.body);
             response.status(200).json(successResponse("data berhasil diupdate"));
         } catch (error) {
             nextFunction(error);
@@ -42,6 +42,17 @@ export default class FileController {
     static async getLetters(request, response, nextFunction) {
         try {
             const result = await FileService.getLetters(request.query.rekam_medis_uuid);
+            response.status(200).json(successResponse("data berhasil didapat", result));
+        } catch (error) {
+            nextFunction(error);
+        }
+    }
+
+    static async generateLetterCode(request, response, nextFunction) {
+        try {
+            request.body.faskes_uuid = response.locals.jwtData.faskesUuid;
+            request.body.file_type =request.query.type
+            const result = await FileService.generateCode(request.body);
             response.status(200).json(successResponse("data berhasil didapat", result));
         } catch (error) {
             nextFunction(error);
