@@ -95,7 +95,6 @@ const summarySchema = new Schema({
     ket_muskuloskeletal : {
         type : String,
     },
-
     diagnosis_dokter : [diagnosisDokterSchema],
 });
 

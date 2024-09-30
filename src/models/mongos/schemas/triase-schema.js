@@ -15,7 +15,7 @@ const triaseSchema = new Schema({
         type: Number,
     },
     gcs_score : {
-        type: Number,
+        type: String,
     },
     tekanan_darah_sistole : {
         type: Number,
@@ -41,19 +41,19 @@ const triaseSchema = new Schema({
     kesimpulan_triase : {
         type: String,
     },
-    doa_triase : {
-        type: String,
-    },
-    dead_time : {
-        type: Number,
-    },
-    doa_time : {
-        type: Number,
-    },
     petugas : {
         type: String,
         required: true,
-    }
+    },
+    warna_triase : {
+        type: String,
+    },
+    cara_datang : {
+        type: String,
+    },
+    kendaraan : {
+        type: String,
+    },
 })
 
 triaseSchema.add(baseSchema)
