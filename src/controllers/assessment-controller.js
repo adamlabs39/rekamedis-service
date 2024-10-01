@@ -58,4 +58,13 @@ export default class AssessmentController {
             nextFunction(error);
         }
     }
+
+    static async getItemBefore(request, response, nextFunction) {
+        try {
+            const result = await AssessmentService.getItemBefore(request.query);
+            response.status(200).json(successResponse("data berhasil ditemukan", result));
+        } catch (error) {
+            nextFunction(error);
+        }
+    }
 }

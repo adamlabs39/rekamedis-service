@@ -31,6 +31,7 @@ routes.post(`/${apiBase}/${apiVersion}/rekam-medis/chat/instruksi`, AssessmentCo
 routes.put(`/${apiBase}/${apiVersion}/rekam-medis/chat/instruksi`, AssessmentController.updateInstruksiMedis);
 routes.put(`/${apiBase}/${apiVersion}/rekam-medis/chat/catatan`, AssessmentController.updateCatatanPerawat);
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis/tindakan`, AssessmentController.insertTindakan);
+routes.get(`/${apiBase}/${apiVersion}/rekam-medis/item-before`, AssessmentController.getItemBefore);
 
 // FILES
 routes.get(`/${apiBase}/${apiVersion}/rekam-medis/files`, FileController.getAll);

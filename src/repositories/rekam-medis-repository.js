@@ -1,5 +1,4 @@
 import RekamMedisModel from "../models/mongos/rekam-medis-model.js";
-import mongoose from "mongoose";
 import SessionModel from "../models/mongos/session-model.js";
 import sequelizeInstance from "../configurations/sequelize-instance.js";
 import RawatJalanModel from "../models/postgreses/rawat-jalan-model.js";
@@ -31,7 +30,6 @@ export default class RekamMedisRepository {
             }
         ).exec();
     }
-
 
     static async createNew(createRequest) {
         const newSession = new SessionModel();

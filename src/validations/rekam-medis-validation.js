@@ -1,5 +1,5 @@
 import {
-    alasanRequired, chatTypeRequired,
+    alasanRequired,
     idRequired,
     keyRequired, messageRequired, nameRequired,
     rekamMedisUuidRequired, required,
@@ -65,5 +65,11 @@ export default class RekamMedisValidation {
 
     static INSERT_TINDAKAN = z.object({
         session_uuid : z.string().min(1, sessionIdRequired),
+    })
+
+    static GET_ITEMS_BEFORE = z.object({
+        no_pelayanan :  z.string().min(1, required),
+        no_rm :  z.string().min(1, required),
+        key :  z.string().min(1, required),
     })
 }

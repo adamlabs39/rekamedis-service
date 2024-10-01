@@ -43,6 +43,8 @@ const rekamMedisSchema = new Schema({
     }
 })
 
+rekamMedisSchema.add(baseSchema);
+
 const RekamMedisModel = mongoose.model("rekam_medises", rekamMedisSchema);
 
 export default RekamMedisModel;
