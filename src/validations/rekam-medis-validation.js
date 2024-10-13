@@ -72,4 +72,11 @@ export default class RekamMedisValidation {
         no_rm :  z.string().min(1, required),
         key :  z.string().min(1, required),
     })
+
+    static PUSH_ORDER_OBAT = z.object(
+        {
+            session_uuid : z.string().min(1, sessionIdRequired),
+            order_obat_uuid : z.string().min(1, required),
+        }
+    )
 }

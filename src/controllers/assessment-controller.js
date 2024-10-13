@@ -62,7 +62,16 @@ export default class AssessmentController {
     static async getItemBefore(request, response, nextFunction) {
         try {
             const result = await AssessmentService.getItemBefore(request.query);
-            response.status(200).json(successResponse("data berhasil ditemukan", result));
+            response.status(200).json(successResponse("data berhasil ditemukan", result.data, result.metadata));
+        } catch (error) {
+            nextFunction(error);
+        }
+    }
+
+    static async pushOrderObat(request, response, nextFunction) {
+        try {
+            const result = await AssessmentService.pushOrderObat(request.body);
+            response.status(200).json(successResponse("data berhasil dibuat", result));
         } catch (error) {
             nextFunction(error);
         }

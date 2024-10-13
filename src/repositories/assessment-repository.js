@@ -96,12 +96,19 @@ export default class AssessmentRepository {
             return {
                 data: items,
                 metadata : {
-                    current_page: parseInt(currentPage),
+                    page: parseInt(currentPage),
                     total_pages: totalPages,
-                    total_documents: totalDocuments,
-                    limit: parseInt(limit)
+                    total: totalDocuments,
+                    page_size: parseInt(limit)
                 }
             };
     };
 
+    static async pushOrderObat(sessionId, orderObatId){
+        return await SessionModel.findOneAndUpdate({_id: sessionId}, {
+            $push :  {
+                "obat_uuides" : orderObatId
+            }
+        }, {new: true}).exec();
+    }
 }

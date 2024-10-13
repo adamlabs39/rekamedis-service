@@ -216,4 +216,10 @@ export default class AssessmentService {
 
         return await AssessmentRepository.getItemBefore(validReq.no_rm, validReq.no_pelayanan, request.page, request.limit, validReq.key);
     }
+
+    static async pushOrderObat(request) {
+        const validReq = ZodValidator.validate(RekamMedisValidation.PUSH_ORDER_OBAT, request);
+
+        return await AssessmentRepository.pushOrderObat(validReq.session_uuid, validReq.order_obat_uuid);
+    }
 }
