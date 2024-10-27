@@ -1,27 +1,44 @@
-version: '3.3'
+version: '3'
 services:
-  app:
-    build: .
+  adameds-rekamedis:
     container_name: adameds-Rekamedis
     ports:
-      - ${APPLICATION_PORT}:${APPLICATION_PORT}
+      - 8087:8087
     restart: always
     networks:
         - adameds-network
     environment:
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_DIALECT=${DB_DIALECT}
-      - DB_NAME=${DB_NAME}
-      - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
-      - APPLICATION_PORT=${APPLICATION_PORT}
-      - APPLICATION_HOST=${APPLICATION_HOST}
-      - MONGO_DB_NAME=${MONGO_DB_NAME}
-      - MONGO_DB_HOST=${MONGO_DB_HOST}
-      - MONGO_DB_PORT=${MONGO_DB_PORT}
-      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
-      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_DIALECT: ${DB_DIALECT}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+
+      MONGO_DB_NAME: ${MONGO_DB_NAME}
+      MONGO_DB_HOST: ${MONGO_DB_HOST}
+      MONGO_DB_PORT: ${MONGO_DB_PORT}
+      MONGO_DB_USERNAME: ${MONGO_DB_USERNAME}
+      MONGO_DB_PASSWORD: ${MONGO_DB_PASSWORD}
+    volumes:
+      - type: bind
+        source: /home/admin/adameds/public.key
+        target: /adameds-rekam-medis/public.key
+  
+  mongodb:
+    container_name: mongodb-rekamedis
+    image: mongodb/mongodb-community-server:6.0-ubi8:latest
+    ports:
+      - 27017:27017 
+    volumes:
+      - type: volume
+        source: mongo-volume
+        target: /data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_DB_PASSWORD}   
 networks:
-    adameds-network:
-        driver: bridge
+  adameds-network:
+    driver: bridge
+volumes:
+  mongo-volume: {}
