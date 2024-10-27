@@ -28,7 +28,7 @@ services:
   
   mongodb:
     container_name: mongodb-rekamedis
-    image: mongodb/mongodb-community-server:6.0-ubi8:latest
+    image: mongodb/mongodb-community-server:6.0-ubi8
     restart: always
     ports:
       - 27017:27017 
