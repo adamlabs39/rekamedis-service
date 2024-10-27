@@ -1,6 +1,7 @@
 version: '3'
 services:
   adameds-rekamedis:
+    image: adameds/rekamedis:dev
     container_name: adameds-Rekamedis
     ports:
       - 8087:8087
@@ -28,6 +29,7 @@ services:
   mongodb:
     container_name: mongodb-rekamedis
     image: mongodb/mongodb-community-server:6.0-ubi8:latest
+    restart: always
     ports:
       - 27017:27017 
     volumes:
