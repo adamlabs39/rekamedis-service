@@ -31,7 +31,7 @@ app.listen(APPLICATION_PORT, APPLICATION_HOST, async () => {
 
     try {
         for (const model of MODELMERGE) {
-            await model.sync({ alter: false, force: true });
+            // await model.sync({ alter: false, force: true });
         }
 
         await dbSeeder();
