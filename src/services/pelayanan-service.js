@@ -175,7 +175,8 @@ export default class PelayananService {
             encounter : "RI",
             faskesUuid : layanan.dataValues.faskesUuid,
             paymentMethod : layanan.dataValues.paymentMethod,
-            noPelayanan : noPelayanan
+            noPelayanan : noPelayanan,
+            no_spri : request.nomor_surat
         };
         return await PelayananRepository.createRawatInap(data);
     }
