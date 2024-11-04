@@ -44,4 +44,11 @@ export default class PelayananValidation {
     static CREATE_RAWAT_INAP = z.object({
         practitioner_uuid: z.string().min(1, required),
     })
+
+    static INSERT_HISTORY_TINDAKAN = z.object({
+        rekam_medis_uuid :z.string().min(1, required),
+        faskes_uuid :z.string().min(1, required),
+        lokasi_uuid :z.string().min(1, required),
+        pelayanan :z.string().min(1, required),
+    })
 }
