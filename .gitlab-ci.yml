@@ -6,6 +6,8 @@ build-image:
   stage: build
   before_script:
     - docker compose --env-file /home/admin/adameds/.env-rekamedis down --rmi all
+    - echo "@adameds:registry=https://gitlab.com/api/v4/groups/93029767/-/packages/npm/" >> .npmrc
+    - echo "//gitlab.com/api/v4/groups/93029767/-/packages/npm/:_authToken=$AUTH_TOKEN" >> .npmrc
   script:
     - docker build -t adameds/rekamedis:dev ./ --no-cache
   only:
