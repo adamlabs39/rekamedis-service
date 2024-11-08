@@ -1,13 +1,16 @@
-version: '3'
 services:
   adameds-rekamedis:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      no_cache: true
     image: adameds/rekamedis:dev
     container_name: adameds-Rekamedis
     ports:
       - 8087:8087
     restart: always
     networks:
-        - adameds-network
+        - rekamedis-network
     environment:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_USERNAME: ${DB_USERNAME}
@@ -40,7 +43,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_DB_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_DB_PASSWORD}   
 networks:
-  adameds-network:
+  rekamedis-network:
     driver: bridge
 volumes:
   mongo-volume: {}
