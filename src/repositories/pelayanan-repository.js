@@ -1,13 +1,9 @@
-import InstalasiGawatDaruratModel from "../models/postgreses/instalasi-gawat-darurat-model.js";
 import sequelizeInstance from "../configurations/sequelize-instance.js";
 import {Op} from "sequelize";
-import RawatJalanModel from "../models/postgreses/rawat-jalan-model.js";
-import RawatInapModel from "../models/postgreses/rawat-inap-model.js";
 import BadRequestException from "../errors/bad-request-exception.js";
-import HistoryTindakanModel from "../models/postgreses/history-tindakan-model.js";
-import PetugasTindakanModel from "../models/postgreses/petugas-tindakan-model.js";
-import OrderFisioModel from "../models/postgreses/order-fisio-model.js";
 import Utils from "../helpers/utils.js";
+import {InstalasiGawatDaruratModel, RawatInapModel, RawatJalanModel} from "@adameds/model-sdk/pelayanan";
+import {HistoryTindakanModel, OrderFisioModel, PetugasTindakanModel} from "@adameds/model-sdk/rekam-medis";
 
 export default class PelayananRepository {
     static async updateResume(pelayanan ,data) {

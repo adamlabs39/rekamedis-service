@@ -100,18 +100,22 @@ export default class PelayananService {
     static async dischargeService(request) {
         ZodValidator.validate(PelayananValidation.DISCHARGE, request);
 
-        const affectedRow = await PelayananRepository.dichargeService(request.pelayanan , Utils.snakeToCamelObject(request));
+        // TODO : ADD TRANSACTION FOR THIS TRANSACTION
+        await this.insertHistoryTindakan(request);
 
+        const affectedRow = await PelayananRepository.dichargeService(request.pelayanan , Utils.snakeToCamelObject(request));
         if (affectedRow[0] === 0) {
             throw new InternalServerException("Pelayanan tidak berhasil di discharge");
-        } else {
-            return {message: `berhasil discharge resume medis`}
         }
+
+        return {message: `berhasil discharge resume medis`}
+
     }
 
-    static async insertHistory(request) {
+    static async insertHistoryTindakan(request) {
         let historyTindakan = [];
         let petugasTindakan = [];
+        ZodValidator.validate(PelayananValidation.INSERT_HISTORY_TINDAKAN, request);
         const rekamMedis = await RekamMedisRepository.getResumeNeed({rekam_medis_uuid: request.rekam_medis_uuid})
 
         if (rekamMedis !== null) {
@@ -175,7 +179,8 @@ export default class PelayananService {
             encounter : "RI",
             faskesUuid : layanan.dataValues.faskesUuid,
             paymentMethod : layanan.dataValues.paymentMethod,
-            noPelayanan : noPelayanan
+            noPelayanan : noPelayanan,
+            no_spri : request.nomor_surat
         };
         return await PelayananRepository.createRawatInap(data);
     }

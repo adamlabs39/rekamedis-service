@@ -13,7 +13,7 @@ export default class RekamMedisController {
 
     static async createNew(request, response, nextFunction) {
         try {
-            request.body.faskes_uuid = response.locals.jwtData.faskesUuid;
+            request.body.faskes_uuid = request.author.faskesUuid;
             const result = await RekamMedisService.createNew(request.body);
             response.status(200).json(successResponse("data berhasil dibuat", result));
         } catch (error) {
@@ -32,7 +32,7 @@ export default class RekamMedisController {
 
     static async getHistory(request, response, nextFunction){
         try {
-            request.query.faskes_uuid = response.locals.jwtData.faskesUuid;
+            request.query.faskes_uuid = request.author.faskesUuid;
             const result = await RekamMedisService.getHistory(request.query);
             response.status(200).json(successResponse("data berhasil didapat", result));
         } catch (error){

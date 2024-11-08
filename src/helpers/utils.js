@@ -1,9 +1,7 @@
-import InstalasiGawatDaruratModel from "../models/postgreses/instalasi-gawat-darurat-model.js";
-import RawatInapModel from "../models/postgreses/rawat-inap-model.js";
-import RawatJalanModel from "../models/postgreses/rawat-jalan-model.js";
 import moment from "moment";
 import {Op} from "sequelize";
 import BadRequestException from "../errors/bad-request-exception.js";
+import {InstalasiGawatDaruratModel, RawatInapModel, RawatJalanModel} from "@adameds/model-sdk/pelayanan";
 
 export default class Utils {
     static camelToSnakeObject(obj, exclude = []) {

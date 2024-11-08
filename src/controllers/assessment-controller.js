@@ -4,7 +4,7 @@ import AssessmentService from "../services/assessment-service.js";
 export default class AssessmentController {
     static async insert(request, response, nextFunction) {
         try {
-            request.body.data.petugas = response.locals.jwtData.username;
+            request.body.data.petugas = request.author.username;
             const result = await AssessmentService.insert(request.body);
             response.status(200).json(successResponse("data berhasil dibuat", result));
         } catch (error) {
@@ -14,8 +14,8 @@ export default class AssessmentController {
 
     static async insertCatatanPerawat(request, response, nextFunction) {
         try {
-            request.body.user_uuid = response.locals.jwtData.userUuid;
-            request.body.name = response.locals.jwtData.username;
+            request.body.user_uuid = request.author.userUuid;
+            request.body.name = request.author.username;
             const result = await AssessmentService.insertCatatanPerawat(request.body);
             response.status(200).json(successResponse("data berhasil dibuat", result));
         } catch (error) {
@@ -62,7 +62,16 @@ export default class AssessmentController {
     static async getItemBefore(request, response, nextFunction) {
         try {
             const result = await AssessmentService.getItemBefore(request.query);
-            response.status(200).json(successResponse("data berhasil ditemukan", result));
+            response.status(200).json(successResponse("data berhasil ditemukan", result.data, result.metadata));
+        } catch (error) {
+            nextFunction(error);
+        }
+    }
+
+    static async pushOrderObat(request, response, nextFunction) {
+        try {
+            const result = await AssessmentService.pushOrderObat(request.body);
+            response.status(200).json(successResponse("data berhasil dibuat", result));
         } catch (error) {
             nextFunction(error);
         }

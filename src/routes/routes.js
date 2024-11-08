@@ -18,7 +18,6 @@ routes.get(`/${apiBase}/${apiVersion}/setting/health`, (req, res) => res.status(
 routes.get(`/${apiBase}/${apiVersion}/rekam-medis`, RekamMedisController.get);
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis`, RekamMedisController.createNew);
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis/record`, RekamMedisController.addRecord);
-routes.get(`/${apiBase}/${apiVersion}/rekam-medis/history`, RekamMedisController.getHistory);
 
 // SESSION
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis/session`, SessionController.create);
@@ -32,22 +31,22 @@ routes.put(`/${apiBase}/${apiVersion}/rekam-medis/chat/instruksi`, AssessmentCon
 routes.put(`/${apiBase}/${apiVersion}/rekam-medis/chat/catatan`, AssessmentController.updateCatatanPerawat);
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis/tindakan`, AssessmentController.insertTindakan);
 routes.get(`/${apiBase}/${apiVersion}/rekam-medis/item-before`, AssessmentController.getItemBefore);
-
-// FILES
-routes.get(`/${apiBase}/${apiVersion}/rekam-medis/files`, FileController.getAll);
-routes.post(`/${apiBase}/${apiVersion}/rekam-medis/files`, FileController.upload);
-routes.delete(`/${apiBase}/${apiVersion}/rekam-medis/files`, FileController.delete);
-routes.put(`/${apiBase}/${apiVersion}/rekam-medis/files`, FileController.update);
-routes.get(`/${apiBase}/${apiVersion}/rekam-medis/files/letters`, FileController.getLetters);
-routes.get(`/${apiBase}/${apiVersion}/rekam-medis/files/generate-code`, FileController.generateLetterCode);
+routes.post(`/${apiBase}/${apiVersion}/rekam-medis/order-obat`, AssessmentController.pushOrderObat);
 
 // INFORM CONSENT
 routes.get(`/${apiBase}/${apiVersion}/rekam-medis/inform-consent`, InformConsentController.getAll);
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis/inform-consent`, InformConsentController.create);
 
-// RESUME MEDIS
-routes.put(`/${apiBase}/${apiVersion}/rekam-medis/resume`, PelayananController.updateResume);
-routes.get(`/${apiBase}/${apiVersion}/rekam-medis/resume`, PelayananController.getResume);
-routes.put(`/${apiBase}/${apiVersion}/rekam-medis/discharge`, PelayananController.dischargeService);
+// PELAYANAN
+routes.put(`/${apiBase}/${apiVersion}/pelayanan/resume`, PelayananController.updateResume);
+routes.get(`/${apiBase}/${apiVersion}/pelayanan/resume`, PelayananController.getResume);
+routes.put(`/${apiBase}/${apiVersion}/pelayanan/discharge`, PelayananController.dischargeService);
+routes.get(`/${apiBase}/${apiVersion}/pelayanan/files`, FileController.getAll);
+routes.post(`/${apiBase}/${apiVersion}/pelayanan/files`, FileController.upload);
+routes.delete(`/${apiBase}/${apiVersion}/pelayanan/files`, FileController.delete);
+routes.put(`/${apiBase}/${apiVersion}/pelayanan/files`, FileController.update);
+routes.get(`/${apiBase}/${apiVersion}/pelayanan/files/letters`, FileController.getLetters);
+routes.get(`/${apiBase}/${apiVersion}/pelayanan/files/generate-code`, FileController.generateLetterCode);
+routes.get(`/${apiBase}/${apiVersion}/pelayanan/history`, RekamMedisController.getHistory);
 
 export default routes;

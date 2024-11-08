@@ -48,6 +48,7 @@ const sessionSchema = new Schema(
         implementation: fisioterapiSchema,
         evaluation: fisioterapiSchema,
         reassessment: fisioterapiSchema,
+        obat_uuides : [String],
     }
 )
 

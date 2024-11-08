@@ -1,6 +1,6 @@
-import FaskesModel from "../models/postgreses/faskes-model.js";
 import sequelizeInstance from "../configurations/sequelize-instance.js";
-import FaskesProfilesModel from "../models/postgreses/faskes-profiles-model.js";
+import {FaskesModel} from "@adameds/model-sdk/datamaster";
+import {FaskesProfilesModel} from "@adameds/model-sdk/setting";
 
 export default class FaskesRepository {
     static async getByUuid(uuid) {

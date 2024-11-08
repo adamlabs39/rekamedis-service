@@ -4,8 +4,8 @@ import successResponse from "../responses/success-response.js";
 export default class InformConsentController {
     static async create(request, response, nextFunction) {
         try {
-            request.body.faskes_uuid = response.locals.jwtData.faskesUuid;
-            request.body.petugas = response.locals.jwtData.username;
+            request.body.faskes_uuid = request.author.faskesUuid;
+            request.body.petugas = request.author.username;
             const result = await InformConsentService.create(request.body);
             response.status(200).json(successResponse("data berhasil dibuat"));
         } catch (error) {

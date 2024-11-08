@@ -13,7 +13,7 @@ export default class FileController {
 
     static async upload(request, response, nextFunction) {
         try {
-            request.body.faskes_uuid = response.locals.jwtData.faskesUuid;
+            request.body.faskes_uuid = request.author.faskesUuid;
             const result = await FileService.upload(request.body);
             response.status(200).json(successResponse("data berhasil dibuat", result));
         } catch (error) {
@@ -50,7 +50,7 @@ export default class FileController {
 
     static async generateLetterCode(request, response, nextFunction) {
         try {
-            request.body.faskes_uuid = response.locals.jwtData.faskesUuid;
+            request.body.faskes_uuid = request.author.faskesUuid;
             request.body.file_type =request.query.type
             const result = await FileService.generateCode(request.body);
             response.status(200).json(successResponse("data berhasil didapat", result));
