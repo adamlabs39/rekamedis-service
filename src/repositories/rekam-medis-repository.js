@@ -1,14 +1,10 @@
 import RekamMedisModel from "../models/mongos/rekam-medis-model.js";
 import SessionModel from "../models/mongos/session-model.js";
 import sequelizeInstance from "../configurations/sequelize-instance.js";
-import RawatJalanModel from "../models/postgreses/rawat-jalan-model.js";
-import RawatInapModel from "../models/postgreses/rawat-inap-model.js";
-import InstalasiGawatDaruratModel from "../models/postgreses/instalasi-gawat-darurat-model.js";
 import {Op} from "sequelize";
-import PractitionerModel from "../models/postgreses/practitioner-model.js";
-import PegawaiModel from "../models/postgreses/pegawai-model.js";
-import LokasiModel from "../models/postgreses/lokasi-model.js";
-import OrderFisioModel from "../models/postgreses/order-fisio-model.js";
+import {InstalasiGawatDaruratModel, RawatInapModel, RawatJalanModel} from "@adameds/model-sdk/pelayanan";
+import {OrderFisioModel} from "@adameds/model-sdk/rekam-medis";
+import {LokasiModel, PegawaiModel, PractitionerModel} from "@adameds/model-sdk/datamaster";
 
 export default class RekamMedisRepository {
     static async get(request) {

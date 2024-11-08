@@ -1,6 +1,6 @@
 import sequelizeInstance from "../configurations/sequelize-instance.js";
-import FileModel from "../models/postgreses/file-model.js";
 import {Op} from "sequelize";
+import {FileModel} from "@adameds/model-sdk/rekam-medis";
 
 export default class FileRepository {
     static async create(request) {
