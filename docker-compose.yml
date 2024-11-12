@@ -12,44 +12,17 @@ services:
     networks:
         - rekamedis-network
     environment:
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_USERNAME: ${DB_USERNAME}
-      DB_DIALECT: ${DB_DIALECT}
-      DB_NAME: ${DB_NAME}
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
-
-      MONGO_DB_NAME: ${MONGO_DB_NAME}
-      MONGO_DB_HOST: ${MONGO_DB_HOST}
-      MONGO_DB_PORT: ${MONGO_DB_PORT}
-      MONGO_DB_USERNAME: ${MONGO_DB_USERNAME}
-      MONGO_DB_PASSWORD: ${MONGO_DB_PASSWORD}
-
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
-      REDIS_USERNAME: ${default}
-      REDIS_HOST: ${REDIS_HOST}
-      REDIS_PORT: ${REDIS_PORT}
-      REDIS_DATABASE: ${REDIS_DATABASE}
+      DOTENV_KEY: ${DOTENV_KEY}
     volumes:
       - type: bind
         source: /home/admin/adameds/public.key
         target: /adameds-rekam-medis/public.key
-  
-  mongodb:
-    container_name: mongodb-rekamedis
-    image: mongodb/mongodb-community-server:6.0-ubi8
-    restart: always
-    ports:
-      - 27017:27017 
-    volumes:
-      - type: volume
-        source: mongo-volume
-        target: /data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_DB_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_DB_PASSWORD}   
+      - type: bind
+        source: /home/admin/adameds/private.key
+        target: /adameds-rekam-medis/private.key
+      - type: bind
+        source: /home/admin/adameds/.env.vault
+        target: /adameds-rekam-medis/.env.vault
 networks:
   rekamedis-network:
     driver: bridge
-volumes:
-  mongo-volume: {}
