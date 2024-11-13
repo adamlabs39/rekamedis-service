@@ -10,4 +10,23 @@ export default class FpoController {
             nextFunction(error);
         }
     }
+
+    static async insert(request, response, nextFunction) {
+        try {
+            request.body.faskes_uuid = request.author.faskesUuid;
+            await FpoService.insert(request.body);
+            response.status(201).json(successResponse("data berhasil ditambahkan"));
+        } catch (error) {
+            nextFunction(error);
+        }
+    }
+
+    static async update(request, response, nextFunction) {
+        try {
+            await FpoService.update(request.body);
+            response.status(200).json(successResponse("data berhasil diubah"));
+        } catch (error) {
+            nextFunction(error);
+        }
+    }
 }

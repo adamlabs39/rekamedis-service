@@ -17,6 +17,8 @@ routes.get(`/${apiBase}/${apiVersion}/setting/health`, (req, res) => res.status(
 
 // FPO
 routes.get(`/${apiBase}/${apiVersion}/rekam-medis/fpo`, FpoController.get);
+routes.post(`/${apiBase}/${apiVersion}/rekam-medis/fpo`, FpoController.insert);
+routes.put(`/${apiBase}/${apiVersion}/rekam-medis/fpo`, FpoController.update);
 
 // REKAM MEDIS
 routes.get(`/${apiBase}/${apiVersion}/rekam-medis`, RekamMedisController.get);

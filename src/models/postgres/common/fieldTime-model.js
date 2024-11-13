@@ -2,18 +2,18 @@ import { DataTypes } from "sequelize";
 import moment from "moment";
 
 export const fieldTime = {
-    createdAt: {
+    created_at: {
         type: DataTypes.BIGINT,
         allowNull: false,
         unique: false,
         defaultValue: () => moment().unix(),
     },
-    updatedAt: {
+    updated_at: {
         type: DataTypes.BIGINT,
         allowNull: true,
         unique: false,
     },
-    deletedAt: {
+    deleted_at: {
         type: DataTypes.BIGINT,
         allowNull: true,
         unique: false,
