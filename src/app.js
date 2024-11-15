@@ -3,6 +3,7 @@ import cors from "cors";
 import routes from "./routes/routes.js";
 import errorMiddleware from "./middlewares/error-middleware.js";
 import authorizationSdk from "@adameds/authorization-sdk";
+import mongooseInstance from "./configurations/mongoose-instance.js";
 
 const APPLICATION_PORT = process.env.APPLICATION_PORT;
 const APPLICATION_HOST = process.env.APPLICATION_HOST;
@@ -16,6 +17,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(authorizationSdk([]));
+await mongooseInstance();
 app.use(routes);
 app.use(errorMiddleware);
 
