@@ -12,8 +12,8 @@ export default class FpoRepository {
                 prescription_item_uuid: req.prescription_item_uuid,
                 jam_pemberian: {
                     [Op.between]: [
-                        moment(selectedDate).startOf('day').valueOf(),
-                        moment(selectedDate).endOf('day').valueOf()
+                        moment(selectedDate).startOf('day').unix(),
+                        moment(selectedDate).endOf('day').unix()
                     ]
                 },
             },
