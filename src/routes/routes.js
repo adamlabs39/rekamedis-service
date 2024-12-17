@@ -5,6 +5,7 @@ import AssessmentController from "../controllers/assessment-controller.js";
 import FileController from "../controllers/file-controller.js";
 import InformConsentController from "../controllers/inform-consent-controller.js";
 import PelayananController from "../controllers/pelayanan-controller.js";
+import FpoController from "../controllers/fpo-controller.js";
 
 const apiBase = process.env.API_BASE || "api";
 const apiVersion = process.env.API_VERSION || "v1";
@@ -13,6 +14,11 @@ const routes = express.Router();
 
 // HEALTH CHECK
 routes.get(`/${apiBase}/${apiVersion}/setting/health`, (req, res) => res.status(200).json({ message: "OK" }));
+
+// FPO
+routes.get(`/${apiBase}/${apiVersion}/rekam-medis/fpo`, FpoController.get);
+routes.post(`/${apiBase}/${apiVersion}/rekam-medis/fpo`, FpoController.insert);
+routes.put(`/${apiBase}/${apiVersion}/rekam-medis/fpo`, FpoController.update);
 
 // REKAM MEDIS
 routes.get(`/${apiBase}/${apiVersion}/rekam-medis`, RekamMedisController.get);

@@ -13,13 +13,9 @@ services:
         - rekamedis-network
     environment:
       DOTENV_KEY: ${DOTENV_KEY}
+      API_BASE: ${API_BASE}
+      API_VERSION: ${API_VERSION}
     volumes:
-      - type: bind
-        source: /home/admin/adameds/public.key
-        target: /adameds-rekam-medis/public.key
-      - type: bind
-        source: /home/admin/adameds/private.key
-        target: /adameds-rekam-medis/private.key
       - type: bind
         source: /home/admin/adameds/.env.vault
         target: /adameds-rekam-medis/.env.vault

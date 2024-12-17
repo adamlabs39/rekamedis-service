@@ -17,7 +17,7 @@ export default class RekamMedisService {
         const dates = rekamMedis.daily_records.map((daily_record, index) => {
             return {
                 date: daily_record.date,
-                is_selected : ((request.date_order ?? rekamMedis.daily_records.length) - 1)  === index
+                is_selected: ((request.date_order ?? rekamMedis.daily_records.length) - 1) === index
             };
         });
 
@@ -39,9 +39,9 @@ export default class RekamMedisService {
 
         sessions = sessions.map((session, index) => {
             return {
-                id : session._id,
-                order : index + 1,
-                is_selected : index === session_order
+                id: session._id,
+                order: index + 1,
+                is_selected: index === session_order
             }
         });
 
@@ -49,8 +49,14 @@ export default class RekamMedisService {
             dates: dates,
             sessions: sessions,
             data: data,
-            summary : rekamMedis.summary,
-            is_latest : (++session_order === sessions.length) && (++date_order === dates.length)
+            summary: rekamMedis.summary,
+            is_latest: (++session_order === sessions.length) && (++date_order === dates.length),
+            meta: {
+                rekam_medis_uuid: rekamMedis._id,
+                pelayanan: rekamMedis.pelayanan,
+                lokasi_uuid: rekamMedis.lokasi_uuid,
+                payment_method: rekamMedis.payment_method
+            },
         }
     }
 
@@ -62,7 +68,7 @@ export default class RekamMedisService {
         const dates = rekamMedis.daily_records.map((daily_record) => {
             return {
                 date: daily_record.date,
-                is_selected : true
+                is_selected: true
             };
         });
 
@@ -72,9 +78,9 @@ export default class RekamMedisService {
 
         sessions = sessions.map((session, index) => {
             return {
-                id : session._id,
-                order : index + 1,
-                is_selected : true
+                id: session._id,
+                order: index + 1,
+                is_selected: true
             }
         });
 
@@ -89,12 +95,18 @@ export default class RekamMedisService {
             sessions: sessions,
             data: data,
             rekam_medis_uuid: rekamMedis._id,
-            summary : rekamMedis.summary,
-            is_latest : true
+            summary: rekamMedis.summary,
+            is_latest: true,
+            meta: {
+                rekam_medis_uuid: rekamMedis._id,
+                pelayanan: rekamMedis.pelayanan,
+                lokasi_uuid: rekamMedis.lokasi_uuid,
+                payment_method: rekamMedis.payment_method
+            },
         }
     }
 
-    static async addRecord(request){
+    static async addRecord(request) {
         const validReq = ZodValidator.validate(RekamMedisValidation.ADDRECORD, request);
         const rekamMedis = await RekamMedisRepository.addRecord(validReq.rekam_medis_uuid, validReq.date);
         const dailyRecords = rekamMedis.daily_records;
@@ -102,19 +114,19 @@ export default class RekamMedisService {
         const dates = dailyRecords.map((daily_record) => {
             return {
                 date: daily_record.date,
-                is_selected : daily_record.date === validReq.date
+                is_selected: daily_record.date === validReq.date
             };
         });
 
         return {
             dates: dates,
-            sessions: [{id: dailyRecords[dailyRecords.length -1].sessions[0], order: 1, is_selected : true}],
-            data : {
-                _id : rekamMedis.daily_records[dailyRecords.length -1].sessions[0],
-                order : 1,
+            sessions: [{id: dailyRecords[dailyRecords.length - 1].sessions[0], order: 1, is_selected: true}],
+            data: {
+                _id: rekamMedis.daily_records[dailyRecords.length - 1].sessions[0],
+                order: 1,
             },
-            summary : rekamMedis.summary,
-            is_latest : true
+            summary: rekamMedis.summary,
+            is_latest: true
         }
     }
 
