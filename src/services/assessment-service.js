@@ -1,9 +1,9 @@
 import ZodValidator from "../validations/zod-validator.js";
 import RekamMedisValidation from "../validations/rekam-medis-validation.js";
 import AssessmentRepository from "../repositories/assessment-repository.js";
+import {toEpochDate} from "../helpers/date-helper.js";
 import RekamMedisRepository from "../repositories/rekam-medis-repository.js";
 import {z} from "zod";
-import moment from "moment";
 
 export default class AssessmentService {
     static async insert(request) {
@@ -25,7 +25,7 @@ export default class AssessmentService {
             message: validReq.message,
             name: validReq.name,
             user_uuid: validReq.user_uuid,
-            time: moment().unix()
+            time: toEpochDate(new Date())
         }
 
         return await AssessmentRepository.insertCatatanPerawat(validReq.session_uuid, data);
@@ -38,7 +38,7 @@ export default class AssessmentService {
             message: validReq.message,
             name: validReq.name,
             user_uuid: validReq.user_uuid,
-            time: moment().unix()
+            time: toEpochDate(new Date())
         }
 
         return await AssessmentRepository.insertInstruksiMedis(validReq.session_uuid, data);

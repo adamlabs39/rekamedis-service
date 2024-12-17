@@ -3,10 +3,10 @@ import ZodValidator from "../validations/zod-validator.js";
 import FileValidation from "../validations/file-validation.js";
 import NotfoundException from "../errors/notfound-exception.js";
 import { z } from "zod";
+import {toEpochDate} from "../helpers/date-helper.js";
 import Utils from "../helpers/utils.js";
 import PelayananService from "./pelayanan-service.js";
 import FaskesRepository from "../repositories/faskes-repository.js";
-import moment from "moment";
 
 
 export default class FileService {
@@ -49,7 +49,7 @@ export default class FileService {
     static async update(request) {
         ZodValidator.validate(FileValidation.UPDATE, request);
 
-        request.updatedAt = moment().unix();
+        request.updatedAt = toEpochDate(new Date());
         const affectedRow = await FileRepository.updateByUuid(request);
         if (affectedRow === 0) {
             throw new NotfoundException("File tidak ditemukan");
