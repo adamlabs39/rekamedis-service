@@ -40,6 +40,9 @@ const rekamMedisSchema = new Schema({
     },
     lokasi_uuid : {
         type: String,
+    },
+    payment_method : {
+        type : Number
     }
 })
 
