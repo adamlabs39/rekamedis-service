@@ -1,6 +1,6 @@
 import SessionModel from "../models/mongos/session-model.js";
 import RekamMedisModel from "../models/mongos/rekam-medis-model.js";
-import {toEpochDate} from "../helpers/date-helper.js";
+import moment from "moment";
 
 export default class SessionRepository {
     static async getById(id) {
@@ -20,7 +20,7 @@ export default class SessionRepository {
 
     static async delete(id, alasan) {
         return await SessionModel.findOneAndUpdate({_id: id}, {
-            "deleted_at": toEpochDate(new Date(),),
+            "deleted_at": moment().unix(),
             "alasan": alasan
         }, {new: true}).exec();
     }
