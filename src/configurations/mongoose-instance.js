@@ -10,7 +10,9 @@ const DB_AUTH_SOURCE = process.env.MONGO_DB_AUTH_SOURCE || 'admin';
 
 const mongooseInstance = async () => {
     try {
-        await mongoose.connect(`mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`);
+        const url = `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`
+        console.log(url);
+        await mongoose.connect(url);
         console.log("Connected to MongoDB");
     } catch (error) {
         console.error("Error connecting to MongoDB", error);
