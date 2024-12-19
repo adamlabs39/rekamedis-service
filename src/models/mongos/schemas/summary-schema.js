@@ -22,6 +22,10 @@ const summarySchema = new Schema({
         type: Number,
         default : 0,
     },
+    warna_triase : {
+        type: String,
+        default : '-',
+    },
     tinggi_badan : {
         type: Number,
         default : 0,
