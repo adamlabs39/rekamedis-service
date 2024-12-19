@@ -86,7 +86,12 @@ export default class AssessmentService {
                 if (request.data.berat_badan !== null) {
                     data.summary.berat_badan = request.data.berat_badan;
                 }
-            } else if (request.key === 'kesadaran') {
+            } else if (request.key === 'triase'){
+                if (request.data.warna_triase !== null) {
+                    data.summary.warna_triase = request.data.warna_triase;
+                }
+            }
+            else if (request.key === 'kesadaran') {
                 if (request.data.gcs_score !== null) {
                     data.summary.gcs_score = request.data.gcs_score;
                 }
