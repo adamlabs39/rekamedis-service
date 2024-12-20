@@ -3,13 +3,13 @@ import baseSchema from "./base-schema.js";
 
 const triaseSchema = new Schema({
     kasus : {
-        type: Number,
+        type: String,
     },
     eye : {
-        type: Number,
+        type: String,
     },
     verbal : {
-        type: Number,
+        type: String,
     },
     keadaan_umum : {
         type: String,
@@ -18,7 +18,7 @@ const triaseSchema = new Schema({
         type: String,
     },
     motorik : {
-        type: Number,
+        type: String,
     },
     gcs_score : {
         type: String,
