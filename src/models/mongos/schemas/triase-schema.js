@@ -11,6 +11,12 @@ const triaseSchema = new Schema({
     verbal : {
         type: Number,
     },
+    keadaan_umum : {
+        type: String,
+    },
+    asal_rujukan : {
+        type: String,
+    },
     motorik : {
         type: Number,
     },
