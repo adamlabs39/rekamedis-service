@@ -6,8 +6,7 @@ export default class SessionService {
     static async add(request) {
         const validReq = ZodValidator.validate(RekamMedisValidation.ADDSESSION, request);
         const rekamMedis = await SessionRepository.add(validReq.rekam_medis_uuid, validReq.date_order - 1);
-
-        const sessions = rekamMedis.daily_records[validReq.date_order].sessions;
+        const sessions = rekamMedis.daily_records[validReq.date_order - 1].sessions;
         const data = await SessionRepository.getById(sessions[sessions.length - 1]);
 
         return {
