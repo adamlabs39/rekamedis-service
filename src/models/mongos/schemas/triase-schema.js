@@ -6,10 +6,10 @@ const triaseSchema = new Schema({
         type: String,
     },
     eye : {
-        type: String,
+        type: Number,
     },
     verbal : {
-        type: String,
+        type: Number,
     },
     keadaan_umum : {
         type: String,
@@ -18,9 +18,12 @@ const triaseSchema = new Schema({
         type: String,
     },
     motorik : {
-        type: String,
+        type: Number,
     },
     gcs_score : {
+        type: Number,
+    },
+    gcs_kesimpulan : {
         type: String,
     },
     tekanan_darah_sistole : {

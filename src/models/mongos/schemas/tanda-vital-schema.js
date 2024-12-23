@@ -5,9 +5,6 @@ const tandaVitalSchema = new Schema({
     kriteria_pemantauan : {
         type: String,
     },
-    tekanan_darah : {
-        type: Number,
-    },
     frekuensi_nafas : {
         type: Number,
     },
@@ -33,18 +30,25 @@ const tandaVitalSchema = new Schema({
         type : Number
     },
     respirasi_anak : {
-        type : Number
+        type : String
     },
     kardiovaskuler_anak : {
-        type : Number
+        type : String
     },
     keadaan_umum : {
-        type : Number
+        type : String
     },
     petugas : {
         type: String,
         required: true,
-    }
+    },
+    tekanan_darah_sistole : {
+        type: Number,
+    },
+    tekanan_darah_diastole : {
+        type: Number,
+    },
+
 })
 
 tandaVitalSchema.add(baseSchema)

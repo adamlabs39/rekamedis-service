@@ -66,8 +66,11 @@ export default class AssessmentService {
 
         if (request.is_latest) {
             if (request.key === 'tanda_vital') {
-                if (request.data.tekanan_darah !== null) {
-                    data.summary.tekanan_darah = request.data.tekanan_darah;
+                if (request.data.tekanan_darah_sistole !== null) {
+                    data.summary.tekanan_darah_sistole = request.data.tekanan_darah_sistole;
+                }
+                if (request.data.tekanan_darah_diastole !== null) {
+                    data.summary.tekanan_darah_diastole = request.data.tekanan_darah_diastole;
                 }
                 if (request.data.frekuensi_nadi !== null) {
                     data.summary.frekuensi_nadi = request.data.frekuensi_nadi;

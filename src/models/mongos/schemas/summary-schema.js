@@ -2,7 +2,11 @@ import {Schema} from "mongoose";
 import diagnosisDokterSchema from "./diagnosis-dokter-schema.js";
 
 const summarySchema = new Schema({
-    tekanan_darah : {
+    tekanan_darah_sistole : {
+        type: Number,
+        default : 0,
+    },
+    tekanan_darah_diastole : {
         type: Number,
         default : 0,
     },
