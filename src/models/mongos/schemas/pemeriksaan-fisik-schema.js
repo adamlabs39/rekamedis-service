@@ -24,14 +24,26 @@ const pemeriksaanFisikSchema = new Schema({
     gambar_mata : {
         type: String,
     },
-    telinga : {
+    telinga_kanan : {
         type: Boolean,
     },
-    ket_telinga : {
+    ket_telinga_kanan : {
         type: String,
     },
-    gambar_telinga : {
+    gambar_telinga_kanan : {
         type : String,
+    },
+    telinga_kiri : {
+        type: Boolean,
+    },
+    ket_telinga_kiri : {
+        type: String,
+    },
+    gambar_telinga_kiri : {
+        type : String,
+    },
+    rongga_mulut : {
+        type: Boolean,
     },
     hidung : {
         type: Boolean,
@@ -67,6 +79,15 @@ const pemeriksaanFisikSchema = new Schema({
         type: String,
     },
     gambar_leher : {
+        type: String,
+    },
+    leher_depan : {
+        type: Boolean,
+    },
+    ket_leher_depan : {
+        type: String,
+    },
+    gambar_leher_depan : {
         type: String,
     },
     dada : {
@@ -123,25 +144,40 @@ const pemeriksaanFisikSchema = new Schema({
     gambar_urogential : {
         type: String,
     },
-    ekstermitas : {
+    ekstermitas_atas : {
         type: Boolean,
     },
-    ket_ekstermitas : {
+    ket_ekstermitas_atas : {
         type: String,
     },
-    gambar_ekstermitas : {
+    gambar_ekstermitas_atas : {
         type: String,
     },
-    muskulosketerol : {
+    ekstermitas_bawah : {
         type: Boolean,
     },
-    ket_muskulosketerol : {
+    ket_ekstermitas_bawah : {
         type: String,
     },
-    gambar_muskulosketerol : {
+    gambar_ekstermitas_bawah : {
+        type: String,
+    },
+    muskuloskeletal : {
+        type: Boolean,
+    },
+    ket_muskuloskeletal : {
+        type: String,
+    },
+    gambar_muskuloskeletal : {
         type: String,
     },
     pemeriksaan_lainnya : {
+        type: Boolean,
+    },
+    ket_pemeriksaan_lainnya : {
+        type: String,
+    },
+    gambar_pemeriksaan_lainnya : {
         type: String,
     },
     ohis : ohisSchema,
