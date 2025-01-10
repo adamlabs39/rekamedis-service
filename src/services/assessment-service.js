@@ -9,6 +9,10 @@ export default class AssessmentService {
     static async insert(request) {
         const validReq = ZodValidator.validate(RekamMedisValidation.INSERTASSESSMENT, request);
 
+        if (request.key === 'diagnosis_dokter') {
+            request.data[request.data.length -1 ].petugas = request.data?.petugas;
+        }
+
         const session = await AssessmentRepository.insert(validReq.session_uuid, request.data, validReq.key);
 
         const rekamMedis = await this.updateSummary(request);
