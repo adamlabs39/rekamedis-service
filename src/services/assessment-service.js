@@ -12,7 +12,7 @@ export default class AssessmentService {
         if (request.key === 'diagnosis_dokter') {
            for (let i = 0; i < request.data.length; i++) {
                if (!request.data[i].petugas) {
-                     request.data[i].petugas = request.data.petugas;
+                     request.data[i].petugas = request.petugas;
                }
            }
         }

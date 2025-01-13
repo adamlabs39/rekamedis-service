@@ -5,6 +5,7 @@ export default class AssessmentController {
     static async insert(request, response, nextFunction) {
         try {
             request.body.data.petugas = request.author.username;
+            request.body.petugas = request.author.username;
             const result = await AssessmentService.insert(request.body);
             response.status(200).json(successResponse("data berhasil dibuat", result));
         } catch (error) {
