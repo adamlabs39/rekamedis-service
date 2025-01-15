@@ -15,7 +15,8 @@ export default class AssessmentController {
 
     static async insertCatatanPerawat(request, response, nextFunction) {
         try {
-            // TODO : CHANGE TO request.body.user_uuid = request.author.userUuid
+            // request.body.user_uuid = request.author.userUuid;
+            // TODO : BRING BACK DYNAMIC USER_UUID
             request.body.user_uuid = "0192b31f-365d-731c-8b16-3a4565c9475e";
             request.body.name = request.author.username;
             const result = await AssessmentService.insertCatatanPerawat(request.body);

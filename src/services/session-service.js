@@ -23,4 +23,14 @@ export default class SessionService {
             validReq.alasan
         )
     }
+
+    static async getInstruksiMedises(request){
+        const validReq = ZodValidator.validate(RekamMedisValidation.GET_INSTRUKSI_MEDISES, request);
+        return await SessionRepository.getInstruksiMedises(validReq.session_uuid);
+    }
+
+    static async getCatatanPerawat(request){
+        const validReq = ZodValidator.validate(RekamMedisValidation.GET_INSTRUKSI_MEDISES, request);
+        return await SessionRepository.getCatatanPerawat(validReq.session_uuid);
+    }
 }

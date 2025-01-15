@@ -1,6 +1,8 @@
 import SessionModel from "../models/mongos/session-model.js";
 import RekamMedisModel from "../models/mongos/rekam-medis-model.js";
 import moment from "moment";
+import InstruksiMedisModel from "../models/mongos/instruksi-medis-model.js";
+import CatatanPerawatModel from "../models/mongos/catatan-perawat-model.js";
 
 export default class SessionRepository {
     static async getById(id) {
@@ -23,5 +25,17 @@ export default class SessionRepository {
             "deleted_at": moment().unix(),
             "alasan": alasan
         }, {new: true}).exec();
+    }
+
+    static async getInstruksiMedises(sessionUuid){
+        return await InstruksiMedisModel.find({
+            session_uuid: sessionUuid
+        }).exec();
+    }
+
+    static async getCatatanPerawat(sessionUuid){
+        return await CatatanPerawatModel.find({
+            session_uuid: sessionUuid
+        }).exec();
     }
 }

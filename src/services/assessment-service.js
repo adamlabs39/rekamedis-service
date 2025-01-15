@@ -33,7 +33,8 @@ export default class AssessmentService {
             message: validReq.message,
             name: validReq.name,
             user_uuid: validReq.user_uuid,
-            time: moment().unix()
+            time: moment().unix(),
+            session_uuid : validReq.session_uuid
         }
 
         return await AssessmentRepository.insertCatatanPerawat(validReq.session_uuid, data);
@@ -46,7 +47,8 @@ export default class AssessmentService {
             message: validReq.message,
             name: validReq.name,
             user_uuid: validReq.user_uuid,
-            time: moment().unix()
+            time: moment().unix(),
+            session_uuid : validReq.session_uuid
         }
 
         return await AssessmentRepository.insertInstruksiMedis(validReq.session_uuid, data);

@@ -19,4 +19,22 @@ export default class SessionController {
             nextFunction(error);
         }
     }
+
+    static async getInstruksiMedises(request, response, nextFunction){
+        try {
+            const result = await SessionService.getInstruksiMedises(request.query);
+            response.status(200).json(successResponse("data berhasil didapat", result));
+        } catch (error){
+            nextFunction(error);
+        }
+    }
+
+    static async getCatatanPerawat(request, response, nextFunction){
+        try {
+            const result = await SessionService.getCatatanPerawat(request.query);
+            response.status(200).json(successResponse("data berhasil didapat", result));
+        } catch (error){
+            nextFunction(error);
+        }
+    }
 }

@@ -38,6 +38,8 @@ routes.put(`/${apiBase}/${apiVersion}/rekam-medis/chat/catatan`, AssessmentContr
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis/tindakan`, AssessmentController.insertTindakan);
 routes.get(`/${apiBase}/${apiVersion}/rekam-medis/item-before`, AssessmentController.getItemBefore);
 routes.post(`/${apiBase}/${apiVersion}/rekam-medis/order-obat`, AssessmentController.pushOrderObat);
+routes.get(`/${apiBase}/${apiVersion}/rekam-medis/chat/instruksi`, SessionController.getInstruksiMedises);
+routes.get(`/${apiBase}/${apiVersion}/rekam-medis/chat/catatan`, SessionController.getCatatanPerawat);
 
 // INFORM CONSENT
 routes.get(`/${apiBase}/${apiVersion}/rekam-medis/inform-consent`, InformConsentController.getAll);

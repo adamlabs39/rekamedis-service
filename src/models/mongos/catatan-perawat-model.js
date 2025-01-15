@@ -16,6 +16,10 @@ const catatanPerawatSchema = new Schema({
     time : {
         type: Number,
         required: true,
+    },
+    session_uuid : {
+        type : String,
+        required : true
     }
 })
 

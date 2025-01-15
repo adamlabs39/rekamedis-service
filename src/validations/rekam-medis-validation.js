@@ -79,4 +79,8 @@ export default class RekamMedisValidation {
             order_obat_uuid : z.string().min(1, required),
         }
     )
+
+    static GET_INSTRUKSI_MEDISES = z.object({
+        session_uuid : z.string().min(1, sessionIdRequired),
+    })
 }
