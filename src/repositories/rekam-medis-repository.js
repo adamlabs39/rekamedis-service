@@ -82,7 +82,7 @@ export default class RekamMedisRepository {
                                                 as: "pegawai",
                                                 required: true,
                                                 where: {deletedAt: {[Op.is]: null}},
-                                                attributes: ["title", "nama", "gender"]
+                                                attributes: ["first_title", "nama", "gender", "last_title"]
                                             }
                                         ]
                                     },
