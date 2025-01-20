@@ -13,6 +13,10 @@ const instruksiMedisSchema = new Schema({
         type: String,
         required: true,
     },
+    dokter_name : {
+        type: String,
+        required: true,
+    },
     time : {
         type: Number,
         required: true,

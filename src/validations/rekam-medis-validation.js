@@ -48,6 +48,7 @@ export default class RekamMedisValidation {
             message : z.string().min(1, messageRequired),
             name : z.string().min(1, nameRequired),
             user_uuid : z.string().min(1, userUuidRequired),
+            dokter_name : z.string().optional(),
         }
     )
 

@@ -48,7 +48,8 @@ export default class AssessmentService {
             name: validReq.name,
             user_uuid: validReq.user_uuid,
             time: moment().unix(),
-            session_uuid : validReq.session_uuid
+            session_uuid : validReq.session_uuid,
+            dokter_name : validReq.dokter_name,
         }
 
         return await AssessmentRepository.insertInstruksiMedis(validReq.session_uuid, data);

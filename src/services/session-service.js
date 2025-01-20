@@ -26,11 +26,38 @@ export default class SessionService {
 
     static async getInstruksiMedises(request){
         const validReq = ZodValidator.validate(RekamMedisValidation.GET_INSTRUKSI_MEDISES, request);
-        return await SessionRepository.getInstruksiMedises(validReq.session_uuid);
+        let result = await SessionRepository.getInstruksiMedises(validReq.session_uuid);
+
+        result = result.map((data) => {
+            return {
+                message : data.message,
+                name : data.name,
+                user_uuid : data.user_uuid,
+                time : data.time,
+                dokter_name : data.dokter_name,
+                _id: data._id,
+                is_me : data.user_uuid === request.user_uuid
+            }
+        });
+
+        return result;
     }
 
     static async getCatatanPerawat(request){
         const validReq = ZodValidator.validate(RekamMedisValidation.GET_INSTRUKSI_MEDISES, request);
-        return await SessionRepository.getCatatanPerawat(validReq.session_uuid);
+        let result = await SessionRepository.getCatatanPerawat(validReq.session_uuid);
+
+        result = result.map((data) => {
+            return {
+                message : data.message,
+                name : data.name,
+                user_uuid : data.user_uuid,
+                time : data.time,
+                _id: data._id,
+                is_me : data.user_uuid === request.user_uuid
+            }
+        });
+
+        return result;
     }
 }
