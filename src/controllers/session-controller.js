@@ -22,9 +22,7 @@ export default class SessionController {
 
     static async getInstruksiMedises(request, response, nextFunction){
         try {
-            // request.body.user_uuid = request.author.userUuid;
-            // TODO : BRING BACK DYNAMIC USER_UUID
-            request.query.user_uuid = "0192b31f-365d-731c-8b16-3a4565c9475e";
+            request.query.user_uuid = request.author.userUuid ?? request.author.user_uuid;
             const result = await SessionService.getInstruksiMedises(request.query);
             response.status(200).json(successResponse("data berhasil didapat", result));
         } catch (error){
@@ -34,9 +32,7 @@ export default class SessionController {
 
     static async getCatatanPerawat(request, response, nextFunction){
         try {
-            // request.body.user_uuid = request.author.userUuid;
-            // TODO : BRING BACK DYNAMIC USER_UUID
-            request.query.user_uuid = "0192b31f-365d-731c-8b16-3a4565c9475e";
+            request.query.user_uuid = request.author.userUuid ?? request.author.user_uuid;
             const result = await SessionService.getCatatanPerawat(request.query);
             response.status(200).json(successResponse("data berhasil didapat", result));
         } catch (error){

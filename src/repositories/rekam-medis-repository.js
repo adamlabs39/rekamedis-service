@@ -82,7 +82,7 @@ export default class RekamMedisRepository {
                                                 as: "pegawai",
                                                 required: true,
                                                 where: {deletedAt: {[Op.is]: null}},
-                                                attributes: ["first_title", "nama", "gender", "last_title"]
+                                                attributes: ["first_title", "name", "gender", "last_title"]
                                             }
                                         ]
                                     },
@@ -129,7 +129,7 @@ export default class RekamMedisRepository {
                                                 as: "pegawai",
                                                 required: true,
                                                 where: {deletedAt: {[Op.is]: null}},
-                                                attributes: ["title", "nama", "gender"]
+                                                attributes: ["first_title","last_title", "name", "gender"]
                                             }
                                         ]
                                     }
@@ -169,7 +169,7 @@ export default class RekamMedisRepository {
                                                 as: "pegawai",
                                                 required: true,
                                                 where: {deletedAt: {[Op.is]: null}},
-                                                attributes: ["title", "nama", "gender"]
+                                                attributes: ["first_title","last_title", "name", "gender"]
                                             }
                                         ]
                                     }
@@ -209,7 +209,7 @@ export default class RekamMedisRepository {
                                                 as: "pegawai",
                                                 required: true,
                                                 where: {deletedAt: {[Op.is]: null}},
-                                                attributes: ["title", "nama", "gender"]
+                                                attributes: ["first_title", "name", "gender", "last_title"]
                                             }
                                         ]
                                     }

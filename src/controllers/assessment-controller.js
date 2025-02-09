@@ -15,9 +15,7 @@ export default class AssessmentController {
 
     static async insertCatatanPerawat(request, response, nextFunction) {
         try {
-            // request.body.user_uuid = request.author.userUuid;
-            // TODO : BRING BACK DYNAMIC USER_UUID
-            request.body.user_uuid = "0192b31f-365d-731c-8b16-3a4565c9475e";
+            request.body.user_uuid = request.author.userUuid ?? request.author.user_uuid;
             request.body.name = request.author.username;
             const result = await AssessmentService.insertCatatanPerawat(request.body);
             response.status(200).json(successResponse("data berhasil dibuat", result));
@@ -28,9 +26,7 @@ export default class AssessmentController {
 
     static async insertInstruksiMedis(request, response, nextFunction) {
         try {
-            // request.body.user_uuid = request.author.userUuid;
-            // TODO : BRING BACK DYNAMIC USER_UUID
-            request.body.user_uuid = "0192b31f-365d-731c-8b16-3a4565c9475e";
+            request.body.user_uuid = request.author.userUuid ?? request.author.user_uuid;
             request.body.name = request.author.username;
             const result = await AssessmentService.insertInstruksiMedis(request.body);
             response.status(200).json(successResponse("data berhasil dibuat", result));
