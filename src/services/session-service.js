@@ -1,6 +1,7 @@
 import ZodValidator from "../validations/zod-validator.js";
 import RekamMedisValidation from "../validations/rekam-medis-validation.js";
 import SessionRepository from "../repositories/session-repository.js";
+import NotfoundException from "../errors/notfound-exception.js";
 
 export default class SessionService {
     static async add(request) {
@@ -40,6 +41,10 @@ export default class SessionService {
             }
         });
 
+        if (result.length === 0){
+            throw new NotfoundException("Data tidak ditemukan");
+        }
+
         return result;
     }
 
@@ -57,6 +62,10 @@ export default class SessionService {
                 is_me : data.user_uuid === request.user_uuid
             }
         });
+
+        if (result.length === 0){
+            throw new NotfoundException("Data tidak ditemukan");
+        }
 
         return result;
     }

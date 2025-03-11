@@ -2,6 +2,7 @@ import FpoPemberianModel from "../models/postgres/fpo-pemberian-model.js";
 import {Op} from "sequelize";
 import moment from "moment";
 import PrescriptionItemModel from "../models/postgres/prescription-item-model.js";
+import BadRequestException from "../errors/bad-request-exception.js";
 
 export default class FpoRepository {
     static async get(req) {
@@ -28,12 +29,14 @@ export default class FpoRepository {
     }
 
     static async update(req, transaction) {
-        await FpoPemberianModel.update(req, {
+        const [affectedRow] =  await FpoPemberianModel.update(req, {
             where: {
                 uuid: req.uuid
             },
             transaction
         })
+
+        return affectedRow;
     }
 
     static async reduceItem(req, transaction) {

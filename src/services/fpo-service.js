@@ -3,12 +3,19 @@ import FpoValidation from "../validations/fpo-validation.js";
 import FpoRepository from "../repositories/fpo-repository.js";
 import sequelizeInstance from "@adameds/model-sdk/instance";
 import BadRequestException from "../errors/bad-request-exception.js";
+import NotfoundException from "../errors/notfound-exception.js";
 
 export default class FpoService {
     static async get(req){
         await ZodValidator.validate(FpoValidation.GET, req);
 
-        return await FpoRepository.get(req);
+        const result = await FpoRepository.get(req);
+
+        if (result.length === 0) {
+            throw new NotfoundException("data tidak ditemukan");
+        }
+
+        return result;
     }
 
     static async insert(req){
@@ -17,7 +24,7 @@ export default class FpoService {
         await ZodValidator.validate(FpoValidation.INSERT, req);
 
         const sisaQty = await FpoRepository.getSisaQtyOrder(req.prescription_item_uuid);
-        if(sisaQty.sisa_qty_order <= 0){
+        if(sisaQty?.sisa_qty_order <= 0){
             throw new BadRequestException("obat tidak mencukupi");
         }
 
@@ -47,7 +54,11 @@ export default class FpoService {
         try {
             for (const item of req.fpo) {
                 await ZodValidator.validate(FpoValidation.UPDATE, item);
-                await FpoRepository.update(item, transaction);
+                const result = await FpoRepository.update(item, transaction);
+
+                if (result === 0) {
+                    throw new NotfoundException("Data tidak ditemukan");
+                }
             }
 
             await transaction.commit();
