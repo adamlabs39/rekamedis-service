@@ -1,0 +1,24 @@
+services:
+  adameds-rekamedis:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      no_cache: true
+    image: adameds/rekamedis:dev
+    container_name: adameds-Rekamedis
+    ports:
+      - 8087:8087
+    restart: always
+    networks:
+        - rekamedis-network
+    environment:
+      DOTENV_KEY: ${DOTENV_KEY}
+      API_BASE: ${API_BASE}
+      API_VERSION: ${API_VERSION}
+    volumes:
+      - type: bind
+        source: /home/gitlab-runner/adameds/.env.vault
+        target: /adameds-rekam-medis/.env.vault
+networks:
+  rekamedis-network:
+    driver: bridge
