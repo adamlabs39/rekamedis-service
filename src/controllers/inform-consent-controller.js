@@ -7,7 +7,7 @@ export default class InformConsentController {
             request.body.faskes_uuid = request.author.faskesUuid;
             request.body.petugas = request.author.username;
             const result = await InformConsentService.create(request.body);
-            response.status(200).json(successResponse("data berhasil dibuat"));
+            response.status(201).json(successResponse("data berhasil dibuat"));
         } catch (error) {
             nextFunction(error);
         }

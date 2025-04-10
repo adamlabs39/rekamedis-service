@@ -15,7 +15,7 @@ export default class RekamMedisController {
         try {
             request.body.faskes_uuid = request.author.faskesUuid;
             const result = await RekamMedisService.createNew(request.body);
-            response.status(200).json(successResponse("data berhasil dibuat", result));
+            response.status(201).json(successResponse("data berhasil disimpan", result));
         } catch (error) {
             nextFunction(error);
         }
@@ -24,7 +24,7 @@ export default class RekamMedisController {
     static async addRecord(request, response, nextFunction){
         try {
             const result = await RekamMedisService.addRecord(request.body);
-            response.status(200).json(successResponse("data berhasil dibuat", result));
+            response.status(201).json(successResponse("data berhasil disimpan", result));
         } catch (error) {
             nextFunction(error);
         }
@@ -34,7 +34,7 @@ export default class RekamMedisController {
         try {
             request.query.faskes_uuid = request.author.faskesUuid;
             const result = await RekamMedisService.getHistory(request.query);
-            response.status(200).json(successResponse("data berhasil didapat", result));
+            response.status(200).json(successResponse("data berhasil ditampilkan", result));
         } catch (error){
             nextFunction(error);
         }
