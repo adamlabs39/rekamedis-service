@@ -7,7 +7,7 @@ export default class AssessmentController {
             request.body.data.petugas = request.author.username;
             request.body.petugas = request.author.username;
             const result = await AssessmentService.insert(request.body);
-            response.status(200).json(successResponse("data berhasil dibuat", result));
+            response.status(201).json(successResponse("data berhasil dibuat", result));
         } catch (error) {
             nextFunction(error);
         }
@@ -18,7 +18,7 @@ export default class AssessmentController {
             request.body.user_uuid = request.author.userUuid ?? request.author.user_uuid;
             request.body.name = request.author.username;
             const result = await AssessmentService.insertCatatanPerawat(request.body);
-            response.status(200).json(successResponse("data berhasil dibuat", result));
+            response.status(201).json(successResponse("data berhasil dibuat", result));
         } catch (error) {
             nextFunction(error);
         }
@@ -29,7 +29,7 @@ export default class AssessmentController {
             request.body.user_uuid = request.author.userUuid ?? request.author.user_uuid;
             request.body.name = request.author.username;
             const result = await AssessmentService.insertInstruksiMedis(request.body);
-            response.status(200).json(successResponse("data berhasil dibuat", result));
+            response.status(201).json(successResponse("data berhasil dibuat", result));
         } catch (error) {
             nextFunction(error);
         }
@@ -56,7 +56,7 @@ export default class AssessmentController {
     static async insertTindakan(request, response, nextFunction) {
         try {
             const result = await AssessmentService.insertTindakan(request.body);
-            response.status(200).json(successResponse("data berhasil dibuat", result));
+            response.status(201).json(successResponse("data berhasil dibuat", result));
         } catch (error) {
             nextFunction(error);
         }
@@ -74,7 +74,7 @@ export default class AssessmentController {
     static async pushOrderObat(request, response, nextFunction) {
         try {
             const result = await AssessmentService.pushOrderObat(request.body);
-            response.status(200).json(successResponse("data berhasil dibuat", result));
+            response.status(201).json(successResponse("data berhasil dibuat", result));
         } catch (error) {
             nextFunction(error);
         }

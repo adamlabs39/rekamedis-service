@@ -1,14 +1,12 @@
 export default function successResponse(message, data, property) {
   if (!data && !property) {
     return {
-      status: "success",
       message: message,
     };
   }
   
   if (!property) {
     return {
-      status: "success",
       message: message,
       payload: data,
     };
@@ -16,7 +14,6 @@ export default function successResponse(message, data, property) {
 
   if (property) {
     return {
-      status: "success",
       message: message,
       properties: property,
       payload: data,

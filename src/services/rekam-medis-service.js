@@ -4,6 +4,7 @@ import SessionRepository from "../repositories/session-repository.js";
 import ZodValidator from "../validations/zod-validator.js";
 import RekamMedisValidation from "../validations/rekam-medis-validation.js";
 import PelayananRepository from "../repositories/pelayanan-repository.js";
+import LokasiRepository from "../repositories/lokasi-repository.js";
 
 export default class RekamMedisService {
     static async get(request) {
@@ -62,6 +63,12 @@ export default class RekamMedisService {
 
     static async createNew(request) {
         ZodValidator.validate(RekamMedisValidation.CREATENEW, request);
+
+        const lokasi = await LokasiRepository.getByUuid(request.lokasi_uuid);
+
+        if (!lokasi) {
+            throw new NotfoundException("Lokasi tidak ditemukan");
+        }
 
         const rekamMedis = await RekamMedisRepository.createNew(request);
 

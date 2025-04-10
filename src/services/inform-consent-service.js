@@ -8,6 +8,8 @@ export default class InformConsentService {
     static async create(request) {
         const validData = ZodValidator.validate(InformConsentValidation.CREATE, request);
 
+
+
         return await InformConsentRepository.create(validData);
     }
 
