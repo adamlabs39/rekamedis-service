@@ -21,7 +21,7 @@ export default class RekamMedisRepository {
         return await RekamMedisModel.findById(request.rekam_medis_uuid).populate(
             {
                 path: "daily_records.sessions",
-                select: "pemeriksaan_tindakan tanda_vital pemeriksaan_fisik",
+                select: "diagnosa_dokter pemeriksaan_tindakan tanda_vital pemeriksaan_fisik",
                 match: {deleted_at: null},
             }
         ).exec();

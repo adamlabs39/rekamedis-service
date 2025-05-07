@@ -32,6 +32,7 @@ export default class PelayananService {
         ZodValidator.validate(PelayananValidation.GET, request);
 
         let tindakans = [];
+        let diagnosiss = [];
 
         const resume = await PelayananRepository.getResume(request.pelayanan, Utils.snakeToCamelObject(request));
         if (!resume) {
@@ -57,6 +58,19 @@ export default class PelayananService {
             })
         })
 
+        rekamMedis.daily_records.forEach((daily_record) => {
+            const sessions = daily_record.sessions ?? [];
+            sessions.forEach((session) => {
+                const diagnosa_dokter = session.diagnosa_dokter ?? [];
+
+                if (diagnosa_dokter?.length !== 0) {
+                    diagnosa_dokter.forEach((diagnosis_item) => {
+                        diagnosiss.push(diagnosis_item);
+                    })
+                }
+            })
+        })
+
         resume.dataValues.tanda_vital_pulang = {
             tekanan_darah : rekamMedis.summary.tekanan_darah,
             frekuensi_nadi : rekamMedis.summary.frekuensi_nadi,
@@ -65,6 +79,8 @@ export default class PelayananService {
         };
 
         resume.dataValues.pemeriksaan_tindakan = tindakans;
+
+        resume.dataValues.diagnosa_dokter = diagnosiss;
 
         resume.dataValues.tanda_vital_awal = {
             tekanan_darah : rekamMedis.daily_records[0]?.sessions[0]?.tanda_vital?.tekanan_darah,
