@@ -61,10 +61,10 @@ export default class PelayananService {
         rekamMedis.daily_records.forEach((daily_record) => {
             const sessions = daily_record.sessions ?? [];
             sessions.forEach((session) => {
-                const diagnosa_dokter = session.diagnosa_dokter ?? [];
+                const diagnosis_dokter = session.diagnosis_dokter ?? [];
 
-                if (diagnosa_dokter?.length !== 0) {
-                    diagnosa_dokter.forEach((diagnosis_item) => {
+                if (diagnosis_dokter?.length !== 0) {
+                    diagnosis_dokter.forEach((diagnosis_item) => {
                         diagnosiss.push(diagnosis_item);
                     })
                 }
