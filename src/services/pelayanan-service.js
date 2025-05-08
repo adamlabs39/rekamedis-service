@@ -86,7 +86,8 @@ export default class PelayananService {
         })
 
         resume.dataValues.tanda_vital_pulang = {
-            tekanan_darah : rekamMedis.summary.tekanan_darah,
+            tekanan_darah_diastole : rekamMedis.summary.tekanan_darah_diastole,
+            tekanan_darah_sistole : rekamMedis.summary.tekanan_darah_sistole,
             frekuensi_nadi : rekamMedis.summary.frekuensi_nadi,
             frekuensi_nafas : rekamMedis.summary.frekuensi_nafas,
             suhu : rekamMedis.summary.suhu,
@@ -99,7 +100,8 @@ export default class PelayananService {
         resume.dataValues.obat_uuides = obats;
 
         resume.dataValues.tanda_vital_awal = {
-            tekanan_darah : rekamMedis.daily_records[0]?.sessions[0]?.tanda_vital?.tekanan_darah,
+            tekanan_darah_diastole : rekamMedis.daily_records[0]?.sessions[0]?.tanda_vital?.tekanan_darah_diastole,
+            tekanan_darah_sistole : rekamMedis.daily_records[0]?.sessions[0]?.tanda_vital?.tekanan_darah_sistole,
             frekuensi_nadi : rekamMedis.daily_records[0]?.sessions[0]?.tanda_vital?.frekuensi_nadi,
             frekuensi_nafas : rekamMedis.daily_records[0]?.sessions[0]?.tanda_vital?.frekuensi_nafas,
             suhu : rekamMedis.daily_records[0]?.sessions[0]?.tanda_vital?.suhu,
