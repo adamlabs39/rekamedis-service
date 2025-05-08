@@ -33,6 +33,7 @@ export default class PelayananService {
 
         let tindakans = [];
         let diagnosiss = [];
+        let obats = [];
 
         const resume = await PelayananRepository.getResume(request.pelayanan, Utils.snakeToCamelObject(request));
         if (!resume) {
@@ -71,6 +72,19 @@ export default class PelayananService {
             })
         })
 
+        rekamMedis.daily_records.forEach((daily_record) => {
+            const sessions = daily_record.sessions ?? [];
+            sessions.forEach((session) => {
+                const obat_uuides = session.obat_uuides ?? [];
+
+                if (obat_uuides?.length !== 0) {
+                    obat_uuides.forEach((obats_item) => {
+                        obats.push(obats_item);
+                    })
+                }
+            })
+        })
+
         resume.dataValues.tanda_vital_pulang = {
             tekanan_darah : rekamMedis.summary.tekanan_darah,
             frekuensi_nadi : rekamMedis.summary.frekuensi_nadi,
@@ -81,6 +95,8 @@ export default class PelayananService {
         resume.dataValues.pemeriksaan_tindakan = tindakans;
 
         resume.dataValues.diagnosa_dokter = diagnosiss;
+
+        resume.dataValues.obat_uuides = obats;
 
         resume.dataValues.tanda_vital_awal = {
             tekanan_darah : rekamMedis.daily_records[0]?.sessions[0]?.tanda_vital?.tekanan_darah,
