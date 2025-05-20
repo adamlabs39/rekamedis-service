@@ -19,6 +19,7 @@ export default class FileValidation {
         file_type : z.string().min(1, fileTypeRequired),
         file_format : z.string().min(1, fileFortmatRequired),
         admission_type : z.string().min(1, required),
+        nama_file : z.string().optional()
     })
 
     static NOMOR_SURAT = z.object({
