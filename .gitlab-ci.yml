@@ -23,4 +23,4 @@ build-prod:
   only:
     - prod-deployment
   script:
-    - docker compose -f prod-compose.yml --env-file /home/gitlab-runner/adameds/.env.rekamedis up --build -ds
+    - docker compose -f prod-compose.yml --env-file /home/gitlab-runner/adameds/.env.rekamedis up --build -d
