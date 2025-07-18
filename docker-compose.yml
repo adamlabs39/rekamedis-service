@@ -4,21 +4,21 @@ services:
       context: ./
       dockerfile: Dockerfile
       no_cache: true
-    image: adameds/rekamedis:dev
-    container_name: adameds-Rekamedis
+    image: adameds/rekam-medis:dev
+    container_name: api-adameds-rekam-medis
     ports:
       - 8087:8087
     restart: always
     networks:
-        - rekamedis-network
+      - rekamedis-network
     environment:
-      DOTENV_KEY: ${DOTENV_KEY}
+      INFISICAL_TOKEN: ${INFISICAL_TOKEN}
       API_BASE: ${API_BASE}
       API_VERSION: ${API_VERSION}
-    volumes:
-      - type: bind
-        source: /home/engineer/adameds/.env.vault
-        target: /adameds-rekam-medis/.env.vault
+    # volumes:
+    #   - type: bind
+    #     source: /home/engineer/adameds/.env.vault
+    #     target: /adameds-rekam-medis/.env.vault
 networks:
   rekamedis-network:
     driver: bridge
