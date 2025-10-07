@@ -3,29 +3,33 @@ import BadRequestException from "../errors/bad-request-exception.js";
 import errorResponse from "../responses/error-response.js";
 import InternalServerException from "../errors/internal-server-exception.js";
 import {UniqueConstraintError} from "sequelize";
+import UnauthorizedException from "../errors/unauthorized-exception.js";
+import DuplicateException from "../errors/duplicate-exception.js";
+import { ZodError } from "zod";
 
 const errorMiddleware = (error, request, response, nextFunction) => {
     if (error instanceof NotfoundException) {
-        response.status(error.code).json(errorResponse(error.message, [{
-            message: "data tidak ditemukan",
-            type: "not found",
-        }]));
+        return response.status(error.code).json(errorResponse(error.message, error.errors));
+    } else if (error instanceof UnauthorizedException) {
+        return response.status(error.code).json(errorResponse(error.message));
     } else if (error instanceof BadRequestException) {
-        response.status(error.status).json(errorResponse(error.message, error.errors));
-    } else if (error instanceof InternalServerException) {
-        response.status(error.code).json(errorResponse(error.message));
+        response.status(error.status).json(errorResponse("Bad Request", error.errors));
+    } else if (error instanceof DuplicateException) {
+        response.status(error.code).json(errorResponse(error.message, error.errors));
     } else if (error instanceof UniqueConstraintError) {
-        const errors = error.errors.map((item) => {
-            return {
-                message: item.message,
-                type: item.type,
-            };
-        });
-
-        response.status(409).json(errorResponse(error.message, errors));
+        response.status(400).json(errorResponse("Duplicate Data", error.errors));
+    } else if (error instanceof ZodError) {
+        response.status(400).json(errorResponse("Validation Error", zodErrorParser(error.errors)));
+    } else {
+        response.status(500).json(
+        errorResponse("Internal Server Error", [
+            {
+            type: "internal server error",
+            message: error.message,
+            },
+        ])
+        );
     }
-
-    response.status(500).json(errorResponse(error.message));
 };
 
 
