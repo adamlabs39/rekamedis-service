@@ -233,7 +233,7 @@ export default class AssessmentService {
     static async getItemBefore(request){
         const validReq = ZodValidator.validate(RekamMedisValidation.GET_ITEMS_BEFORE, request);
 
-        return await AssessmentRepository.getItemBefore(validReq.no_rm, validReq.no_pelayanan, request.page, request.limit, validReq.key);
+        return await AssessmentRepository.getItemBefore(validReq.no_rm, validReq.no_pelayanan, request.page, request.limit, validReq.key, request.jenis_kunjungan);
     }
 
     static async pushOrderObat(request) {

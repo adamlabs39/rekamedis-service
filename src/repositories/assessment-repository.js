@@ -47,7 +47,7 @@ export default class AssessmentRepository {
         }, {new: true}).exec();
     }
 
-    static async getItemBefore(no_rm, no_pelayanan, page = 1, limit = 10, key) {
+    static async getItemBefore(no_rm, no_pelayanan, page = 1, limit = 10, key, jenis_kunjungan = null) {
             const pelayanan = await RekamMedisModel.findOne({ no_pelayanan: no_pelayanan });
 
             if (!pelayanan) {
@@ -56,19 +56,18 @@ export default class AssessmentRepository {
 
             const createdAtPelayanan = pelayanan.created_at;
 
-            const totalDocuments = await RekamMedisModel.countDocuments({
-                no_rm: no_rm,
-                created_at: { $lt: createdAtPelayanan }
-            });
+            let filter = { no_rm: no_rm, created_at: { $lt: createdAtPelayanan } };
+            if (jenis_kunjungan) {
+                filter.pelayanan = jenis_kunjungan;
+            }
+
+            const totalDocuments = await RekamMedisModel.countDocuments(filter);
 
             const totalPages = Math.ceil(totalDocuments / limit);
 
             const currentPage = page > 0 ? page : 1;
 
-            const results = await RekamMedisModel.find({
-                no_rm: no_rm,
-                created_at: { $lt: createdAtPelayanan }
-            })
+            const results = await RekamMedisModel.find(filter)
                 .populate({
                     path: 'daily_records.sessions',
                     select: key,
