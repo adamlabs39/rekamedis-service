@@ -62,35 +62,63 @@ export default class AssessmentRepository {
             }
 
             const totalDocuments = await RekamMedisModel.countDocuments(filter);
-
+            
             const totalPages = Math.ceil(totalDocuments / limit);
-
+            
             const currentPage = page > 0 ? page : 1;
+            
+            let items = [];
+            let populateKey = null;
+            
+            if (key === 'instruksi_medis') {
+                populateKey = "instruksi_medis";
+            } else if (key === 'catatan_perawat') {
+                populateKey = "catatan_perawat";
+            }
 
             const results = await RekamMedisModel.find(filter)
                 .populate({
                     path: 'daily_records.sessions',
                     select: key,
+                    populate: populateKey
                 })
                 .sort({ created_at: -1 })
                 .skip((currentPage - 1) * limit)
                 .limit(limit);
-
-            let items = [];
-
-            await results.forEach((result) => {
-                result.daily_records.forEach((dailyRecord) => {
-                    dailyRecord.sessions.forEach((session, sessionIndex) => {
-                        if (session[key] !== null && session[key] !== undefined){
-                            items.push({
-                                date: dailyRecord.created_at,
-                                session : sessionIndex + 1,
-                                data: session[key]
-                            })
-                        }
+            
+            if (populateKey) {
+                await results.forEach((result) => {
+                    result.daily_records.forEach((dailyRecord) => {
+                        dailyRecord.sessions.forEach((session, sessionIndex) => {
+                            if (session[key] !== null && session[key] !== undefined && session[key].length > 0){
+                                const petugasNames = [...new Set(session[key].map(i => i.name))];
+                                items.push({
+                                    date: dailyRecord.created_at,
+                                    session: sessionIndex + 1,
+                                    data: session[key],
+                                    petugas: petugasNames.join(", "),
+                                    waktu_input: session[key].map(i => i.time).sort((a, b) => new Date(b) - new Date(a))[0]
+                                });
+                            }
+                        });
                     });
-                });
-            })
+                })
+            } else {
+                await results.forEach((result) => {
+                    result.daily_records.forEach((dailyRecord) => {
+                        dailyRecord.sessions.forEach((session, sessionIndex) => {
+                            const value = session[key];
+                            if ((Array.isArray(value) && value.some((item) => item && Object.keys(item).length > 0)) || (value && typeof value === "object" && !Array.isArray(value) && Object.keys(value).length > 0)) {
+                                items.push({
+                                    date: dailyRecord.created_at,
+                                    session: sessionIndex + 1,
+                                    data: session[key],
+                                });
+                            }
+                        });
+                    });
+                })
+            }
 
             return {
                 data: items,

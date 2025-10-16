@@ -22,16 +22,35 @@ export default class FileService {
     }
 
     static async upload(request) {
-        ZodValidator.validate(FileValidation.UPLOAD, request);
+        if (Array.isArray(request)) {
+            const payloads = request;
+            
+            if (request.file_type !== "berkas") {
+                payloads.forEach(p => ZodValidator.validate(FileValidation.NOMOR_SURAT, p));
+            }
+            
+            if (request.file_type === "surat_permohonan_rawat_inap") {
+                await Promise.all(payloads.map(p => PelayananService.createRiFromSrpi(p)));
+            }
 
+            console.log("service:",payloads);
+            ZodValidator.validate(FileValidation.UPLOAD_MULTI, payloads);
+
+            return await FileRepository.create(payloads);
+        }
+        
+        console.log("service:",request);
         if (request.file_type !== "berkas") {
             ZodValidator.validate(FileValidation.NOMOR_SURAT, request);
         }
 
+        console.log("service after:",request);
         if (request.file_type === "surat_permohonan_rawat_inap") {
             await PelayananService.createRiFromSrpi(request);
         }
 
+        console.log("service after2:",request);
+        
         return await FileRepository.create(request);
     }
 
