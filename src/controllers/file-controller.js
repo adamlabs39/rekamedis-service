@@ -14,6 +14,14 @@ export default class FileController {
     static async upload(request, response, nextFunction) {
         try {
             request.body.faskes_uuid = request.author.faskesUuid;
+            console.log("controller:",request.body);
+
+            if (Array.isArray(request.body)) {
+                request.body.forEach(item => {
+                    item.faskes_uuid = request.author.faskesUuid;
+                });
+            }
+
             const result = await FileService.upload(request.body);
             response.status(200).json(successResponse("data berhasil dibuat", result));
         } catch (error) {

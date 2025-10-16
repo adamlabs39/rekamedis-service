@@ -5,9 +5,15 @@ import {FileModel} from "@adameds/model-sdk/rekam-medis";
 export default class FileRepository {
     static async create(request) {
         return await sequelizeInstance.transaction(async tr => {
-            return await FileModel.create(request, {
-                transaction: tr
-            });
+            if (Array.isArray(request)) {
+                return await FileModel.bulkCreate(request, {
+                    transaction: tr
+                });
+            } else {
+                return await FileModel.create(request, {
+                    transaction: tr
+                });
+            }
         });
     }
 
